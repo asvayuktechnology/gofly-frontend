@@ -9,7 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@fancyapps/ui": "^6.1.13",
+=======
+>>>>>>> 46d3178 (initail commit)
     "clsx": "^2.1.1",
     "lucide-react": "^1.8.0",
     "next": "16.2.3",
