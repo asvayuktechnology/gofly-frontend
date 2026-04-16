@@ -48,7 +48,7 @@ export default function OneDayTripSection() {
                 "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
             inclusions:
                 "Accommodation, Daily Meals, Entry Fees & Local Transfers",
-        },
+        }, 
         {
             id:4,
             title: "Maldives Beach Paradise",
