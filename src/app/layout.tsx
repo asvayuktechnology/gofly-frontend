@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "swiper/css";
 import "swiper/css/pagination";
+import "./custom.css"
 import "./globals.css";
 import Footer from "@/Components/layouts/Footer";
 import Header from "@/Components/layouts/Header";

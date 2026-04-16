@@ -9,6 +9,7 @@ import OneDayTripSection from "@/Components/Home/OnedayTripSection";
 import PartnerSection from "@/Components/Home/PartnerSections";
 import PopularTravelPackage from "@/Components/Home/PopularTravelPackage";
 import ServiceSection from "@/Components/Home/ServiceSection";
+import TestimonialSection from "@/Components/Home/TestimonialSection";
 
 export const metadata = {
   title: "GoFly — All-in-one Travel Booking",
@@ -37,6 +38,7 @@ export default function HomePage() {
       <LocationSearchSection/>
       <PartnerSection/>
       <OneDayTripSection/>
+      <TestimonialSection/>
     </main>
   );
 }
