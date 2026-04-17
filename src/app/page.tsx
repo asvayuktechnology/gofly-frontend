@@ -1,3 +1,4 @@
+import BlogSlider from "@/Components/Home/BlogSlider";
 import FeaturedDestinations from "@/Components/Home/FeaturedDestinations";
 import Filters from "@/Components/Home/Filters";
 import HeroBanner from "@/Components/Home/HeroBanner";
@@ -37,6 +38,7 @@ export default function HomePage() {
       <LocationSearchSection/>
       <PartnerSection/>
       <OneDayTripSection/>
+      <BlogSlider />
     </main>
   );
 }
