@@ -1,4 +1,4 @@
-import Breadcrumb from "@/Components/Common/Breadcrumb";
+import Breadcrumb from "@/Components/Common/UI/Breadcrumbs/Breadcrumb";
 import LeftGridLayout from "@/Components/layouts/Grids/LeftGridLayout";
 
 

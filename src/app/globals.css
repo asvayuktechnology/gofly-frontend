@@ -25,3 +25,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.container{
+  max-width: 1320px !important;
+}
+header.style-1 .main-menu>ul>li>a{
+  display: flex;
+}

@@ -1,3 +1,5 @@
+import CounterSection from "@/Components/Common/CounterSection";
+import FaqSection from "@/Components/Common/FaqSection";
 import BlogSlider from "@/Components/Home/BlogSlider";
 import FeaturedDestinations from "@/Components/Home/FeaturedDestinations";
 import Filters from "@/Components/Home/Filters";
@@ -39,8 +41,10 @@ export default function HomePage() {
       <LocationSearchSection/>
       <PartnerSection/>
       <OneDayTripSection/>
-      <TestimonialSection/>
       <BlogSlider />
+      <TestimonialSection/>
+      <FaqSection/>
+      <CounterSection/>
     </main>
   );
 }

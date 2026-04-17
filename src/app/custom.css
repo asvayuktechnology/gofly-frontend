@@ -12200,7 +12200,8 @@ header.style-3.two .main-menu>ul>li.active>a i {
     font-weight: 600;
     font-size: 12px;
     right: 30px;
-    transition: .5s
+    transition: .5s;
+    display: none;
 }
 
 .faq-wrap .accordion .accordion-item .accordion-header .accordion-button:not(.collapsed) {
@@ -12293,7 +12294,7 @@ header.style-3.two .main-menu>ul>li.active>a i {
 }
 
 .counter-section .divider:before {
-    content: url(/_next/static/media/home1-counter-divider.82782499.svg);
+    content: url("../../public/assets/img/counter-divider.svg");
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -40764,4 +40765,11 @@ header.style-3.two .main-menu>ul>li.active>a i {
     color: var(--white-color);
     line-height: 1;
     margin-left: 2px
+}
+
+.collapse:not(.show) {
+    display: none;
+}
+.collapse.show {
+    visibility: visible;
 }
