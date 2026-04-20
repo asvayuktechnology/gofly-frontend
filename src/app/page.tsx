@@ -37,14 +37,19 @@ export default function HomePage() {
         buttonText="Grab the Deal Now"
         buttonLink="/travel-package"
       />
-      <LastMinDeals/>
-      <LocationSearchSection/>
-      <PartnerSection/>
-      <OneDayTripSection/>
+      <LastMinDeals />
+      <LocationSearchSection />
+      <PartnerSection />
+      <OneDayTripSection />
       <BlogSlider />
-      <TestimonialSection/>
-      <FaqSection/>
-      <CounterSection/>
+      <TestimonialSection />
+      <div className="grid grid-cols-12">
+        <div className="col-span-8 col-start-3">
+
+          <FaqSection />
+        </div>
+      </div>
+      <CounterSection />
     </main>
   );
 }

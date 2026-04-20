@@ -16,72 +16,85 @@ export default function FeaturedDestinations() {
     }
   }, []);
 
-  const destinations = {
-    europe: [
-      {
-        name: "Rome, Italy",
-        image: "/assets/img/destination-img3.webp",
-        tours: 140,
-        departures: 240,
-        guests: 15786,
-        link: "/destination/details",
-      },
-      {
-        name: "Paris, France",
-        image: "/assets/img/destination-img3.webp",
-        tours: 140,
-        departures: 240,
-        guests: 15786,
-        link: "/destination/details",
-      },
-      {
-        name: "Switzerland",
-        image: "/assets/img/destination-img3.webp",
-        tours: 120,
-        departures: 250,
-        guests: 15786,
-        link: "/destination/details",
-      },
-      {
-        name: "Scotland, UK",
-        image: "/assets/img/destination-img3.webp",
-        tours: 110,
-        departures: 230,
-        guests: 15786,
-        link: "/destination/details",
-      },
-      {
-        name: "Athens, Greece",
-        image: "/assets/img/destination-img3.webp",
-        tours: 70,
-        departures: 150,
-        guests: 15786,
-        link: "/destination/details",
-      },
-      {
-        name: "Istanbul, Turkey",
-        image: "/assets/img/destination-img3.webp",
-        tours: 120,
-        departures: 230,
-        guests: 15786,
-        link: "/destination/details",
-      },
-    ],
-    asia: [],
-    "middle-east": [],
-    africa: [],
-    "north-america": [],
-    oceania: [],
-  };
+// ✅ TYPES
+type TabKey =
+  | "europe"
+  | "asia"
+  | "middle-east"
+  | "africa"
+  | "north-america"
+  | "oceania";
 
-  const tabs = [
-    { id: "europe", label: "Europe" },
-    { id: "asia", label: "Asia" },
-    { id: "middle-east", label: "Middle East" },
-    { id: "africa", label: "Africa" },
-    { id: "north-america", label: "North America" },
-    { id: "oceania", label: "Oceania" },
-  ];
+interface Destination {
+  name: string;
+  image: string;
+  tours: number;
+  departures: number;
+  guests: number;
+  link: string;
+}
+
+type DestinationMap = Record<TabKey, Destination[]>;
+
+// ✅ STATIC DATA (outside component)
+const TABS: { id: TabKey; label: string }[] = [
+  { id: "europe", label: "Europe" },
+  { id: "asia", label: "Asia" },
+  { id: "middle-east", label: "Middle East" },
+  { id: "africa", label: "Africa" },
+  { id: "north-america", label: "North America" },
+  { id: "oceania", label: "Oceania" },
+];
+
+const DESTINATIONS: DestinationMap = {
+  europe: [
+    {
+      name: "Rome, Italy",
+      image: "/assets/img/destination-img3.webp",
+      tours: 140,
+      departures: 240,
+      guests: 15786,
+      link: "/destination/details",
+    },
+    {
+      name: "Paris, France",
+      image: "/assets/img/destination-img3.webp",
+      tours: 140,
+      departures: 240,
+      guests: 15786,
+      link: "/destination/details",
+    },
+    {
+      name: "Paris, France",
+      image: "/assets/img/destination-img3.webp",
+      tours: 140,
+      departures: 240,
+      guests: 15786,
+      link: "/destination/details",
+    },
+    {
+      name: "Paris, France",
+      image: "/assets/img/destination-img3.webp",
+      tours: 140,
+      departures: 240,
+      guests: 15786,
+      link: "/destination/details",
+    },
+    {
+      name: "Paris, France",
+      image: "/assets/img/destination-img3.webp",
+      tours: 140,
+      departures: 240,
+      guests: 15786,
+      link: "/destination/details",
+    },
+  ],
+  asia: [],
+  "middle-east": [],
+  africa: [],
+  "north-america": [],
+  oceania: [],
+};
 
   return (
     <div className="home1-destination-section mb-100">
@@ -99,7 +112,7 @@ export default function FeaturedDestinations() {
 
             {/* Tabs */}
             <ul className="nav nav-pills flex flex-wrap gap-2" id="pills-tab" role="tablist">
-              {tabs.map((tab) => (
+              {TABS.map((tab) => (
                 <li className="nav-item" role="presentation" key={tab.id}>
                   <button
                     className={`nav-link transition-all duration-200 ${activeTab === tab.id ? "active text-white bg-primary" : ""
@@ -121,7 +134,7 @@ export default function FeaturedDestinations() {
 
         {/* Tab Content */}
         <div className="tab-content" id="pills-tabContent">
-          {tabs.map((tab) => {
+          {TABS.map((tab) => {
             const isActive = activeTab === tab.id;
 
             return (
@@ -133,7 +146,7 @@ export default function FeaturedDestinations() {
                 role="tabpanel"
                 aria-labelledby={`pills-${tab.id}-tab`}
               >
-                {destinations[tab.id]?.length > 0 ? (
+                {DESTINATIONS[tab.id]?.length > 0 ? (
                   <>
                     <div className="swiper home1-destination-slider mb-40">
                       <Swiper
@@ -150,7 +163,7 @@ export default function FeaturedDestinations() {
                           992: { slidesPerView: 4 },
                         }}
                       >
-                        {destinations[tab.id].map((item, index) => (
+                        {DESTINATIONS[tab.id].map((item, index) => (
                           <SwiperSlide key={index}>
                             <div className="destination-card">
                               <Link

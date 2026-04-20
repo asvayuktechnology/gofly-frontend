@@ -1,4 +1,4 @@
-import { TravelPackage,Destination, Testimonial, BlogPost } from "@/types";
+import { TravelPackage,Destination, Testimonial, BlogPost, Offer } from "@/types";
 
 export const POPULAR_PACKAGES: TravelPackage[] = [
   {
@@ -190,15 +190,6 @@ export const ONE_DAY_TRIPS: TravelPackage[] = [
   },
 ];
 
-export const FEATURED_DESTINATIONS: Destination[] = [
-  { id: "rome", name: "Rome, Italy", country: "Italy", region: "Europe", image: "/assets/img/home1/destination-img1.jpg", tourCount: 140, departureCount: 240, guestCount: 15786 },
-  { id: "paris", name: "Paris, France", country: "France", region: "Europe", image: "/assets/img/home1/destination-img2.jpg", tourCount: 140, departureCount: 240, guestCount: 15786 },
-  { id: "switzerland", name: "Switzerland", country: "Switzerland", region: "Europe", image: "/assets/img/home1/destination-img3.jpg", tourCount: 120, departureCount: 250, guestCount: 15786 },
-  { id: "scotland", name: "Scotland, UK", country: "UK", region: "Europe", image: "/assets/img/home1/destination-img4.jpg", tourCount: 110, departureCount: 230, guestCount: 15786 },
-  { id: "athens", name: "Athens, Greece", country: "Greece", region: "Europe", image: "/assets/img/home1/destination-img5.jpg", tourCount: 70, departureCount: 150, guestCount: 15786 },
-  { id: "istanbul", name: "Istanbul, Turkey", country: "Turkey", region: "Europe", image: "/assets/img/home1/destination-img6.jpg", tourCount: 120, departureCount: 230, guestCount: 15786 },
-];
-
 export const TESTIMONIALS: Testimonial[] = [
   { id: "1", name: "Robert Kcarery", role: "GoFly Traveler", avatar: "/assets/img/home1/testimonial-author-img1.png", rating: 5, title: "Excellent Tourist Place!", review: "Our honeymoon package to the Maldives was beyond amazing! The travel agency took care of every detail." },
   { id: "2", name: "Selina Henry", role: "GoFly Traveler", avatar: "/assets/img/home1/testimonial-author-img2.png", rating: 5, title: "Great Experience!", review: "This was the best trip of my life! Everything was perfectly planned, from airport pickup to guided tours. Highly recommended!" },
@@ -252,3 +243,32 @@ export const FAQ_ITEMS = [
     answer: "For international travel, you'll typically need a valid passport, visa (if required), airline tickets, travel insurance, and any health certificates.",
   },
 ];
+
+
+export const offers: Offer[] = [
+  {
+    id: 1,
+    image: "/assets/img/home1-offer-img5.jpg",
+    link: "/travel-package",
+    alt: "Travel Offer 1",
+  },
+  {
+    id: 2,
+    image: "/assets/img/home1-offer-img5.jpg",
+    link: "/travel-package/details",
+    alt: "Travel Offer 2",
+  },
+  {
+    id: 3,
+    image: "/assets/img/home1-offer-img5.jpg",
+    link: "/travel-package",
+    alt: "Travel Offer 3",
+  },
+  {
+    id: 4,
+    image: "/assets/img/home1-offer-img5.jpg",
+    link: "/travel-package",
+    alt: "Travel Offer 3",
+  },
+];
+

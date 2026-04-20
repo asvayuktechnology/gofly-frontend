@@ -55,3 +55,30 @@ export interface NavItem {
   href: string;
   children?: NavItem[];
 }
+
+
+export interface Offer {
+  id: number;
+  image: string;
+  link: string;
+  alt: string;
+}
+
+export type TabKey =
+  | "europe"
+  | "asia"
+  | "middle-east"
+  | "africa"
+  | "north-america"
+  | "oceania";
+
+export interface Destination {
+  name: string;
+  image: string;
+  tours: number;
+  departures: number;
+  guests: number;
+  link: string;
+}
+
+export type DestinationMap = Record<TabKey, Destination[]>;

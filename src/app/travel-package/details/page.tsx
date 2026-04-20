@@ -10,7 +10,7 @@ export default function TravelPackagePage() {
             <BreadcrumbSlider/>
             <div className="package-details-page">
 
-            <div className="container mx-auto pt-100 mb-100">
+            <div className="container mx-auto pt-100">
                 <RightGridLayout /> 
             </div>
             </div>
