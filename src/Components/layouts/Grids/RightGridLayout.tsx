@@ -11,6 +11,7 @@ import PackagePagination from "@/Components/Common/UI/Paginations/PackagePaginat
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
 import { Autoplay, Navigation } from "swiper/modules";
 import { SwiperSlide, Swiper } from "swiper/react";
 
@@ -91,19 +92,14 @@ const itineraryData: ItineraryItem[] = [
 
 
 
+
 export default function RightGridLayout() {
 
     const [page, setPage] = useState(1);
 
     const [openIndexes, setOpenIndexes] = useState<number[]>([0]);
 
-    const toggleItem = (index: number) => {
-        if (openIndexes.includes(index)) {
-            setOpenIndexes(openIndexes.filter((i) => i !== index));
-        } else {
-            setOpenIndexes([...openIndexes, index]);
-        }
-    };
+
 
     const isAllOpen = openIndexes.length === itineraryData.length;
 
@@ -113,6 +109,28 @@ export default function RightGridLayout() {
         } else {
             setOpenIndexes(itineraryData.map((_, i) => i));
         }
+    };
+
+    const [openItems, setOpenItems] = useState<number[]>([0]);
+
+    //   const [openItems, setOpenItems] = useState([0]);
+    const [expandAll, setExpandAll] = useState(false);
+
+    const toggleItem = (index: number) => {
+        setOpenItems((prev) =>
+            prev.includes(index)
+                ? prev.filter((i) => i !== index)
+                : [...prev, index]
+        );
+    };
+
+    const handleExpandAll = () => {
+        if (expandAll) {
+            setOpenItems([]);
+        } else {
+            setOpenItems([0, 1, 2]); // update dynamically if needed
+        }
+        setExpandAll(!expandAll);
     };
 
     return (
@@ -350,78 +368,80 @@ export default function RightGridLayout() {
                             </div>
                         </div>
 
-                        <div className="mb-16">
-                            {/* Header */}
-                            <div className="flex justify-between items-center mb-6">
+
+                        <div className="tour-itinerary-area mb-16">
+
+                            {/* Title */}
+                            <div className="itinerary-title flex items-center justify-between mb-6">
                                 <h4 className="text-2xl font-semibold">Tour Itinerary</h4>
                                 <button
-                                    onClick={toggleAll}
-                                    className="text-sm font-medium text-blue-600 hover:underline"
+                                    onClick={handleExpandAll}
+                                    className="expand-btn text-primary text-sm font-medium hover:underline"
                                 >
-                                    {isAllOpen ? "Collapse All -" : "Expand All +"}
+                                    {expandAll ? "Collapse All -" : "Expand All +"}
                                 </button>
                             </div>
 
                             {/* List */}
-                            <ul className="space-y-4">
-                                {itineraryData.map((item, index) => {
-                                    const isOpen = openIndexes.includes(index);
+                            <ul className="itinerary-list space-y-4">
 
-                                    return (
-                                        <li
-                                            key={index}
-                                            className="border rounded-xl overflow-hidden shadow-sm"
-                                        >
-                                            {/* Header */}
-                                            <div
-                                                onClick={() => toggleItem(index)}
-                                                className="cursor-pointer p-4 flex justify-between items-center bg-gray-100"
-                                            >
-                                                <h5 className="font-semibold">
-                                                    {item.day} – {item.title}
-                                                </h5>
-                                                <span className="text-lg">
-                                                    {isOpen ? "-" : "+"}
+                                {/* Item */}
+                                {[0, 1].map((item, index) => (
+                                    <li
+                                        key={index}
+                                        className="single-itinerary  rounded-xl overflow-hidden"
+                                    >
+
+                                        {/* Location Title */}
+                                        <div className="location-title flex items-center gap-3 p-4">
+                                            <div className="icon"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.4555 2.20848L8.9555 14.2085C8.90963 14.3093 8.83158 14.392 8.73359 14.4437C8.63561 14.4954 8.52325 14.513 8.41414 14.4939C8.30503 14.4748 8.20536 14.42 8.13076 14.3381C8.05617 14.2562 8.01088 14.1519 8.002 14.0415L7.537 8.46298L1.959 7.99798C1.84877 7.98891 1.74466 7.94355 1.66297 7.869C1.58127 7.79444 1.5266 7.69491 1.50751 7.58596C1.48841 7.47702 1.50598 7.36483 1.55746 7.26694C1.60894 7.16905 1.69143 7.09099 1.792 7.04498L13.792 1.54498C13.8848 1.50238 13.9884 1.48922 14.0889 1.50725C14.1894 1.52528 14.2819 1.57364 14.3541 1.64584C14.4263 1.71803 14.4747 1.8106 14.4927 1.91109C14.5108 2.01158 14.4976 2.11519 14.455 2.20798L14.4555 2.20848Z"></path></svg></div>
+                                            <h5 className="font-semibold">
+                                                Paris, France{" "}
+                                                <span className="text-sm text-gray-500">
+                                                    ( Departure: <strong>8:00 am - 8:30am</strong> )
                                                 </span>
-                                            </div>
+                                            </h5>
+                                        </div>
 
-                                            {/* Body */}
-                                            <div
-                                                className={`transition-all duration-300 overflow-hidden ${isOpen ? "max-h-[1000px] p-4" : "max-h-0 p-0"
-                                                    }`}
-                                            >
-                                                {item.description && (
-                                                    <p className="mb-4 text-gray-600">
-                                                        {item.description}
-                                                    </p>
-                                                )}
+                                        <div className="tour-plan-wrap">
+                                            <div className="space-y-2  accordion ">
 
-                                                <ul className="space-y-2 text-sm">
-                                                    {item.transport && (
-                                                        <li>
-                                                            <strong>Transport:</strong> {item.transport}
-                                                        </li>
+                                                {/* Accordion Item */}
+                                                <div className="border-b accordion-item">
+
+                                                    {/* Header */}
+                                                    <div className="accordion-header">
+
+                                                        <button
+                                                            onClick={() => toggleItem(index)}
+                                                            className="accordion-button    w-full flex justify-between items-center text-left  transition"
+                                                        >
+                                                            <h6 className="">
+
+                                                                <span className="mr-2 text-primary">
+                                                                    <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><path d="M7 14C7 14 12.25 9.02475 12.25 5.25C12.25 3.85761 11.6969 2.52226 10.7123 1.53769C9.72774 0.553123 8.39239 0 7 0C5.60761 0 4.27226 0.553123 3.28769 1.53769C2.30312 2.52226 1.75 3.85761 1.75 5.25C1.75 9.02475 7 14 7 14ZM7 7.875C6.30381 7.875 5.63613 7.59844 5.14384 7.10616C4.65156 6.61387 4.375 5.94619 4.375 5.25C4.375 4.55381 4.65156 3.88613 5.14384 3.39384C5.63613 2.90156 6.30381 2.625 7 2.625C7.69619 2.625 8.36387 2.90156 8.85616 3.39384C9.34844 3.88613 9.625 4.55381 9.625 5.25C9.625 5.94619 9.34844 6.61387 8.85616 7.10616C8.36387 7.59844 7.69619 7.875 7 7.875Z"></path></svg>
+                                                                    Day-0{index + 1}
+                                                                </span>
+                                                                Eiffel Tower – The symbol of France
+                                                            </h6>
+                                                            <span className="text-lg">
+                                                                {openItems.includes(index) ? <BsFillCaretUpFill size={12} color="#525252" /> : <BsFillCaretDownFill size={12} color="#525252" />}
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    {/* Content */}
+                                                    {openItems.includes(index) && (
+                                                        <div className="accordion-body p-4 text-gray-600 text-sm">
+                                                            The Eiffel Tower is the heart of Paris and offers a variety of exciting activities for visitors.
+                                                        </div>
                                                     )}
-                                                    {item.activities && (
-                                                        <li>
-                                                            <strong>Activities:</strong> {item.activities}
-                                                        </li>
-                                                    )}
-                                                    {item.meals && (
-                                                        <li>
-                                                            <strong>Meals:</strong> {item.meals}
-                                                        </li>
-                                                    )}
-                                                    {item.hotel && (
-                                                        <li>
-                                                            <strong>Accommodation:</strong> {item.hotel}
-                                                        </li>
-                                                    )}
-                                                </ul>
+                                                </div>
+
                                             </div>
-                                        </li>
-                                    );
-                                })}
+                                        </div>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
 
@@ -560,7 +580,7 @@ export default function RightGridLayout() {
                         </div>
 
                         <FaqSection />
-                        <CustomerReviewSection/>
+                        <CustomerReviewSection />
 
 
                     </div>

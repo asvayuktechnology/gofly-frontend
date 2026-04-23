@@ -13,8 +13,8 @@ const OfferSection = () => {
 
         {/* Title */}
         <div className="flex justify-center mb-12">
-          <div className="text-center max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <div className="section-title text-center">
+            <h2>
               Discounts & Offers
             </h2>
             <p className="text-gray-600">
@@ -28,7 +28,8 @@ const OfferSection = () => {
           modules={swiperModules}
           pagination={{
             clickable: true,
-            el: ".offer-pagination",
+            el: ".swiper-pagination1",
+            
           }}
           {...swiperConfig}
           className="mb-40"
@@ -45,7 +46,7 @@ const OfferSection = () => {
 
         {/* Pagination */}
         <div className="slider-pagi-wrap">
-          <div className="offer-pagination flex justify-center paginations"></div>
+          <div className="swiper-pagination1 paginations"></div>
         </div>
 
       </div>

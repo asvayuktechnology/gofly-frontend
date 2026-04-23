@@ -3558,6 +3558,9 @@ header.style-1 .main-menu>ul>li:hover>a,
 header.style-1 .main-menu>ul>li:hover>a i {
     color: var(--primary-color1)
 }
+a.active{
+     color: var(--primary-color1) !important;
+}
 
 header.style-1 .main-menu>ul li.menu-item-has-children>i {
     display: none
@@ -7760,7 +7763,8 @@ header.style-3.two .main-menu>ul>li.active>a i {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, .2)
+    background-color: rgba(0, 0, 0, .2);
+    z-index: 2;
 }
 
 .home1-banner-section .banner-content-wrap {
@@ -10806,7 +10810,7 @@ header.style-3.two .main-menu>ul>li.active>a i {
 }
 
 .home1-location-search-section .location-search-wrapper {
-    background-image: url(/_next/static/media/home1-location-search-bg.3a7315ee.png), linear-gradient(180deg, #2E8B57, #2E8B57);
+    background-image: url(/assets/img/home1-location-search-bg.png), linear-gradient(180deg, #2E8B57, #2E8B57);
     background-size: cover;
     background-repeat: no-repeat;
     padding: 60px 40px;
@@ -11546,7 +11550,7 @@ header.style-3.two .main-menu>ul>li.active>a i {
 }
 
 .home1-testimonial-section {
-    background-image: url(/_next/static/media/home1-testimonial-bg.28a1b930.png), linear-gradient(180deg, #F2F2FF, #F2F2FF);
+    background-image: url(/assets/img/home1-testimonial-bg.png), linear-gradient(180deg, #F2F2FF, #F2F2FF);
     background-size: cover;
     background-repeat: no-repeat;
     padding: 100px 0
@@ -29542,7 +29546,8 @@ header.style-3.two .main-menu>ul>li.active>a i {
     font-family: bootstrap-icons !important;
     content: "\f229";
     color: var(--primary-color1);
-    border: none
+    border: none;
+    display:none !important;
 }
 
 .package-details-page .package-details-warpper .tour-itinerary-area .itinerary-list .single-itinerary .tour-plan-wrap .accordion .accordion-item .accordion-header .accordion-button:focus {

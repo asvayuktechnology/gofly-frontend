@@ -7,6 +7,7 @@ export const swiperConfig = {
   spaceBetween: 24,
   slidesPerView: 1,
   loop: true,
+  speed: 2000,
   autoplay: {
     delay: 3000,
     disableOnInteraction: false,

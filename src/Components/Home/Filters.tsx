@@ -161,7 +161,7 @@ const Filters: React.FC = () => {
                                 </ul>
                             </div>
                         </div>
-                        <button type="submit" className="primary-btn1">
+                        <button type="submit" className="primary-btn1 cursor-pointer">
                             <span>
                                 <svg
                                     width={18}

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import SvgIcon from "../Common/Icons/SvgIcon";
 
 export default function FeaturedDestinations() {
   const [activeTab, setActiveTab] = useState("europe");
@@ -115,7 +116,7 @@ const DESTINATIONS: DestinationMap = {
               {TABS.map((tab) => (
                 <li className="nav-item" role="presentation" key={tab.id}>
                   <button
-                    className={`nav-link transition-all duration-200 ${activeTab === tab.id ? "active text-white bg-primary" : ""
+                    className={`nav-link transition-all duration-200 cursor-pointer ${activeTab === tab.id ? "active text-white bg-primary cursor-pointer" : ""
                       }`}
                     id={`pills-${tab.id}-tab`}
                     type="button"
@@ -153,7 +154,7 @@ const DESTINATIONS: DestinationMap = {
                         modules={[Pagination]}
                         spaceBetween={25}
                         pagination={{
-                          el: ".home1-destination-pagi",
+                          el: "",
                           clickable: true,
                         }}
                         breakpoints={{
@@ -183,15 +184,7 @@ const DESTINATIONS: DestinationMap = {
                                   href={item.link}
                                   className="title-area"
                                 >
-                                  <svg
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 16 16"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path d="M7.81276 0C4.31734 0 1.47305 2.84433 1.47305 6.34163C1.47305 9.07242 5.2847 13.5258 6.92356 15.3136C7.15052 15.5628 7.47606 15.7042 7.81276 15.7042C8.14946 15.7042 8.475 15.5628 8.70196 15.3136C10.3408 13.5258 14.1525 9.07238 14.1525 6.34163C14.1525 2.84433 11.3082 0 7.81276 0Z" />
-                                    <path d="M7.81277 9.76634C9.6713 9.76634 11.1779 8.25971 11.1779 6.40118C11.1779 4.54265 9.6713 3.03601 7.81277 3.03601C5.95424 3.03601 4.4476 4.54265 4.4476 6.40118C4.4476 8.25971 5.95424 9.76634 7.81277 9.76634Z" />
-                                  </svg>
+                                 <SvgIcon />
                                   {item.name}
                                 </Link>
                                 <div className="content">
