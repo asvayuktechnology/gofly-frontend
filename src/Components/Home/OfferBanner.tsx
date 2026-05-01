@@ -1,16 +1,9 @@
 "use client";
 
 import Link from "next/link";
-
-interface OfferBannerProps {
-  backgroundImage: string;
-  subtitle?: string;
-  title: string;
-  authorName?: string;
-  authorRole?: string;
-  buttonText?: string;
-  buttonLink?: string;
-}
+import SiteBtn from "../Common/SiteBtn/SiteBtn";
+import { svgIcon } from "../Common/Icons/SvgIcons";
+import { OfferBannerProps } from "@/types";
 
 export default function OfferBanner({
   backgroundImage,
@@ -39,25 +32,13 @@ export default function OfferBanner({
             <h5 className="text-lg font-semibold">{authorName}</h5>
             <span className="text-sm opacity-90">{authorRole}</span>
           </div>
-
-          <Link
-            href={buttonLink}
+          <SiteBtn
+            link={buttonLink}
+            svgIcon={svgIcon.arrow}
+            iconPosition="end"
+            text={buttonText}
             className="primary-btn1 two inline-flex items-center gap-2"
-          >
-            <span>{buttonText}</span>
-            <svg
-              width="10"
-              height="10"
-              viewBox="0 0 10 10"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            >
-              <path d="M1 9L9 1M9 1C7.22222 1.33333 3.33333 2 1 1M9 1C8.66667 2.66667 8 6.33333 9 9" />
-            </svg>
-          </Link>
+          />
         </div>
       </div>
     </div>

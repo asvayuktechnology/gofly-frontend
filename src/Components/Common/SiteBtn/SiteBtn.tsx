@@ -1,22 +1,28 @@
 import { btnprops } from "@/types";
 import Link from "next/link";
 import React from "react";
-import { svgIcon } from "../Icons/SvgIcons";
 
-const SiteBtn = ({ link, text, className }: btnprops) => {
+const SiteBtn = ({
+  link,
+  text,
+  className,
+  svgIcon,
+  iconPosition,
+}: btnprops) => {
   return (
-    <>
-      <Link href={link} className={className}>
-        <span>
-          {text}
-          {svgIcon.arrow}
-        </span>
-        <span>
-          {text}
-          {svgIcon.arrow}
-        </span>
-      </Link>
-    </>
+    <Link href={link} className={className}>
+      <span>
+        {iconPosition === "start" && svgIcon}
+        {text}
+        {iconPosition === "end" && svgIcon}
+      </span>
+
+      <span>
+        {iconPosition === "start" && svgIcon}
+        {text}
+        {iconPosition === "end" && svgIcon}
+      </span>
+    </Link>
   );
 };
 

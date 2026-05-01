@@ -1,13 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Offer } from "@/types/index";
+import { Offer, OfferProps } from "@/types/index";
 
-interface Props {
-  offer: Offer;
-  priority?: boolean;
-}
-
-const OfferCard = ({ offer, priority }: Props) => {
+const OfferCard = ({ offer, priority }: OfferProps) => {
   return (
     <Link
       href={offer.link}

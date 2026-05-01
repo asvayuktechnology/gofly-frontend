@@ -3,7 +3,13 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BiLogoFacebook, BiLogoInstagram, BiLogoLinkedin, BiLogoYoutube } from "react-icons/bi";
+import {
+  BiLogoFacebook,
+  BiLogoInstagram,
+  BiLogoLinkedin,
+  BiLogoYoutube,
+} from "react-icons/bi";
+import { svgIcon } from "../Common/Icons/SvgIcons";
 
 const Footer: React.FC = () => {
   return (
@@ -12,9 +18,7 @@ const Footer: React.FC = () => {
         {/* Top Contact Section */}
         <div className="footer-contact-wrap">
           <div className="inquiry-area">
-            <svg width="36" height="36" viewBox="0 0 36 36">
-              <path d="M35.8703 28.2548L33.7795 22.1697..." />
-            </svg>
+            {svgIcon.msgIcon}
             <div className="content">
               <h6>To More Inquiry</h6>
               <span>Don’t hesitate Call to GoFly.</span>
@@ -70,10 +74,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Divider */}
-        <svg className="divider" width="1320" height="6" viewBox="0 0 1320 6">
-          <path d="M5 2.5L0 0.113249V5.88675L5 3.5V2.5Z" />
-        </svg>
-
+        {svgIcon.footerDivider}
         {/* Footer Menu */}
         <div className="footer-menu-wrap">
           <div className="grid grid-cols-12 gy-md-4 gy-5">
@@ -98,10 +99,26 @@ const Footer: React.FC = () => {
                 </div>
 
                 <ul className="social-list">
-                  <li><a href="#"><BiLogoFacebook/> </a></li>
-                  <li><a href="#"><BiLogoLinkedin/></a></li>
-                  <li><a href="#"><BiLogoYoutube/></a></li>
-                  <li><a href="#"><BiLogoInstagram/></a></li>
+                  <li>
+                    <a href="#">
+                      <BiLogoFacebook />{" "}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <BiLogoLinkedin />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <BiLogoYoutube />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <BiLogoInstagram />
+                    </a>
+                  </li>
                 </ul>
 
                 <a href="#">
@@ -171,11 +188,7 @@ const Footer: React.FC = () => {
       <div className="footer-bottom">
         <div className="container mx-auto">
           <div className="copyright-and-payment-method-area">
-            <p>
-              Copyright 2025{" "}
-               | All Right
-              Reserved.
-            </p>
+            <p>Copyright 2025 | All Right Reserved.</p>
 
             <div className="payment-method-area">
               <span>Accepted Payment Methods :</span>

@@ -1,53 +1,12 @@
 "use client";
 
+import { POPULAR_PACKAGES } from "@/lib/data";
 import PackageCard from "../Common/UI/Cards/PackageCard";
 
-
 export default function LastMinDeals() {
-  const packages = [
-    {
-      title: "Maldives Beach Paradise",
-      location: "Maldives",
-      duration: "05 Days",
-      price: 399,
-      image: "/assets/img/tour-package-img4.webp",
-      badge: "Hot Sale!",
-      link: "/travel-package/details",
-      experiences:
-        "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
-      inclusions:
-        "Accommodation, Daily Meals, Entry Fees & Local Transfers",
-    },
-    {
-      title: "Maldives Beach Paradise",
-      location: "Maldives",
-      duration: "05 Days",
-      price: 399,
-      image: "/assets/img/tour-package-img4.webp",
-      badge: "Hot Sale!",
-      link: "/travel-package/details",
-      experiences:
-        "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
-      inclusions:
-        "Accommodation, Daily Meals, Entry Fees & Local Transfers",
-    },
-    {
-      title: "Maldives Beach Paradise",
-      location: "Maldives",
-      duration: "05 Days",
-      price: 399,
-      image: "/assets/img/tour-package-img4.webp",
-      badge: "Hot Sale!",
-      link: "/travel-package/details",
-      experiences:
-        "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
-      inclusions:
-        "Accommodation, Daily Meals, Entry Fees & Local Transfers",
-    },
-  ];
-
+ 
   return (
-    <div className="home1-travel-package-section py-16">
+    <div className="home1-travel-package-section mb-100">
       <div className="container mx-auto px-4">
         {/* Section Title */}
         <div className="text-center mb-12">
@@ -62,7 +21,7 @@ export default function LastMinDeals() {
 
         {/* Package Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {packages.map((pkg, index) => (
+          {POPULAR_PACKAGES.map((pkg, index) => (
             <PackageCard
               key={index}
               {...pkg}

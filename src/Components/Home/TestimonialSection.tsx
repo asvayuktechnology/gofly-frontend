@@ -9,53 +9,8 @@ import { Fancybox } from "@fancyapps/ui";
 import "swiper/css";
 import "swiper/css/navigation";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import { TESTIMONIALS } from "@/lib/data";
 
-const testimonials = [
-  {
-    id: 1,
-    name: "Robert Kcarery",
-    role: "GoFly Traveler",
-    image: "/assets/img/testimonial-author-img1.webp",
-    video: "https://www.youtube.com/watch?v=u31qwQUeGuM&t=1s",
-    title: "Excellent Tourist Place!",
-    description:
-      "Our honeymoon package to the Maldives was beyond amazing! The travel agency took care of every detail.",
-    rating: 5,
-  },
-  {
-    id: 2,
-    name: "Sophia Williams",
-    role: "Adventure Seeker",
-    image: "/assets/img/testimonial-author-img1.webp",
-    video: "https://www.youtube.com/watch?v=u31qwQUeGuM&t=1s",
-    title: "A Truly Memorable Experience!",
-    description:
-      "From booking to the final day, everything was perfectly organized. Highly recommended for stress-free travel.",
-    rating: 5,
-  },
-  {
-    id: 3,
-    name: "Daniel Lee",
-    role: "Family Traveler",
-    image: "/assets/img/testimonial-author-img1.webp",
-    video: "https://www.youtube.com/watch?v=u31qwQUeGuM&t=1s",
-    title: "Perfect Family Vacation!",
-    description:
-      "The itinerary was well-planned and suitable for our entire family. We created memories that will last forever.",
-    rating: 4,
-  },
-  { 
-    id: 4,
-    name: "Daniel Lee",
-    role: "Family Traveler",
-    image: "/assets/img/testimonial-author-img1.webp",
-    video: "https://www.youtube.com/watch?v=u31qwQUeGuM&t=1s",
-    title: "Perfect Family Vacation!",
-    description:
-      "The itinerary was well-planned and suitable for our entire family. We created memories that will last forever.",
-    rating: 4,
-  },
-];
 
 export default function TestimonialSection() {
   useEffect(() => {
@@ -105,13 +60,13 @@ export default function TestimonialSection() {
                 1200: { slidesPerView: 3 },
               }}
             >
-              {testimonials.map((item) => (
+              {TESTIMONIALS.map((item) => (
                 <SwiperSlide key={item.id} className="swiper-slide">
                   <div className="testimonial-card">
                     <div className="author-area">
                       <div className="lg-react-element author-img">
                         <Image
-                          src={item.image}
+                          src={item.avatar}
                           alt={item.name}
                           width={120}
                           height={120}
@@ -159,7 +114,7 @@ export default function TestimonialSection() {
 
                     <h5>{item.title}</h5>
                     <div className="content">
-                      <p>{item.description}</p>
+                      <p>{item.review}</p>
                     </div>
                   </div>
                 </SwiperSlide>
