@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface TravelPackage {
   id: string;
   title: string;
@@ -94,3 +96,22 @@ export interface Destination {
 }
 
 export type DestinationMap = Record<TabKey, Destination[]>;
+
+
+export type VisaPackage = {
+  id: string;
+  title: string;
+  processingTime: string;
+  image: string;
+  href: string;
+};
+
+export interface WhyChooseItem {
+  id: number;
+  title: string;
+  description: string;
+  highlight?: string;
+  variant?: "two" | "three" | "four";
+  delay: string;
+  icon?:ReactNode;
+}

@@ -257,6 +257,11 @@ const Header = () => {
                     Travel Package
                   </Link>
                 </li>
+                <li>
+                  <Link href="/visa" className="hover:text-primary transition">
+                    Visa
+                  </Link>
+                </li>
                 {/* Contact */}
                 <li>
                   <Link href="/contact" className="hover:text-primary transition">

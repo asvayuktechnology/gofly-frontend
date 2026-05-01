@@ -27125,7 +27125,7 @@ header.style-3.two .main-menu>ul>li.active>a i {
 }
 
 .home8-contact-section .contact-wrapper {
-    background-image: url(/_next/static/media/home8-contact-bg.1234ce0d.png), linear-gradient(180deg, #F2F2FF, #F2F2FF);
+    background-image: url(/assets/img/home8-contact-bg.png), linear-gradient(180deg, #F2F2FF, #F2F2FF);
     background-size: cover;
     background-repeat: no-repeat;
     padding-left: 60px;
@@ -37046,7 +37046,7 @@ header.style-3.two .main-menu>ul>li.active>a i {
 }
 
 .visa-package-grid-section {
-    background-image: url(/_next/static/media/visa-package-grid-bg.5c7108c3.png), linear-gradient(180deg, #F2F2FF, #F2F2FF);
+    background-image: url(/assets/img/visa-package-grid-bg.png), linear-gradient(180deg, #F2F2FF, #F2F2FF);
     background-size: cover;
     background-repeat: no-repeat;
     padding: 100px 0
