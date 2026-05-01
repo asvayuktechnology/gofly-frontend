@@ -18,9 +18,6 @@ const HeroBanner: React.FC = () => {
         />
       </div>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
-
       {/* Content */}
       <div className="banner-content-wrap relative z-2 flex items-center  h-full">
         <div className="banner-content container mx-auto px-4 text-start text-white">

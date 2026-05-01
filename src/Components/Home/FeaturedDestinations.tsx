@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import SvgIcon, { svgIcon } from "../Common/Icons/SvgIcons";
 
 export default function FeaturedDestinations() {
   const [activeTab, setActiveTab] = useState("europe");
@@ -115,7 +116,7 @@ const DESTINATIONS: DestinationMap = {
               {TABS.map((tab) => (
                 <li className="nav-item" role="presentation" key={tab.id}>
                   <button
-                    className={`nav-link transition-all duration-200 ${activeTab === tab.id ? "active text-white bg-primary" : ""
+                    className={`nav-link transition-all duration-200 cursor-pointer ${activeTab === tab.id ? "active text-white bg-primary cursor-pointer" : ""
                       }`}
                     id={`pills-${tab.id}-tab`}
                     type="button"
@@ -153,7 +154,7 @@ const DESTINATIONS: DestinationMap = {
                         modules={[Pagination]}
                         spaceBetween={25}
                         pagination={{
-                          el: ".home1-destination-pagi",
+                          el: "",
                           clickable: true,
                         }}
                         breakpoints={{
@@ -183,7 +184,7 @@ const DESTINATIONS: DestinationMap = {
                                   href={item.link}
                                   className="title-area"
                                 >
-                                
+                                 {svgIcon.location}
                                   {item.name}
                                 </Link>
                                 <div className="content">

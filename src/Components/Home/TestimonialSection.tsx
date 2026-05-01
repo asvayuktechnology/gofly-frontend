@@ -44,7 +44,7 @@ const testimonials = [
       "The itinerary was well-planned and suitable for our entire family. We created memories that will last forever.",
     rating: 4,
   },
-  {
+  { 
     id: 4,
     name: "Daniel Lee",
     role: "Family Traveler",

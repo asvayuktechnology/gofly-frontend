@@ -95,8 +95,33 @@ export interface Destination {
   link: string;
 }
 
+
 export type DestinationMap = Record<TabKey, Destination[]>;
 
+ export interface btnprops {
+    link: string;
+    text: string;
+    className?: string;
+}
+
+export interface TooltipProps {
+  text1: string;
+  text2: string;
+  text3: string;
+}
+
+export interface PackageCardProps {
+  title: string;
+  location: string;
+  duration: string;
+  price: number;
+  image: string;
+  badge?: string;
+  link: string;
+  experiences: string;
+  inclusions: string;
+  delay?: number; // Optional for WOW.js animation
+}
 
 export type VisaPackage = {
   id: string;
