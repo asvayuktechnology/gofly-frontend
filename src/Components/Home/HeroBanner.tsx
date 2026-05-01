@@ -18,10 +18,8 @@ const HeroBanner: React.FC = () => {
         />
       </div>
 
-
-
       {/* Content */}
-      <div className="banner-content-wrap relative z-10 flex items-center  h-full">
+      <div className="banner-content-wrap relative z-2 flex items-center  h-full">
         <div className="banner-content container mx-auto px-4 text-start text-white">
           <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
             All-in-one Travel Booking.

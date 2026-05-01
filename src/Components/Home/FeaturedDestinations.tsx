@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import SvgIcon from "../Common/Icons/SvgIcon";
+import SvgIcon, { svgIcon } from "../Common/Icons/SvgIcons";
 
 export default function FeaturedDestinations() {
   const [activeTab, setActiveTab] = useState("europe");
@@ -184,7 +184,7 @@ const DESTINATIONS: DestinationMap = {
                                   href={item.link}
                                   className="title-area"
                                 >
-                                 <SvgIcon />
+                                 {svgIcon.location}
                                   {item.name}
                                 </Link>
                                 <div className="content">

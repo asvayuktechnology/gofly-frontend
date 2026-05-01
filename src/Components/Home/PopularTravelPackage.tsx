@@ -1,50 +1,14 @@
 "use client";
 
+import { Packages } from "@/types";
 import PackageCard from "../Common/UI/Cards/PackageCard";
+import { POPULAR_PACKAGES } from "@/lib/data";
 
+interface PopularTravelPackageProps {
+  packages?: Packages[];
+}
+export default function PopularTravelPackage({ packages = POPULAR_PACKAGES }: PopularTravelPackageProps) {
 
-export default function PopularTravelPackage() {
-  const packages = [
-    {
-      title: "Maldives Beach Paradise",
-      location: "Maldives",
-      duration: "05 Days",
-      price: 399,
-      image: "/assets/img/tour-package-img4.webp",
-      badge: "Hot Sale!",
-      link: "/travel-package/details",
-      experiences:
-        "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
-      inclusions:
-        "Accommodation, Daily Meals, Entry Fees & Local Transfers",
-    },
-    {
-      title: "Maldives Beach Paradise",
-      location: "Maldives",
-      duration: "05 Days",
-      price: 399,
-      image: "/assets/img/tour-package-img4.webp",
-      badge: "Hot Sale!",
-      link: "/travel-package/details",
-      experiences:
-        "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
-      inclusions:
-        "Accommodation, Daily Meals, Entry Fees & Local Transfers",
-    },
-    {
-      title: "Maldives Beach Paradise",
-      location: "Maldives",
-      duration: "05 Days",
-      price: 399,
-      image: "/assets/img/tour-package-img4.webp",
-      badge: "Hot Sale!",
-      link: "/travel-package/details",
-      experiences:
-        "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
-      inclusions:
-        "Accommodation, Daily Meals, Entry Fees & Local Transfers",
-    },
-  ];
 
   return (
     <div className="home1-travel-package-section py-16">

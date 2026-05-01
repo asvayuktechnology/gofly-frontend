@@ -26,9 +26,18 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.container{
+.container {
   max-width: 1320px !important;
 }
-header.style-1 .main-menu>ul>li>a{
+
+header.style-1 .main-menu>ul>li>a {
   display: flex;
+}
+
+.custom-select-hidden-input {
+  display: none !important;
+}
+
+.filter-wrapper .filter-input-wrap .filter-input .single-search-box .custom-select-dropdown>div:first-child {
+  position: unset;
 }
