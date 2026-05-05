@@ -98,10 +98,10 @@ export interface Destination {
 
 export type DestinationMap = Record<TabKey, Destination[]>;
 
- export interface btnprops {
-    link: string;
-    text: string;
-    className?: string;
+export interface btnprops {
+  link: string;
+  text: string;
+  className?: string;
 }
 
 export interface TooltipProps {
@@ -138,5 +138,16 @@ export interface WhyChooseItem {
   highlight?: string;
   variant?: "two" | "three" | "four";
   delay: string;
-  icon?:ReactNode;
+  icon?: ReactNode;
+}
+export interface VisaDataItem {
+  id: number;
+  title: string;
+  price: string;
+  icon?: ReactNode;
+}
+
+export interface InfoListProps {
+  items: string[];
+  className?: string;
 }
