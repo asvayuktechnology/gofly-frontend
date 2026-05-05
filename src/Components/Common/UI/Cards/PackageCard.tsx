@@ -65,8 +65,13 @@ export default function PackageCard({
 
           {/* Button & Price */}
           <div className="btn-and-price-area pb-2">
-            <SiteBtn link={link} text="Book Now" className="primary-btn1" />
-
+            <SiteBtn
+              link={link}
+              svgIcon={svgIcon.arrow}
+              iconPosition="end"
+              text="Book Now"
+              className="primary-btn1"
+            />
             <div className="price-area">
               <h6>Per Person</h6>
               <span>${price}</span>

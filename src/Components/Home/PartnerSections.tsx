@@ -1,23 +1,11 @@
 "use client";
-
+import { partners } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-interface Partner {
-  id: number;
-  image: string;
-  link?: string;
-}
+
 
 export default function PartnerSection() {
-  const partners: Partner[] = [
-    { id: 1, image: "/assets/img/partner-04.webp", link: "#" },
-    { id: 2, image: "/assets/img/partner-04.webp", link: "#" },
-    { id: 3, image: "/assets/img/partner-04.webp", link: "#" },
-    { id: 4, image: "/assets/img/partner-04.webp", link: "#" },
-    { id: 5, image: "/assets/img/partner-04.webp", link: "#" },
-    { id: 6, image: "/assets/img/partner-04.webp", link: "#" },
-  ];
 
   return (
     <div className="partner-section mb-100">

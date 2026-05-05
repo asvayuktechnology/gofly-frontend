@@ -1,3 +1,4 @@
+import { Icon } from "next/dist/lib/metadata/types/metadata-types";
 import { ReactNode } from "react";
 
 export interface TravelPackage {
@@ -20,7 +21,13 @@ export interface Destination {
   id: string;
   name: string;
   country: string;
-  region: "Europe" | "Asia" | "Middle East" | "Africa" | "North America" | "Oceania";
+  region:
+    | "Europe"
+    | "Asia"
+    | "Middle East"
+    | "Africa"
+    | "North America"
+    | "Oceania";
   image: string;
   tourCount: number;
   departureCount: number;
@@ -35,6 +42,7 @@ export interface Testimonial {
   rating: number;
   title: string;
   review: string;
+  video?: string;
 }
 
 export interface BlogPost {
@@ -70,7 +78,6 @@ export interface Packages {
   inclusions: string;
 }
 
-
 export interface Offer {
   id: number;
   image: string;
@@ -95,13 +102,14 @@ export interface Destination {
   link: string;
 }
 
-
 export type DestinationMap = Record<TabKey, Destination[]>;
 
 export interface btnprops {
   link: string;
   text: string;
   className?: string;
+  svgIcon?: ReactNode;
+  iconPosition?: "start" | "end";
 }
 
 export interface TooltipProps {
@@ -139,6 +147,53 @@ export interface WhyChooseItem {
   variant?: "two" | "three" | "four";
   delay: string;
   icon?: ReactNode;
+};
+
+export interface OfferProps {
+  offer: Offer;
+  priority?: boolean;
+};
+
+export interface PopularTravelPackageProps {
+  packages?: Packages[];
+};
+
+export interface OfferBannerProps {
+  backgroundImage: string;
+  subtitle?: string;
+  title: string;
+  authorName?: string;
+  authorRole?: string;
+  buttonText?: string;
+  buttonLink?: string;
+
+}
+export interface Partner {
+  id: number;
+  image: string;
+  link?: string;
+}
+export type BlogCardProps = {
+  image: string;
+  location: string;
+  title: string;
+  date: string;
+  description: string;
+  link: string;
+};
+
+export interface FAQItem {
+    id: string;
+    question: string;
+    answer: React.ReactNode;
+};
+
+export interface CounterItem {
+  id: number;
+  value: number;
+  suffix: string;
+  label: string;
+  icon: React. ReactNode;
 }
 export interface VisaDataItem {
   id: number;

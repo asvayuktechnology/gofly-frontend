@@ -43,11 +43,13 @@ export default function HomePage() {
       <OneDayTripSection />
       <BlogSlider />
       <TestimonialSection />
-      <div className="grid grid-cols-12">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-12">
         <div className="col-span-8 col-start-3">
 
           <FaqSection />
         </div>
+      </div>
       </div>
       <CounterSection />
     </main>

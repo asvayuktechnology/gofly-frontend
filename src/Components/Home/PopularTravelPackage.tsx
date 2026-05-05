@@ -1,12 +1,9 @@
 "use client";
 
-import { Packages } from "@/types";
+import { Packages, PopularTravelPackageProps } from "@/types";
 import PackageCard from "../Common/UI/Cards/PackageCard";
 import { POPULAR_PACKAGES } from "@/lib/data";
 
-interface PopularTravelPackageProps {
-  packages?: Packages[];
-}
 export default function PopularTravelPackage({ packages = POPULAR_PACKAGES }: PopularTravelPackageProps) {
 
 
