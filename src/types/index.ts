@@ -206,3 +206,19 @@ export interface InfoListProps {
   items: string[];
   className?: string;
 }
+export type Story = {
+  id: number;
+  image?: string;
+  video?: string;
+  quote?: string;
+  name?: string;
+  role?: string;
+};
+
+export type Office = {
+  id: number;
+  title: string;
+  phone: string;
+  address: string;
+  variant?: string;
+};

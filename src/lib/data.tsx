@@ -10,6 +10,8 @@ import {
   WhyChooseItem, VisaDataItem,
   Partner,
   CounterItem,
+  Story,
+  Office,
 } from "@/types";
 
 // export const POPULAR_PACKAGES: TravelPackage[] = [
@@ -645,28 +647,28 @@ export const counterData: CounterItem[] = [
     value: 26,
     suffix: "K+",
     label: "Tour Completed",
-    icon:svgIcon.toursvg,
+    icon: svgIcon.toursvg,
   },
   {
     id: 2,
     value: 12,
     suffix: "+",
     label: "Travel Experience",
-     icon:svgIcon.travelIcon,
+    icon: svgIcon.travelIcon,
   },
   {
     id: 3,
     value: 20,
     suffix: "+",
     label: "Happy Traveler",
-     icon:svgIcon.happyTravelIcon,
+    icon: svgIcon.happyTravelIcon,
   },
   {
     id: 4,
     value: 98,
     suffix: "%",
     label: "Retention Rate",
-      icon:svgIcon.retentionIcon,
+    icon: svgIcon.retentionIcon,
   },
 ];
 
@@ -791,4 +793,73 @@ export const VisaConditionalRequirements = [
   "Consent Letter from the non-traveling parent (if only one parent is traveling).",
   "Proof of Guardianship (if applicable).",
   "Family ties proof to ensure return to home country.",
+];
+
+export const stories: Story[] = [
+  {
+    id: 1,
+    image: "/assets/img/innerpages/visa-dt-success-story-card-img1.jpg",
+    quote: "Exceptional service with clear guidance.",
+    name: "Mrs. Emily Patowary",
+    role: "USA Student",
+  },
+  {
+    id: 2,
+    image: "/assets/img/innerpages/visa-dt-success-story-card-img2.jpg",
+  },
+  {
+    id: 3,
+    image: "/assets/img/innerpages/visa-dt-success-story-card-img3.jpg",
+    quote: "Fast response, accurate documentation, & friendly service.",
+    name: "Mrs. Emelia Jong",
+    role: "UK Student",
+  },
+  {
+    id: 4,
+    image: "/assets/img/innerpages/visa-dt-success-story-card-img4.jpg",
+  },
+  {
+    id: 5,
+    video: "/assets/video/visa-details-video.mp4",
+    quote: "Got my visa approved faster than expected. Recommended!",
+    name: "Mrs. Emily Patowary",
+    role: "Czech Republic Student",
+  },
+  {
+    id: 6,
+    image: "/assets/img/innerpages/visa-dt-success-story-card-img6.jpg",
+  },
+  {
+    id: 7,
+    image: "/assets/img/innerpages/visa-dt-success-story-card-img5.jpg",
+    quote: "Outstanding response with precise direction.",
+    name: "Mrs. Emelia Jong",
+    role: "UK Student",
+  },
+];
+
+export const offices: Office[] = [
+    {
+        id: 1,
+        title: "United State",
+        phone: "+1 (212) 555-7890",
+        address:
+            "Skyline Plaza, 5th Floor, 123 Main Street Los Angeles, CA 90001, USA",
+    },
+    {
+        id: 2,
+        title: "Dubai Office",
+        phone: "+971 4 123 4567",
+        address:
+            "Office No. 1203, 12th Floor, Bay Tower, Al Abraj Street, Business Bay, Dubai, UAE",
+        variant: "two",
+    },
+    {
+        id: 3,
+        title: "United Kingdom",
+        phone: "+44 20 7946 1234",
+        address:
+            "3rd Floor, 15 Bedford Street Covent Garden, London, WC2E 9HE, UK",
+        variant: "three",
+    },
 ];

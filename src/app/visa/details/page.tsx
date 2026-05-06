@@ -15,9 +15,9 @@ export default function TravelPackagePage() {
                 ]}
             />
 
-            <div className=" mb-100">
-                <VisaDetailsPage /> 
-            </div>
+
+            <VisaDetailsPage />
+
         </>
     );
 }
