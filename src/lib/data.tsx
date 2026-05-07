@@ -12,6 +12,7 @@ import {
   CounterItem,
   Story,
   Office,
+  ExperienceCardItem,
 } from "@/types";
 
 // export const POPULAR_PACKAGES: TravelPackage[] = [
@@ -862,4 +863,132 @@ export const offices: Office[] = [
             "3rd Floor, 15 Bedford Street Covent Garden, London, WC2E 9HE, UK",
         variant: "three",
     },
+];
+
+export const travelPackagesData = [
+  {
+    id:1,
+    title: "Maldives Beach Paradise",
+    location: "Maldives",
+    duration: "05 Days",
+    price: 399,
+    image: "/assets/img/tour-package-img4.webp",
+    badge: "Hot Sale!",
+    link: "/travel-package/details",
+    experiences:
+      "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
+    inclusions:
+      "Accommodation, Daily Meals, Entry Fees & Local Transfers",
+  },
+  {
+    id:2,
+    title: "Maldives Beach Paradise",
+    location: "Maldives",
+    duration: "05 Days",
+    price: 399,
+    image: "/assets/img/tour-package-img4.webp",
+    badge: "Hot Sale!",
+    link: "/travel-package/details",
+    experiences:
+      "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
+    inclusions:
+      "Accommodation, Daily Meals, Entry Fees & Local Transfers",
+  },
+  {
+    id:3,
+    title: "Maldives Beach Paradise",
+    location: "Maldives",
+    duration: "05 Days",
+    price: 399,
+    image: "/assets/img/tour-package-img4.webp",
+    badge: "Hot Sale!",
+    link: "/travel-package/details",
+    experiences:
+      "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
+    inclusions:
+      "Accommodation, Daily Meals, Entry Fees & Local Transfers",
+  },
+  {
+    id:4,
+    title: "Maldives Beach Paradise",
+    location: "Maldives",
+    duration: "05 Days",
+    price: 399,
+    image: "/assets/img/tour-package-img4.webp",
+    badge: "Hot Sale!",
+    link: "/travel-package/details",
+    experiences:
+      "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
+    inclusions:
+      "Accommodation, Daily Meals, Entry Fees & Local Transfers",
+  },
+  {
+    id:5,
+    title: "Maldives Beach Paradise",
+    location: "Maldives",
+    duration: "05 Days",
+    price: 399,
+    image: "/assets/img/tour-package-img4.webp",
+    badge: "Hot Sale!",
+    link: "/travel-package/details",
+    experiences:
+      "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
+    inclusions:
+      "Accommodation, Daily Meals, Entry Fees & Local Transfers",
+  },
+  {
+    id:6,
+    title: "Maldives Beach Paradise",
+    location: "Maldives",
+    duration: "05 Days",
+    price: 399,
+    image: "/assets/img/tour-package-img4.webp",
+    badge: "Hot Sale!",
+    link: "/travel-package/details",
+    experiences:
+      "Scuba Diving, Zip-lining, Rafting & Rock Climbing",
+    inclusions:
+      "Accommodation, Daily Meals, Entry Fees & Local Transfers",
+  },
+];
+
+export const ExperienceCardData: ExperienceCardItem[] = [
+  {
+    id: 1,
+    title: "Zip-lining & Canopy",
+    location: "Himachal Pradesh, India",
+    duration: "01 Hour",
+    price: "$99",
+    priceLabel: "Per Person",
+    image: ["/assets/img/tour-package-img1.webp"],
+    badge: "Sale on!",
+    link:"/experience/details",
+    features: [
+      "Thrilling Aerial Adventure",
+      "Breathtaking Scenic Views",
+      "Multiple Zip Lines & Canopy Walkways",
+    ],
+    isSlider: false,
+  },
+  {
+    id: 2,
+    title: "Ultimate City Adventure",
+    location: "Maldives",
+    duration: "30 Minute",
+    price: "$49",
+    priceLabel: "Starting From",
+    image: [
+      "/assets/img/tour-package-img1.webp",
+      "/assets/img/tour-package-img1.webp",
+      "/assets/img/tour-package-img1.webp",
+    ],
+    badge: "City Tour",
+    link:"/experience/details",
+    features: [
+      "Thrilling Aerial Adventure",
+      "Breathtaking Scenic Views",
+      "Multiple Zip Lines & Canopy Walkways",
+    ],
+    isSlider: true,
+  },
 ];

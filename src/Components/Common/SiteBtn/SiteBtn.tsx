@@ -4,11 +4,29 @@ import React from "react";
 
 const SiteBtn = ({
   link,
-  text,
   className,
+  text,
   svgIcon,
   iconPosition,
 }: btnprops) => {
+  if (!link) {
+    return (
+      <button className={className}>
+        <span>
+          {iconPosition === "start" && svgIcon}
+          {text}
+          {iconPosition === "end" && svgIcon}
+        </span>
+
+        <span>
+          {iconPosition === "start" && svgIcon}
+          {text}
+          {iconPosition === "end" && svgIcon}
+        </span>
+      </button>
+    );
+  }
+
   return (
     <Link href={link} className={className}>
       <span>

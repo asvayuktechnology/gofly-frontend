@@ -62,9 +62,11 @@ const CustomSingleValue = ({ data }: { data: Destination }) => {
 export default function DestinationSelect() {
   return (
     <div className="single-search-box">
-        <BiCurrentLocation size={18} /> 
+      <BiCurrentLocation size={18} />
       <div className="custom-select-dropdown destination-dropdown">
         <Select
+          instanceId="destination-select"
+          inputId="destination-select-input"
           options={options}
           defaultValue={options[0]}
           isSearchable
@@ -88,7 +90,7 @@ export default function DestinationSelect() {
             placeholder: () => "text-gray-400 px-2",
           }}
         />
-      </div> 
+      </div>
     </div>
   );
 }

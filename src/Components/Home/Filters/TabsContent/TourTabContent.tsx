@@ -2,6 +2,7 @@
 
 import TourDatePicker from "@/Components/Common/UI/Datepicker/TourDatePicker";
 import CategorySelect from "@/Components/Common/UI/Selects/CategorySelect";
+import CustomSelect from "@/Components/Common/UI/Selects/CustomSelect";
 import DestinationSelect from "@/Components/Common/UI/Selects/DestinationSelects";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -17,31 +18,31 @@ const TourTabContent: React.FC = () => {
     // const [selectedCategory, setSelectedCategory] = useState("Family Tour");
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-        const categories = [
-  "Family Tour",
-  "Honeymoon Tour",
-  "Group Tour",
-  "Adventure Tour",
-  "Solo Tour",
-];
+    const categories = [
+        { label: "Family Tour", value: "Family Tour" },
+        { label: "Honeymoon Tour", value: "Honeymoon Tour" },
+        { label: "Group Tour", value: "Group Tour" },
+        { label: "Adventure Tour", value: "Adventure Tour" },
+        { label: "Solo Tour", value: "Solo Tour" },
+    ];
     const [category, setCategory] = useState("Family Tour");
 
-      const [selected, setSelected] = useState<string>("Family Tour");
-  const [open, setOpen] = useState<boolean>(false);
-  const dropdownRef = useRef
-  <HTMLDivElement>(null);
+    const [selected, setSelected] = useState<string>("Family Tour");
+    const [open, setOpen] = useState<boolean>(false);
+    const dropdownRef = useRef
+        <HTMLDivElement>(null);
 
-  // Close dropdown on outside click
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (!dropdownRef.current?.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
+    // Close dropdown on outside click
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (!dropdownRef.current?.contains(e.target as Node)) {
+                setOpen(false);
+            }
+        };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
 
     return (
@@ -53,44 +54,12 @@ const TourTabContent: React.FC = () => {
             {/* Date */}
             <TourDatePicker />
 
-            <div className="single-search-box" ref={dropdownRef}>
-                {/* ICON (unchanged) */}
-                <svg width="20" height="20" viewBox="0 0 20 20">
-                    <g>
-                        <path d="M19.3024 4.186H10C9.81501 4.186 9.63755 4.1125 9.50671 3.98166C9.37587 3.85082 9.30237 3.67336 9.30237 3.48833C9.30237 3.30329 9.37587 3.12583 9.50671 2.99499C9.63755 2.86415 9.81501 2.79065 10 2.79065H19.3024C19.4874 2.79065 19.6649 2.86415 19.7957 2.99499C19.9266 3.12583 20.0001 3.30329 20.0001 3.48833C20.0001 3.67336 19.9266 3.85082 19.7957 3.98166C19.6649 4.1125 19.4874 4.186 19.3024 4.186Z" />
-                    </g>
-                </svg>
-
-                {/* SELECT INPUT */}
-                <div
-                    className="custom-select-dropdown cursor-pointer"
-                    onClick={() => setOpen((prev) => !prev)}
-                >
-                    <input type="text" readOnly value={selected} />
-                    <span>Category</span>
-                </div>
-
-                {/* DROPDOWN */}
-                <div
-                    className={`custom-select-wrap two ${open ? "active block" : "hidden"
-                        }`}
-                >
-                    <ul className="option-list">
-                        {categories.map((item) => (
-                            <li
-                                key={item}
-                                className="single-item cursor-pointer hover:bg-gray-100 px-2 py-1"
-                                onClick={() => {
-                                    setSelected(item);
-                                    setOpen(false);
-                                }}
-                            >
-                                <h6>{item}</h6>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
+            <CustomSelect
+                options={categories}
+                value={category}
+                onChange={setCategory}
+                placeholder="Category"
+            />
             <button type="submit" className="primary-btn1">
                 <span>
                     <svg

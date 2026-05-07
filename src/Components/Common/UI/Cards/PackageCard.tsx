@@ -6,6 +6,8 @@ import SiteBtn from "../../SiteBtn/SiteBtn";
 import { svgIcon } from "../../Icons/SvgIcons";
 import Tooltip from "../../Tooltip/Tooltip";
 import { PackageCardProps } from "@/types";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 
 export default function PackageCard({
   title,
@@ -17,8 +19,16 @@ export default function PackageCard({
   link,
   experiences,
   inclusions,
+  priceLabel = "Per Person",
   delay = 200,
 }: PackageCardProps) {
+
+  const formatList = (data?: string[] | string) => {
+    if (Array.isArray(data)) return data.join(", ");
+    if (typeof data === "string") return data;
+    return "";
+  };
+
   return (
     <div
       className="wow animate fadeInDown"
@@ -27,16 +37,43 @@ export default function PackageCard({
     >
       <div className="package-card">
         {/* Image */}
-        <div className="package-img-wrap">
-          <Link href={link} className="package-img">
-            <Image
-              src={image}
-              alt={title}
-              width={550}
-              height={220}
-              className="w-full h-auto"
-            />
-          </Link>
+        <div className="package-img-wrap rounded-[10px] overflow-hidden">
+          {Array.isArray(image) ? (
+            <Swiper
+              modules={[Autoplay]}
+              slidesPerView={1}
+              loop={true}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              pagination={{ clickable: true }}
+              className="package-card-img-slider"
+            >
+              {image.map((img, i) => (
+                <SwiperSlide key={i}>
+                  <Image
+                    src={img}
+                    alt={title}
+                    width={550}
+                    height={220}
+                    className="w-full h-auto"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <Link href={link || "#"} className="package-img">
+              <Image
+                src={image}
+                alt={title}
+                width={550}
+                height={220}
+                className="w-full h-auto"
+              />
+            </Link>
+          )}
+
           {badge && (
             <div className="batch">
               <span>{badge}</span>
@@ -47,7 +84,7 @@ export default function PackageCard({
         {/* Content */}
         <div className="package-content">
           <h5>
-            <Link href={link}>{title}</Link>
+            <Link href={link || "#"}>{title}</Link>
           </h5>
 
           {/* Location & Duration */}
@@ -73,7 +110,7 @@ export default function PackageCard({
               className="primary-btn1"
             />
             <div className="price-area">
-              <h6>Per Person</h6>
+              <h6>{priceLabel || "Per Person"}</h6>
               <span>${price}</span>
             </div>
           </div>
@@ -90,10 +127,9 @@ export default function PackageCard({
                 <div className="info">
                   {svgIcon.info}
                   <Tooltip
-                    text1=" This package covers"
-                    text2=" Accommodation, Daily Meals, Entry Fees &amp; Local
-                      Transfers"
-                    text3=" to ensure a worry-free trip."
+                    text1="Including Activities"
+                    text2={formatList(experiences)}
+                    text3=""
                   />
                 </div>
               </li>
@@ -103,10 +139,9 @@ export default function PackageCard({
                 <div className="info">
                   {svgIcon.info}
                   <Tooltip
-                    text1=" This package covers"
-                    text2=" Accommodation, Daily Meals, Entry Fees &amp; Local
-                      Transfers"
-                    text3=" to ensure a worry-free trip."
+                    text1="This package covers"
+                    text2={formatList(inclusions)}
+                    text3=""
                   />
                 </div>
               </li>

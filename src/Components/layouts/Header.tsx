@@ -127,9 +127,8 @@ const Header = () => {
                 <li className="relative group menu-item-has-children ">
                   <Link
                     href="/"
-                    className={`flex items-center gap-1 transition ${
-                      pathname === "/" ? "active" : ""
-                    }`}
+                    className={`flex items-center gap-1 transition ${pathname === "/" ? "active" : ""
+                      }`}
                   >
                     Home
                   </Link>
@@ -139,9 +138,8 @@ const Header = () => {
                 <li className="relative group">
                   <Link
                     href="/destination"
-                    className={`flex items-center transition ${
-                      pathname.startsWith("/destination") ? "active" : ""
-                    }`}
+                    className={`flex items-center transition ${pathname.startsWith("/destination") ? "active" : ""
+                      }`}
                   >
                     Destination
                     <BsCaretDownFill size={13} />
@@ -217,9 +215,8 @@ const Header = () => {
                 <li>
                   <Link
                     href="/travel-package"
-                    className={`flex items-center gap-1 transition ${
-                      pathname === "/travel-package" ? "active" : ""
-                    }`}
+                    className={`flex items-center gap-1 transition ${pathname === "/travel-package" ? "active" : ""
+                      }`}
                   >
                     Travel Package
                   </Link>
@@ -229,13 +226,22 @@ const Header = () => {
                     Visa
                   </Link>
                 </li>
+                <li>
+                  <Link href="/hotel" className="hover:text-primary transition">
+                    Hotel
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/experience" className="hover:text-primary transition">
+                    Experience
+                  </Link>
+                </li>
                 {/* Contact */}
                 <li>
                   <Link
                     href="/contact"
-                    className={`flex items-center gap-1 transition ${
-                      pathname === "/contact" ? "active" : ""
-                    }`}
+                    className={`flex items-center gap-1 transition ${pathname === "/contact" ? "active" : ""
+                      }`}
                   >
                     Contact
                   </Link>

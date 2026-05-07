@@ -22,12 +22,12 @@ export interface Destination {
   name: string;
   country: string;
   region:
-    | "Europe"
-    | "Asia"
-    | "Middle East"
-    | "Africa"
-    | "North America"
-    | "Oceania";
+  | "Europe"
+  | "Asia"
+  | "Middle East"
+  | "Africa"
+  | "North America"
+  | "Oceania";
   image: string;
   tourCount: number;
   departureCount: number;
@@ -123,12 +123,20 @@ export interface PackageCardProps {
   location: string;
   duration: string;
   price: number;
-  image: string;
+
+  image: string | string[]; // ✅ supports slider
   badge?: string;
-  link: string;
-  experiences: string;
-  inclusions: string;
-  delay?: number; // Optional for WOW.js animation
+
+  link?: string; // ✅ optional (fixes your error)
+
+  experiences?: string[]; // ✅ always array (cleaner)
+  inclusions?: string[]; // ✅ only for travel
+
+  priceLabel?: string; // ✅ for "Per Person" / "Starting From"
+
+  variant?: "travel" | "experience"; // ✅ future-safe UI control
+
+  delay?: number;
 }
 
 export type VisaPackage = {
@@ -183,9 +191,9 @@ export type BlogCardProps = {
 };
 
 export interface FAQItem {
-    id: string;
-    question: string;
-    answer: React.ReactNode;
+  id: string;
+  question: string;
+  answer: React.ReactNode;
 };
 
 export interface CounterItem {
@@ -193,7 +201,7 @@ export interface CounterItem {
   value: number;
   suffix: string;
   label: string;
-  icon: React. ReactNode;
+  icon: React.ReactNode;
 }
 export interface VisaDataItem {
   id: number;
@@ -222,3 +230,17 @@ export type Office = {
   address: string;
   variant?: string;
 };
+
+export interface ExperienceCardItem {
+  id: number;
+  title: string;
+  location: string;
+  duration: string;
+  price: string;
+  priceLabel: string;
+  image: string[];
+  badge: string;
+  link?: string;
+  features: string[];
+  isSlider?: boolean;
+}
