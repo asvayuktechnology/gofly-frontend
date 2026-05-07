@@ -3,10 +3,7 @@ import { partners } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-
-
 export default function PartnerSection() {
-
   return (
     <div className="partner-section mb-100">
       <div className="container mx-auto">
@@ -40,7 +37,10 @@ export default function PartnerSection() {
             {/* Duplicate Group for Infinite Marquee Effect */}
             <div className="marquee__group" aria-hidden="true">
               {partners.map((partner) => (
-                <Link key={`duplicate-${partner.id}`} href={partner.link || "#"}>
+                <Link
+                  key={`duplicate-${partner.id}`}
+                  href={partner.link || "#"}
+                >
                   <Image
                     src={partner.image}
                     alt={`Partner ${partner.id}`}

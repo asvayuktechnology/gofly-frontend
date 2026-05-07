@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import SvgIcon, { svgIcon } from "../Common/Icons/SvgIcons";
+import { svgIcon } from "../Common/Icons/SvgIcons";
 
 export default function FeaturedDestinations() {
   const [activeTab, setActiveTab] = useState("europe");

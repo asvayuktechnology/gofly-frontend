@@ -11,7 +11,6 @@ import "swiper/css/navigation";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { TESTIMONIALS } from "@/lib/data";
 
-
 export default function TestimonialSection() {
   useEffect(() => {
     // Initialize Fancybox for video popup
