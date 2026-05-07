@@ -68,15 +68,15 @@ const BlogSlider = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="flex justify-center">
           <SiteBtn
-              link="/travel-inspiration"
-              svgIcon={svgIcon.arrow}
-              iconPosition="end"
-              text=" View All Inspiration"
-              className="primary-btn1 transparent"
-            />
+            link="/travel-inspiration"
+            svgIcon={svgIcon.arrow}
+            iconPosition="end"
+            text=" View All Inspiration"
+            className="primary-btn1 transparent"
+          />
         </div>
       </div>
     </div>

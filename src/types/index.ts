@@ -110,6 +110,8 @@ export interface btnprops {
   className?: string;
   svgIcon?: ReactNode;
   iconPosition?: "start" | "end";
+    onClick?: () => void;
+
 }
 
 export interface TooltipProps {
@@ -155,16 +157,16 @@ export interface WhyChooseItem {
   variant?: "two" | "three" | "four";
   delay: string;
   icon?: ReactNode;
-};
+}
 
 export interface OfferProps {
   offer: Offer;
   priority?: boolean;
-};
+}
 
 export interface PopularTravelPackageProps {
   packages?: Packages[];
-};
+}
 
 export interface OfferBannerProps {
   backgroundImage: string;
@@ -174,7 +176,7 @@ export interface OfferBannerProps {
   authorRole?: string;
   buttonText?: string;
   buttonLink?: string;
-
+  link?: string ;
 }
 export interface Partner {
   id: number;
@@ -194,7 +196,7 @@ export interface FAQItem {
   id: string;
   question: string;
   answer: React.ReactNode;
-};
+}
 
 export interface CounterItem {
   id: number;
@@ -230,6 +232,53 @@ export type Office = {
   address: string;
   variant?: string;
 };
+export interface PackagePaginationProps {
+  currentPage?: number;
+  totalPages?: number;
+  onPageChange?: (page: number) => void;
+};
+
+export interface SortingSectionProps {
+  totalJourneys?: number;
+  onFilterClick?: () => void;
+  onSortChange?: (value: string) => void;
+  onViewChange?: (view: "grid" | "list") => void;
+};
+
+export interface Category {
+  name: string;
+  subCategories: SubCategory[];
+};
+export interface SubCategory {
+  name: string;
+  count: number;
+};
+export interface BreadcrumbItem {
+  label: string;
+  href?: string; // Optional for the current page
+}
+
+export interface BreadcrumbProps {
+  title: string;
+  items: BreadcrumbItem[];
+  backgroundImage?: string;
+  className?: string;
+}
+export type Location = {
+  title: string;
+  days: string;
+  image: string;
+};
+
+export interface ItineraryItem {
+  day: string;
+  title: string;
+  description?: string;
+  transport?: string;
+  activities?: string;
+  meals?: string;
+  hotel?: string;
+}
 
 export interface ExperienceCardItem {
   id: number;

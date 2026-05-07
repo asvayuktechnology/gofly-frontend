@@ -4,6 +4,7 @@ import FilterSidebar from "@/Components/Common/FilterSidebar";
 import SortingSection from "@/Components/Common/SortingSection";
 import PackageCard from "@/Components/Common/UI/Cards/PackageCard";
 import PackagePagination from "@/Components/Common/UI/Paginations/PackagePagination";
+import { POPULAR_PACKAGES } from "@/lib/data";
 import { useState } from "react";
 import { PackageItem } from "@/types";
 

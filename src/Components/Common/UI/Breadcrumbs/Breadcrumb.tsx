@@ -2,18 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-
-interface BreadcrumbItem {
-  label: string;
-  href?: string; // Optional for the current page
-}
-
-interface BreadcrumbProps {
-  title: string;
-  items: BreadcrumbItem[];
-  backgroundImage?: string;
-  className?: string;
-}
+import { BreadcrumbProps } from "@/types";
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({
   title,
@@ -53,9 +42,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                     {item.label}
                   </Link>
                 ) : (
-                  <span className="text-white font-semibold">
-                    {item.label}
-                  </span>
+                  <span className="text-white font-semibold">{item.label}</span>
                 )}
 
                 {/* Separator */}
