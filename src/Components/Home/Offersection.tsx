@@ -1,11 +1,23 @@
+
+
+
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { swiperModules, swiperConfig } from "@/lib/swiper";
-import { offers } from "@/lib/data";
+
 import OfferCard from "../Offer/OfferCard";
+import { useDiscounts } from "@/services/discountService";
+import { BASE_URL } from "@/lib/const";
+
 
 const OfferSection = () => {
+  const { data, isLoading } = useDiscounts();
+
+  const discounts = data?.data || [];
+
+  if (isLoading) return null;
+
   return (
     <section className="mb-100">
       <div className="container mx-auto px-4">
@@ -13,6 +25,7 @@ const OfferSection = () => {
         <div className="flex justify-center mb-12">
           <div className="section-title text-center">
             <h2>Discounts & Offers</h2>
+
             <p className="text-gray-600">
               A curated list of the most popular travel packages based on
               different destinations.
@@ -30,9 +43,18 @@ const OfferSection = () => {
           {...swiperConfig}
           className="mb-40"
         >
-          {offers.map((offer, index) => (
-            <SwiperSlide key={offer.id}>
-              <OfferCard offer={offer} priority={index === 0} />
+          {discounts.map((offer, index) => (
+            <SwiperSlide key={offer._id}>
+              <OfferCard
+                offer={{
+                  id: offer._id,
+                 image: `${BASE_URL}/${offer.file}`,
+                  alt: offer.title,
+                  link: `/travel-package/details/${offer.applicablePackage}`,
+                  
+                }}
+                priority={index === 0}
+              />
             </SwiperSlide>
           ))}
         </Swiper>

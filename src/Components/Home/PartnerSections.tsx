@@ -1,11 +1,19 @@
 "use client";
-import { partners } from "@/lib/data";
+
 import Image from "next/image";
 import Link from "next/link";
-
+import { useTrustedCompanies } from "@/services/trustedCompanyService";
+import { BASE_URL } from "@/lib/const";
 
 
 export default function PartnerSection() {
+  const { data, isLoading } = useTrustedCompanies();
+
+  const partners = data?.data || [];
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div className="partner-section mb-100">
@@ -25,10 +33,15 @@ export default function PartnerSection() {
             {/* First Group */}
             <div className="marquee__group">
               {partners.map((partner) => (
-                <Link key={partner.id} href={partner.link || "#"}>
+                <Link
+                  key={partner._id}
+                  href={partner.link || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Image
-                    src={partner.image}
-                    alt={`Partner ${partner.id}`}
+                    src={`${BASE_URL}/${partner.file}`}
+                    alt="partner-logo"
                     width={150}
                     height={80}
                     className="object-contain"
@@ -37,13 +50,21 @@ export default function PartnerSection() {
               ))}
             </div>
 
-            {/* Duplicate Group for Infinite Marquee Effect */}
-            <div className="marquee__group" aria-hidden="true">
+            {/* Duplicate Group */}
+            <div
+              className="marquee__group"
+              aria-hidden="true"
+            >
               {partners.map((partner) => (
-                <Link key={`duplicate-${partner.id}`} href={partner.link || "#"}>
+                <Link
+                  key={`duplicate-${partner._id}`}
+                  href={partner.link || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Image
-                    src={partner.image}
-                    alt={`Partner ${partner.id}`}
+                    src={`${BASE_URL}/${partner.file}`}
+                    alt="partner-logo"
                     width={150}
                     height={80}
                     className="object-contain"

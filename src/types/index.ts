@@ -79,10 +79,11 @@ export interface Packages {
 }
 
 export interface Offer {
-  id: number;
+  id?: string |number;
   image: string;
-  link: string;
   alt: string;
+  link: string;
+  title?: string;
 }
 
 export type TabKey =

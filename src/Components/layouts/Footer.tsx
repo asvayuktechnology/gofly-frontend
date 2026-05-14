@@ -8,10 +8,17 @@ import {
   BiLogoInstagram,
   BiLogoLinkedin,
   BiLogoYoutube,
+  BiLogoTwitter,
+  BiLogoTelegram,
 } from "react-icons/bi";
+
 import { svgIcon } from "../Common/Icons/SvgIcons";
+import { BASE_URL } from "@/lib/const";
+import { useGetSettings } from "@/services/settingService";
 
 const Footer: React.FC = () => {
+  const { data: settings } = useGetSettings();
+
   return (
     <footer className="footer-section">
       <div className="container mx-auto">
@@ -19,6 +26,7 @@ const Footer: React.FC = () => {
         <div className="footer-contact-wrap">
           <div className="inquiry-area">
             {svgIcon.msgIcon}
+
             <div className="content">
               <h6>To More Inquiry</h6>
               <span>Don’t hesitate Call to GoFly.</span>
@@ -26,6 +34,7 @@ const Footer: React.FC = () => {
           </div>
 
           <ul className="contact-area">
+            {/* WhatsApp */}
             <li className="single-contact">
               <div className="icon">
                 <Image
@@ -33,14 +42,24 @@ const Footer: React.FC = () => {
                   alt="whatsapp"
                   width={22}
                   height={22}
+                  style={{ width: "auto", height: "auto" }}
                 />
               </div>
+
               <div className="content">
                 <span>WhatsApp</span>
-                <a href="https://wa.me/91345533865">+91 345 533 865</a>
+
+                <a
+                  href={`https://wa.me/${settings?.basicDetails?.whatsappNo}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  +91 {settings?.basicDetails?.whatsappNo}
+                </a>
               </div>
             </li>
 
+            {/* Email */}
             <li className="single-contact">
               <div className="icon">
                 <Image
@@ -48,14 +67,20 @@ const Footer: React.FC = () => {
                   alt="mail"
                   width={22}
                   height={22}
+                  style={{ width: "auto", height: "auto" }}
                 />
               </div>
+
               <div className="content">
                 <span>Mail Us</span>
-                <a href="mailto:info@example.com">info@example.com</a>
+
+                <a href={`mailto:${settings?.basicDetails?.email}`}>
+                  {settings?.basicDetails?.email}
+                </a>
               </div>
             </li>
 
+            {/* Phone */}
             <li className="single-contact">
               <div className="icon">
                 <Image
@@ -63,11 +88,16 @@ const Footer: React.FC = () => {
                   alt="call"
                   width={22}
                   height={22}
+                  style={{ width: "auto", height: "auto" }}
                 />
               </div>
+
               <div className="content">
                 <span>Call Us</span>
-                <a href="tel:+91456453345">+91 456 453 345</a>
+
+                <a href={`tel:${settings?.basicDetails?.phoneNumber}`}>
+                  +91 {settings?.basicDetails?.phoneNumber}
+                </a>
               </div>
             </li>
           </ul>
@@ -75,6 +105,7 @@ const Footer: React.FC = () => {
 
         {/* Divider */}
         {svgIcon.footerDivider}
+
         {/* Footer Menu */}
         <div className="footer-menu-wrap">
           <div className="grid grid-cols-12 gy-md-4 gy-5">
@@ -83,56 +114,121 @@ const Footer: React.FC = () => {
               <div className="footer-logo-and-addition-info">
                 <Link href="/" className="footer-logo">
                   <Image
-                    src="/assets/img/footer-logo.svg"
+                    src={
+                      settings?.logo
+                        ? `${BASE_URL}/${settings.logo}`
+                        : "/assets/img/footer-logo.svg"
+                    }
                     alt="logo"
                     width={120}
                     height={45}
+                    // style={{ width: "auto", height: "auto" }}
+                    priority
+                    unoptimized
                   />
                 </Link>
 
                 <div className="address-area">
                   <span>GoFly Travel Agency</span>
+
                   <a href="#">
-                    Skyline Plaza, 5th Floor, 123 Main Street Los Angeles, CA
-                    90001, USA
+                    {settings?.basicDetails?.address}
                   </a>
                 </div>
 
                 <ul className="social-list">
-                  <li>
-                    <a href="#">
-                      <BiLogoFacebook />{" "}
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <BiLogoLinkedin />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <BiLogoYoutube />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <BiLogoInstagram />
-                    </a>
-                  </li>
-                </ul>
+  {/* Facebook */}
+  {settings?.socialLinks?.facebook && (
+    <li>
+      <a
+        href={settings.socialLinks.facebook}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <BiLogoFacebook />
+      </a>
+    </li>
+  )}
+
+  {/* Twitter */}
+  {settings?.socialLinks?.twitter && (
+    <li>
+      <a
+        href={settings.socialLinks.twitter}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <BiLogoTwitter />
+      </a>
+    </li>
+  )}
+
+  {/* Telegram */}
+  {settings?.socialLinks?.telegram && (
+    <li>
+      <a
+        href={settings.socialLinks.telegram}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <BiLogoTelegram />
+      </a>
+    </li>
+  )}
+
+  {/* LinkedIn */}
+  {settings?.socialLinks?.linkedin && (
+    <li>
+      <a
+        href={settings.socialLinks.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <BiLogoLinkedin />
+      </a>
+    </li>
+  )}
+
+  {/* YouTube */}
+  {settings?.socialLinks?.youtube && (
+    <li>
+      <a
+        href={settings.socialLinks.youtube}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <BiLogoYoutube />
+      </a>
+    </li>
+  )}
+
+  {/* Instagram */}
+  {settings?.socialLinks?.instagram && (
+    <li>
+      <a
+        href={settings.socialLinks.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <BiLogoInstagram />
+      </a>
+    </li>
+  )}
+</ul>
 
                 <a href="#">
                   <Image
                     src="/assets/img/google-play.svg"
-                    alt="playstore"
-                    width={157}
+                    width={150}
                     height={50}
+                    className="h-[30px] w-auto"
+                    alt="Google Play"
                   />
                 </a>
               </div>
             </div>
 
-            {/* Widget Column */}
+            {/* Widgets */}
             {[
               {
                 title: "Top Destination",
@@ -170,10 +266,13 @@ const Footer: React.FC = () => {
                   <div className="widget-title">
                     <h5>{section.title}</h5>
                   </div>
+
                   <ul className="widget-list">
                     {section.links.map((item, idx) => (
                       <li key={idx}>
-                        <Link href="#">{item}</Link>
+                        <Link href="#">
+                          {item}
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -188,10 +287,13 @@ const Footer: React.FC = () => {
       <div className="footer-bottom">
         <div className="container mx-auto">
           <div className="copyright-and-payment-method-area">
-            <p>Copyright 2025 | All Right Reserved.</p>
+            <p>
+              Copyright {new Date().getFullYear()} | All Right Reserved.
+            </p>
 
             <div className="payment-method-area">
               <span>Accepted Payment Methods :</span>
+
               <ul>
                 {[
                   "mastar-card-icon.svg",
@@ -205,6 +307,10 @@ const Footer: React.FC = () => {
                       alt="payment"
                       width={52}
                       height={28}
+                      style={{
+                        width: "auto",
+                        height: "auto",
+                      }}
                     />
                   </li>
                 ))}

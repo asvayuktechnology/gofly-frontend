@@ -1,18 +1,26 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-   images: {
+  images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "gofly-next-js.vercel.app",
         pathname: "/**",
       },
+
+      // Local Backend Images
+      {
+        protocol: "http",
+        hostname: "192.168.1.55",
+        port: "7003",
+        pathname: "/**",
+      },
     ],
-    // Allows relative paths from /public
-    unoptimized: false,
+
+    unoptimized: true,
   },
-  // Enable strict mode
+
   reactStrictMode: true,
 };
 

@@ -35,6 +35,7 @@ export default function PackageCard({
               width={550}
               height={220}
               className="w-full h-auto"
+              unoptimized
             />
           </Link>
           {badge && (
@@ -55,7 +56,7 @@ export default function PackageCard({
             <div className="location">
               {/* Location Icon */}
               {svgIcon.location}
-              <Link href="/travel-package">{location}</Link>
+              <Link href="/travel-package/details">{location}</Link>
             </div>
 
             {/* Arrow */}

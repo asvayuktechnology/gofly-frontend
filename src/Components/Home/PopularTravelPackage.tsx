@@ -3,8 +3,14 @@
 import { Packages, PopularTravelPackageProps } from "@/types";
 import PackageCard from "../Common/UI/Cards/PackageCard";
 import { POPULAR_PACKAGES } from "@/lib/data";
+import { BASE_URL } from "@/lib/const";
 
-export default function PopularTravelPackage({ packages = POPULAR_PACKAGES }: PopularTravelPackageProps) {
+interface Props {
+  packages: any[];
+}
+export default function PopularTravelPackage({
+  packages,
+}: Props) {
 
 
   return (
@@ -22,15 +28,32 @@ export default function PopularTravelPackage({ packages = POPULAR_PACKAGES }: Po
         </div>
 
         {/* Package Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {packages.map((pkg, index) => (
-            <PackageCard
-              key={index}
-              {...pkg}
-              delay={200 + index * 100}
-            />
-          ))}
-        </div>
+         {packages.length === 0 ? (
+          <div className="text-center py-10">
+            <p className="text-black text-lg font-medium">
+              No packages available.
+            </p>
+          </div>
+        ) : (
+          /* Package Grid */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {packages.map((pkg, index) => (
+              <PackageCard
+                key={pkg._id}
+                title={pkg.title}
+                location={pkg.country}
+                duration={`${pkg.durationDays} Days`}
+                price={pkg.pricePerPerson}
+                image={`${BASE_URL}/${pkg.image}`}
+                badge={pkg.isHotSale ? "Hot Sale" : ""}
+                link={`/travel-package/details/${pkg._id}`}
+                experiences="Adventure"
+                inclusions="Meals Included"
+                delay={200 + index * 100}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

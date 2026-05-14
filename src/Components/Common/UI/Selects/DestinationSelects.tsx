@@ -64,30 +64,29 @@ export default function DestinationSelect() {
     <div className="single-search-box">
         <BiCurrentLocation size={18} /> 
       <div className="custom-select-dropdown destination-dropdown">
-        <Select
-          options={options}
-          defaultValue={options[0]}
-          isSearchable
-          components={{
-            Option: CustomOption,
-            SingleValue: CustomSingleValue,
-          }}
-          placeholder="Type Your Destination"
-          className=""
-          // 🔥 Remove default styles
-          unstyled
-
-          classNames={{
-            control: () => "w-full",
-            menu: () =>
-              "custom-select-wrap active mt-2 bg-white shadow-lg rounded-md",
-            menuList: () => "option-list-destination max-h-60 overflow-y-auto",
-            option: ({ isFocused }) =>
-              `p-2 cursor-pointer ${isFocused ? "bg-gray-100" : ""}`,
-            input: () => "px-2 py-1 outline-none custom-select-hidden-input",
-            placeholder: () => "text-gray-400 px-2",
-          }}
-        />
+   <Select
+  instanceId="destination-select"
+  options={options}
+  defaultValue={options[0]}
+  isSearchable
+  components={{
+    Option: CustomOption,
+    SingleValue: CustomSingleValue,
+  }}
+  placeholder="Type Your Destination"
+  className=""
+  unstyled
+  classNames={{
+    control: () => "w-full",
+    menu: () =>
+      "custom-select-wrap active mt-2 bg-white shadow-lg rounded-md",
+    menuList: () => "option-list-destination max-h-60 overflow-y-auto",
+    option: ({ isFocused }) =>
+      `p-2 cursor-pointer ${isFocused ? "bg-gray-100" : ""}`,
+    input: () => "px-2 py-1 outline-none custom-select-hidden-input",
+    placeholder: () => "text-gray-400 px-2",
+  }}
+/>
       </div> 
     </div>
   );

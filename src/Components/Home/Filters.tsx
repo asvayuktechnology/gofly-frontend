@@ -30,7 +30,7 @@ const Filters: React.FC = () => {
               </li>
 
               {/* Hotels */}
-              <li
+              {/* <li
                 onClick={() => handleTabClick("hotels")}
                 className={`single-item hotel flex items-center gap-2 cursor-pointer px-4 py-2 rounded-md transition-all
             ${activeTab === "hotels" ? "bg-black text-white" : "text-gray-600 hover:bg-gray-100"}
@@ -38,10 +38,10 @@ const Filters: React.FC = () => {
               >
                 {svgIcon.hotelIcon}
                 <span>Hotels</span>
-              </li>
+              </li> */}
 
               {/* Visa */}
-              <li
+              {/* <li
                 onClick={() => handleTabClick("visa")}
                 className={`single-item visa flex items-center gap-2 cursor-pointer px-4 py-2 rounded-md transition-all
             ${activeTab === "visa" ? "bg-black text-white" : "text-gray-600 hover:bg-gray-100"}
@@ -49,10 +49,10 @@ const Filters: React.FC = () => {
               >
                 {svgIcon.visaIcon}
                 <span>Visa</span>
-              </li>
+              </li> */}
 
               {/* Experience */}
-              <li
+              {/* <li
                 onClick={() => handleTabClick("experience")}
                 className={`single-item flex items-center gap-2 cursor-pointer px-4 py-2 rounded-md transition-all
             ${activeTab === "experience" ? "bg-black text-white" : "text-gray-600 hover:bg-gray-100"}
@@ -60,7 +60,7 @@ const Filters: React.FC = () => {
               >
                 {svgIcon.experienceIcon}
                 <span>Experience</span>
-              </li>
+              </li> */}
             </ul>
 
             {/* Content */}
