@@ -51,3 +51,28 @@ input {
   object-fit: cover;
   border-radius: 20px;
 }
+
+.tour span {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+.filter-input {
+  overflow: visible !important;
+}
+.single-search-box {
+  position: relative;
+  width: 100%;
+}
+
+.destination-dropdown .css-b62m3t-container {
+  width: 100%;
+}

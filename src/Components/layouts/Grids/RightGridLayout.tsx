@@ -545,7 +545,7 @@ export default function RightGridLayout({
 
             </div>
             <div className="lg:col-span-4 lg:col-start-9">
-                <PackageSidebar />
+               <PackageSidebar packageData={packageData} />
             </div>
 
             <div className="col-span-12">
