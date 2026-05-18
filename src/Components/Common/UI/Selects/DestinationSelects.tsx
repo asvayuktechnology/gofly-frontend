@@ -3,7 +3,7 @@
 import Select, { SingleValue, components } from "react-select";
 import { BiCurrentLocation } from "react-icons/bi";
 import { useDestinations } from "@/services/destinationService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export type DestinationOption = {
   value: string;
@@ -59,11 +59,22 @@ export default function DestinationSelect({
   value,
   onChange,
 }: Props) {
- const [keyword, setKeyword] = useState("");
+const [search, setSearch] = useState("");
+const [debouncedKeyword, setDebouncedKeyword] = useState("");
 
+// DEBOUNCE
+useEffect(() => {
+  const timer = setTimeout(() => {
+    setDebouncedKeyword(search);
+  }, 500);
+
+  return () => clearTimeout(timer);
+}, [search]);
+
+// API CALL
 const { data, isLoading } = useDestinations({
   limit: 100,
-  // keyword,
+  keyword: debouncedKeyword,
 });
 
   const destinations = data?.data ?? [];
@@ -87,9 +98,14 @@ const { data, isLoading } = useDestinations({
           instanceId="destination-select"
           options={options}
           value={value}
-          onChange={(selected) =>
-            onChange(selected as SingleValue<DestinationOption>)
-          }
+         
+            onInputChange={(value) => {
+    setSearch(value);
+  }}
+  onChange={(selected) =>
+    onChange(selected as SingleValue<DestinationOption>)
+  }
+  
           isSearchable
           isLoading={isLoading}
           placeholder="Type Your Destination"
@@ -102,7 +118,7 @@ const { data, isLoading } = useDestinations({
           unstyled
           classNames={{
             control: ({ isFocused }) =>
-              `min-h-[72px] border rounded-[14px] bg-white pl-10 pr-3 py-2 shadow-sm cursor-pointer ${
+              `min-h-[100px] border rounded-[14px] bg-white pl-10 pr-3 py-2 shadow-sm cursor-pointer ${
                 isFocused
                   ? "border-[#2979ff]"
                   : "border-[#e5e5e5]"

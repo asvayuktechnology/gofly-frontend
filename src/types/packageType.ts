@@ -7,6 +7,7 @@ export interface PackageItem {
   durationDays: number;
   category: string;
   images: string[];
+    image?: string[];
   isHotSale: boolean;
   isLastMinuteDeal: boolean;
   isOneDayTrip: boolean;
@@ -15,6 +16,7 @@ export interface PackageItem {
    PackageItem?: string;
    durationNights?:number;
    bannerImages?: string[];
+    badge?: string;
 }
 
 export interface PackageListResponse {
@@ -28,4 +30,23 @@ export interface PackageListResponse {
 export interface MutationParams {
   onSuccess?: (data: any) => void;
   onError?: (error: any) => void;
+}
+
+export interface Package {
+  _id: string;
+  title: string;
+  country: string;
+  durationDays: number;
+  pricePerPerson: number;
+  image: string;
+
+  isHotSale?: boolean;
+  isLastMinuteDeal?: boolean;
+  isOneDayTrip?: boolean;
+}
+
+export interface PackageResponse {
+  data: Package[];
+  totalCount: number;
+  currentCount: number;
 }

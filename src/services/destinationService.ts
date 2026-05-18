@@ -5,21 +5,13 @@ import HttpService from "./httpsService";
 import {
   DestinationItem,
   DestinationResponse,
+  DestinationWithCountResponse,
 } from "@/types/destinationType";
 
 // ─────────────────────────────────────────────
 // GET DESTINATIONS
 // ─────────────────────────────────────────────
 
-export const getDestinations = async (params?: {
-  region?: string;
-  isFeatured?: boolean;
-  limit?: number;
-}): Promise<DestinationResponse> => {
-  return HttpService.get("/destinations", {
-    params,
-  }).then((res) => res.data);
-};
 
 // ─────────────────────────────────────────────
 // USE DESTINATIONS
@@ -29,11 +21,23 @@ export const useDestinations = (params?: {
   region?: string;
   isFeatured?: boolean;
   limit?: number;
+  keyword?: string;
 }) =>
   useQuery({
     queryKey: ["destinations", params],
     queryFn: () => getDestinations(params),
   });
+
+export const getDestinations = async (params?: {
+  region?: string;
+  isFeatured?: boolean;
+  limit?: number;
+  keyword?: string;
+}): Promise<DestinationResponse> => {
+  return HttpService.get("/destinations", {
+    params,
+  }).then((res) => res.data);
+};
 // ─────────────────────────────────────────────
 // GET SINGLE DESTINATION
 // ─────────────────────────────────────────────
@@ -54,4 +58,26 @@ export const useSingleDestination = (id: string) =>
     queryKey: ["destination", id],
     queryFn: () => getSingleDestination(id),
     enabled: !!id,
+  });
+
+  export const getDestinationsWithCount = async (params?: {
+  page?: number;
+  limit?: number;
+}): Promise<DestinationWithCountResponse> => {
+  return HttpService.get("/destinations/with-count", {
+    params,
+  }).then((res) => res.data);
+};
+
+// ─────────────────────────────────────────────
+// USE DESTINATION WITH COUNT
+// ─────────────────────────────────────────────
+
+export const useDestinationsWithCount = (params?: {
+  page?: number;
+  limit?: number;
+}) =>
+  useQuery({
+    queryKey: ["destinations-with-count", params],
+    queryFn: () => getDestinationsWithCount(params),
   });

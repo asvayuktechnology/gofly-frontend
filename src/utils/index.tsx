@@ -99,3 +99,14 @@ export const maskWallet = (text: string): string => {
   
   return `${firstFive}****${lastFive}`; // Always shows exactly 4 stars in middle
 };
+
+
+export const SORT_OPTIONS = [
+  { label: "Default", value: "default" },
+  { label: "Latest", value: "latest" },
+  { label: "Price High", value: "price_high" },
+  { label: "Price Low", value: "price_low" },
+  { label: "Popular", value: "popular" },
+  { label: "Duration Low", value: "duration_low" },
+  { label: "Duration High", value: "duration_high" },
+] as const;

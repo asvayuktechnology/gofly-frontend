@@ -1,317 +1,298 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsFillCaretRightFill } from "react-icons/bs";
 
-interface SubCategory {
+interface Destination {
+  _id: string;
   name: string;
   count: number;
 }
 
-interface Category {
-  name: string;
-  subCategories: SubCategory[];
+interface DestinationRegion {
+  region: string;
+  destinations: Destination[];
 }
 
-const destinations: Category[] = [
+interface Props {
+  destinations: DestinationRegion[];
+  selectedDestinationIds: string[];
+  setSelectedDestinationIds: React.Dispatch<
+    React.SetStateAction<string[]>
+  >;
+  selectedCategories: string[];
+  setSelectedCategories: React.Dispatch<
+    React.SetStateAction<string[]>
+  >;
+}
+
+const categoryOptions = [
   {
-    name: "Europe",
-    subCategories: [
-      { name: "Paris, France", count: 8 },
-      { name: "Rome, Italy", count: 12 },
-      { name: "United Kingdom", count: 15 },
-      { name: "Netherlands", count: 2 },
-      { name: "Portugal", count: 10 },
-      { name: "Germany", count: 12 },
-    ],
+    label: "Family Tour",
+    value: "family_tour",
   },
   {
-    name: "Asia",
-    subCategories: [
-      { name: "Tokyo, Japan", count: 15 },
-      { name: "Indonesia", count: 7 },
-      { name: "Thailand", count: 18 },
-      { name: "Malaysia", count: 8 },
-      { name: "Hanoi, Vietnam", count: 10 },
-    ],
+    label: "Honeymoon Tour",
+    value: "honeymoon_tour",
   },
   {
-    name: "Africa",
-    subCategories: [
-      { name: "Egypt", count: 5 },
-      { name: "South Africa", count: 7 },
-      { name: "Zimbabwe", count: 2 },
-      { name: "Morocco", count: 12 },
-    ],
+    label: "Adventure Tour",
+    value: "adventure_tour",
   },
   {
-    name: "North America",
-    subCategories: [
-      { name: "United States", count: 20 },
-      { name: "Canada", count: 8 },
-      { name: "Mexico", count: 13 },
-      { name: "Costa Rica", count: 6 },
-    ],
+    label: "Group Tour",
+    value: "group_tour",
   },
   {
-    name: "Oceania",
-    subCategories: [
-      { name: "Australia", count: 12 },
-      { name: "New Zealand", count: 8 },
-      { name: "Papua New Guinea", count: 14 },
-    ],
-  },
-  {
-    name: "Middle East",
-    subCategories: [
-      { name: "United Arab Emirates", count: 4 },
-      { name: "Qatar", count: 6 },
-      { name: "Saudi Arabia", count: 13 },
-      { name: "Jordan", count: 3 },
-    ],
+    label: "Solo Tour",
+    value: "solo_tour",
   },
 ];
 
-const activities = [
-  { name: "Hiking & Trekking", count: 4 },
-  { name: "Rock Climbing", count: 6 },
-  { name: "Zip-lining", count: 2 },
-  { name: "Bungee Jumping", count: 7 },
-  { name: "Paragliding", count: 12 },
-  { name: "Skydiving", count: 6 },
-  { name: "Surfing", count: 8 },
-];
-
-const tourTypes = [
-  "Group Tours",
-  "Small Group",
-  "Family",
-  "Single Tours",
-  "Private Tours",
-];
-
-const offers = [
-  { name: "Special Offer", count: 4 },
-  { name: "Last Minutes Deal", count: 6 },
-];
-
-const FilterSidebar: React.FC = () => {
-  const [openCategories, setOpenCategories] = useState<Record<string, boolean>>(
-    { Europe: true }
-  );
+const FilterSidebar: React.FC<Props> = ({
+  destinations,
+  selectedDestinationIds,
+  setSelectedDestinationIds,
+  selectedCategories,
+  setSelectedCategories,
+}) => {
+  const [openRegions, setOpenRegions] = useState<Record<string, boolean>>({});
   const [expandedActivities, setExpandedActivities] = useState(false);
-  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
 
-  // Toggle category dropdown
-  const toggleCategory = (category: string) => {
-    setOpenCategories((prev) => ({
+  // Sync selected destinations with props on mount
+  useEffect(() => {
+    if (selectedDestinationIds.length > 0) {
+      // Open regions that have selected destinations
+      const regionsToOpen: Record<string, boolean> = {};
+      destinations.forEach((region) => {
+        const hasSelectedDestination = region.destinations.some((dest) =>
+          selectedDestinationIds.includes(dest._id)
+        );
+        if (hasSelectedDestination) {
+          regionsToOpen[region.region] = true;
+        }
+      });
+      setOpenRegions(regionsToOpen);
+    }
+  }, []);
+
+  // Toggle region dropdown
+  const toggleRegion = (regionName: string) => {
+    setOpenRegions((prev) => ({
       ...prev,
-      [category]: !prev[category],
+      [regionName]: !prev[regionName],
     }));
   };
 
-  // Toggle checkbox
-  const handleCheckboxChange = (name: string) => {
-    setCheckedItems((prev) => ({
-      ...prev,
-      [name]: !prev[name],
-    }));
+  // Select all destinations in a region
+  const handleRegionSelect = (
+    regionDestinations: Destination[],
+    regionName: string
+  ) => {
+    const ids = regionDestinations.map((item) => item._id);
+    const isCurrentlySelected = ids.every((id) =>
+      selectedDestinationIds.includes(id)
+    );
+
+    if (isCurrentlySelected) {
+      // Deselect all
+      setSelectedDestinationIds((prev) =>
+        prev.filter((id) => !ids.includes(id))
+      );
+    } else {
+      // Select all
+      setSelectedDestinationIds((prev) => [
+        ...new Set([...prev, ...ids]),
+      ]);
+    }
+  };
+
+  // Select single destination
+  const handleDestinationSelect = (id: string) => {
+    if (selectedDestinationIds.includes(id)) {
+      setSelectedDestinationIds((prev) =>
+        prev.filter((item) => item !== id)
+      );
+    } else {
+      setSelectedDestinationIds((prev) => [...prev, id]);
+    }
+  };
+
+  // Category select
+  const handleCategorySelect = (value: string) => {
+    if (selectedCategories.includes(value)) {
+      setSelectedCategories((prev) =>
+        prev.filter((item) => item !== value)
+      );
+    } else {
+      setSelectedCategories((prev) => [...prev, value]);
+    }
   };
 
   // Clear all filters
-  const clearFilters = () => {
-    setCheckedItems({});
+  const clearAllFilters = () => {
+    setSelectedDestinationIds([]);
+    setSelectedCategories([]);
   };
 
   return (
     <div className="package-sidebar-area w-full">
-      <div className="sidebar-wrapper bg-white rounded-2xl shadow-sm">
+      <div className="sidebar-wrapper bg-white rounded-2xl shadow-sm p-6">
         {/* Title */}
         <div className="title-area flex items-center justify-between mb-6">
           <h5 className="text-lg font-semibold text-gray-900">Filter</h5>
           <span
-            id="clear-filters"
-            onClick={clearFilters}
-            className="text-sm text-primary cursor-pointer hover:underline"
+            onClick={clearAllFilters}
+            className="text-sm text-primary cursor-pointer hover:underline transition"
           >
             Clear All
           </span>
         </div>
 
         {/* Destinations */}
-        <div className="single-widgets ">
+        <div className="single-widgets">
           <div className="widget-title mb-4">
             <h5 className="text-md font-semibold text-gray-800">
               Destinations
             </h5>
           </div>
 
-          <div className="checkbox-container">
-            <ul className="space-y-3">
-              {destinations.map((category) => (
-                <li
-                  key={category.name}
-                  className="sidebar-category-dropdown"
-                >
+          <ul className="space-y-3">
+            {destinations.map((region) => {
+              const regionIds = region.destinations.map((item) => item._id);
+              const isRegionSelected = regionIds.every((id) =>
+                selectedDestinationIds.includes(id)
+              );
+
+              return (
+                <li key={region.region}>
+                  {/* Region Header */}
                   <div
-                    className="flex items-center justify-between cursor-pointer"
-                    onClick={() => toggleCategory(category.name)}
+                    className="flex items-center justify-between cursor-pointer group"
                   >
-                    <label className="containerss flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={!!checkedItems[category.name]}
-                        onChange={() =>
-                          handleCheckboxChange(category.name)
-                        }
-                      />
-                      <span className="checkmark"></span>
-                      <strong>{category.name}</strong>
-                    </label>
-                    {/* <i
-                      className={`bi bi-caret-right-fill sidebar-category-icon transition-transform ${
-                        openCategories[category.name]
-                          ? "rotate-90"
-                          : ""
+                    <div 
+                      className="flex items-center gap-2 flex-1"
+                      onClick={() => handleRegionSelect(region.destinations, region.region)}
+                    >
+                      <span
+                        className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors flex-shrink-0 ${
+                          isRegionSelected
+                            ? "bg-blue-500 border-blue-500"
+                            : "border-gray-300 group-hover:border-blue-500"
+                        }`}
+                      >
+                        {isRegionSelected && (
+                          <svg
+                            className="w-3 h-3 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={3}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        )}
+                      </span>
+                      <strong className="capitalize text-[#525252] font-medium">
+                        {region.region.replace(/_/g, " ")}
+                      </strong>
+                    </div>
+
+                    <BsFillCaretRightFill
+                      size={13}
+                      fill="rgba(82,82,82,.6)"
+                      onClick={() => toggleRegion(region.region)}
+                      className={`transition-transform ${
+                        openRegions[region.region] ? "rotate-90" : ""
                       }`}
-                    ></i> */}
-                    <BsFillCaretRightFill size={13} fill="rgba(82,82,82,.6)" className={`active sidebar-category-icon transition-transform ${
-                        openCategories[category.name]
-                          ? "rotate-90"
-                          : ""
-                      }`}/>
+                    />
                   </div>
 
-                  {/* Sub Categories */}
-                  {openCategories[category.name] && (
-                    <ul className="sub-category ml-6 mt-2 space-y-2">
-                      {category.subCategories.map((sub) => (
-                        <li key={sub.name}>
-                          <label className="containerss flex items-center justify-between cursor-pointer">
-                            {/* <span className="flex items-center gap-2"> */}
-                              <input
-                                type="checkbox"
-                                checked={!!checkedItems[sub.name]}
-                                onChange={() =>
-                                  handleCheckboxChange(sub.name)
-                                }
-                              />
-                              <span className="checkmark"></span>
-                              <strong>
-                                <span className="text-[16px] font-medium text-[#525252]">{sub.name}</span>
-                            <span className="text-[16px] font-semibold text-[#525252] font-roboto">
-                              {String(sub.count).padStart(2, "0")}
+                  {/* Destinations List */}
+                  {openRegions[region.region] && (
+                    <ul className="ml-6 mt-3 space-y-2">
+                      {region.destinations.map((destination) => (
+                        <li
+                          key={destination._id}
+                          className="flex items-center justify-between cursor-pointer group"
+                        >
+                          <div 
+                            className="flex items-center gap-2 flex-1"
+                            onClick={() =>
+                              handleDestinationSelect(destination._id)
+                            }
+                          >
+                            <span
+                              className={`w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center transition-colors flex-shrink-0 ${
+                                selectedDestinationIds.includes(
+                                  destination._id
+                                )
+                                  ? "bg-blue-500 border-blue-500"
+                                  : "group-hover:border-blue-500"
+                              }`}
+                            >
+                              {selectedDestinationIds.includes(
+                                destination._id
+                              ) && (
+                                <svg
+                                  className="w-3 h-3 text-white"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={3}
+                                    d="M5 13l4 4L19 7"
+                                  />
+                                </svg>
+                              )}
                             </span>
-                              </strong>
-                            {/* </span> */}
-                          </label>
+                            <span className="text-[16px] font-medium text-[#525252]">
+                              {destination.name}
+                            </span>
+                          </div>
+
+                          <span className="text-[16px] font-semibold text-[#525252]">
+                            {String(destination.count).padStart(2, "0")}
+                          </span>
                         </li>
                       ))}
                     </ul>
                   )}
                 </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Tour Type */}
-        <div className="single-widgets ">
-          <div className="widget-title mb-4">
-            <h5 className="text-md font-semibold text-gray-800">
-              Tour Type
-            </h5>
-          </div>
-          <ul className="tour-type  text-gray-700">
-            {tourTypes.map((type) => (
-              <li
-                key={type}
-                className="cursor-pointer hover:text-primary transition"
-              >
-                {type}
-              </li>
-            ))}
+              );
+            })}
           </ul>
         </div>
 
-        {/* Activities */}
-        <div className="single-widgets">
+        {/* Categories */}
+        <div className="single-widgets mt-8">
           <div className="widget-title mb-4">
             <h5 className="text-md font-semibold text-gray-800">
-              Activities
+              Select Category
             </h5>
           </div>
-          <div className="checkbox-container two">
-            <ul
-              className="experience space-y-2 overflow-hidden transition-all duration-300"
-              style={{ height: expandedActivities ? "auto" : "160px" }}
-            >
-              {activities.map((activity) => (
-                <li key={activity.name}>
-                  <label className="containerss flex items-center justify-between cursor-pointer">
-                    {/* <span className="flex items-center gap-2"> */}
-                      <input
-                        type="checkbox"
-                        checked={!!checkedItems[activity.name]}
-                        onChange={() =>
-                          handleCheckboxChange(activity.name)
-                        }
-                      />
-                      <span className="checkmark"></span>
-                      <strong>
-                        <span>{activity.name}</span>
-                    <span className="text-[16px] font-semibold text-[#525252] font-roboto">
-                      {String(activity.count).padStart(2, "0")}
-                    </span>
-                      </strong>
-                    {/* </span> */}
-                  </label>
-                </li>
-              ))}
-            </ul>
-            <span
-              onClick={() =>
-                setExpandedActivities(!expandedActivities)
-              }
-              className="expand cursor-pointer block mt-3 text-primary hover:underline"
-            >
-              {expandedActivities ? "See Less -" : "See More +"}
-            </span>
-          </div>
-        </div>
 
-        {/* Discount & Offer */}
-        <div className="single-widgets">
-          <div className="widget-title mb-4">
-            <h5 className="text-md font-semibold text-gray-800">
-              Discount & Offer
-            </h5>
-          </div>
-          <div className="checkbox-container two">
-            <ul className="space-y-2">
-              {offers.map((offer) => (
-                <li key={offer.name}>
-                  <label className="containerss flex items-center justify-between cursor-pointer">
-                    {/* <span className="flex items-center gap-2"> */}
-                      <input
-                        type="checkbox"
-                        checked={!!checkedItems[offer.name]}
-                        onChange={() =>
-                          handleCheckboxChange(offer.name)
-                        }
-                      />
-                      <span className="checkmark"></span>
-                      <strong>
-                        <span>{offer.name}</span>
-                    <span className="text-[16px] font-semibold text-[#525252] font-roboto">
-                      {String(offer.count).padStart(2, "0")}
-                    </span>
-                      </strong>
-                    {/* </span> */}
-                  </label>
-                </li>
-              ))}
-            </ul>
+          <div className="flex flex-wrap gap-2">
+            {categoryOptions.map((category) => (
+              <button
+                key={category.value}
+                onClick={() => handleCategorySelect(category.value)}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all cursor-pointer ${
+                  selectedCategories.includes(category.value)
+                    ? "bg-blue-500 text-white border border-blue-500"
+                    : "bg-gray-100 text-gray-700 border border-gray-200 hover:border-gray-300"
+                }`}
+              >
+                {category.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>

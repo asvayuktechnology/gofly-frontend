@@ -27,3 +27,32 @@ export interface DestinationResponse {
   totalCount: number;
   currentCount: number;
 }
+export interface Destination {
+  _id: string;
+  name: string;
+  count: number;
+}
+
+export interface DestinationRegion {
+  region: string;
+  destinations: Destination[];
+}
+
+export interface DestinationWithCountResponse {
+  httpStatus: number;
+  message: string;
+  data: DestinationRegion[];
+  totalCount: number;
+  currentCount: number;
+}
+
+// export interface DestinationItem {
+//   _id: string;
+//   name: string;
+//   region: string;
+//   image?: string;
+// }
+
+export interface DestinationResponse {
+  data: DestinationItem[];
+}

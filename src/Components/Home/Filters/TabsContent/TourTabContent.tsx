@@ -90,48 +90,51 @@ const TourTabContent = () => {
   }, []);
 
   // Search
-  const handleSearch = (
-    e: React.FormEvent
-  ) => {
-    e.preventDefault();
+ const handleSearch = (
+  e: React.FormEvent
+) => {
+  e.preventDefault();
 
-    const params = new URLSearchParams();
+  const params =
+    new URLSearchParams();
 
-    // Destination
-    if (destination?.value) {
-      params.set(
-        "destination",
-        destination.value
-      );
-    }
-
-    // Category
-    if (selectedCategory?.value) {
-      params.set(
-        "category",
-        selectedCategory.value
-      );
-    }
-
-    // Dates
-    if (startDate) {
-      params.set(
-        "startDate",
-        startDate.toISOString()
-      );
-    }
-
-    if (endDate) {
-      params.set(
-        "endDate",
-        endDate.toISOString()
-      );
-    }
-
-    router.push(
-      `/travel-package?${params.toString()}`
+  // destination
+  if (destination?.value) {
+    params.set(
+      "destinationId",
+      destination.value
     );
-  };
+  }
+
+  // category
+  if (selectedCategory?.value) {
+    params.set(
+      "category",
+      selectedCategory.value
+    );
+  }
+
+  // start date
+  if (selectedDate) {
+    const formattedDate =
+      selectedDate
+        .toISOString()
+        .split("T")[0];
+
+    params.set(
+      "startDate",
+      formattedDate
+    );
+  }
+
+  // defaults
+  // params.set("page", "1");
+  // params.set("limit", "5");
+
+  router.push(
+    `/travel-package?${params.toString()}`
+  );
+};
 
   return (
     <form
@@ -208,7 +211,7 @@ const TourTabContent = () => {
       {/* Search Button */}
       <button
         type="submit"
-        className="primary-btn1"
+        className="primary-btn1 cursor-pointer"
       >
         <span>
           <svg
