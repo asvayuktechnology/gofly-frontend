@@ -212,6 +212,7 @@ const TourTabContent = () => {
       <button
         type="submit"
         className="primary-btn1 cursor-pointer"
+         disabled={!destination || !selectedDate || !selectedCategory}
       >
         <span>
           <svg

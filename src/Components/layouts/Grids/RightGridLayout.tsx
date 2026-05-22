@@ -18,79 +18,6 @@ import { SwiperSlide, Swiper } from "swiper/react";
 import FaqPackage from "./Faqpackage";
 
 
-type Location = {
-    title: string;
-    days: string;
-    image: string;
-};
-
-interface ItineraryItem {
-    day: string;
-    title: string;
-    description?: string;
-    transport?: string;
-    activities?: string;
-    meals?: string;
-    hotel?: string;
-}
-
-const locations: Location[] = [
-    {
-        title: "Eiffel Tower",
-        days: "02 Days",
-        image: "/assets/img/package-dt-location-img3.webp",
-    },
-    {
-        title: "Loire Valley",
-        days: "01 Days",
-        image: "/assets/img/package-dt-location-img3.webp",
-    },
-    {
-        title: "Southern France",
-        days: "01 Days",
-        image: "/assets/img/package-dt-location-img3.webp",
-    },
-    {
-        title: "Louvre Museum",
-        days: "03 Days",
-        image: "/assets/img/package-dt-location-img3.webp",
-    },
-    {
-        title: "Palace of Versailles",
-        days: "02 Days",
-        image: "/assets/img/package-dt-location-img3.webp",
-    },
-];
-
-
-
-const itineraryData: ItineraryItem[] = [
-    {
-        day: "Day-01",
-        title: "Eiffel Tower – The symbol of France",
-        description:
-            "Climb the Eiffel Tower, enjoy sunset views, picnic at Champ de Mars, and bike tours.",
-        transport: "Car, Flight, Boat",
-        activities: "Climb Tower, Sunset view, Bike tour",
-        meals: "Breakfast, Lunch, Snacks",
-        hotel: "Rajonikanto Hotel",
-    },
-    {
-        day: "Day-02",
-        title: "Louvre Museum – Home of the Mona Lisa",
-    },
-    {
-        day: "Day-03",
-        title: "Notre-Dame – Iconic Cathedral",
-        description:
-            "Explore Gothic architecture and historic surroundings of Notre-Dame.",
-        transport: "Bus, Walk",
-        activities: "Sightseeing, Photography",
-        meals: "Breakfast, Lunch",
-        hotel: "Paris Central Hotel",
-    },
-];
-
 
 
 
@@ -103,23 +30,7 @@ export default function RightGridLayout({
     packageData,
 }: Props) {
 
-    console.log("data", packageData);
 
-    const [page, setPage] = useState(1);
-
-    const [openIndexes, setOpenIndexes] = useState<number[]>([0]);
-
-
-
-    const isAllOpen = openIndexes.length === itineraryData.length;
-
-    const toggleAll = () => {
-        if (isAllOpen) {
-            setOpenIndexes([]);
-        } else {
-            setOpenIndexes(itineraryData.map((_, i) => i));
-        }
-    };
 
     const [openItems, setOpenItems] = useState<number[]>([0]);
     const [selectedItinerary, setSelectedItinerary] = useState<any>(null);
@@ -545,7 +456,7 @@ export default function RightGridLayout({
 
             </div>
             <div className="lg:col-span-4 lg:col-start-9">
-               <PackageSidebar packageData={packageData} />
+                <PackageSidebar packageData={packageData} />
             </div>
 
             <div className="col-span-12">

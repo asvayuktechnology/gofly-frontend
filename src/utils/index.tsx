@@ -110,3 +110,37 @@ export const SORT_OPTIONS = [
   { label: "Duration Low", value: "duration_low" },
   { label: "Duration High", value: "duration_high" },
 ] as const;
+
+export const categoryOptions = [
+  {
+    label: "Family Tour",
+    value: "family_tour",
+  },
+  {
+    label: "Honeymoon Tour",
+    value: "honeymoon_tour",
+  },
+  {
+    label: "Adventure Tour",
+    value: "adventure_tour",
+  },
+  {
+    label: "Group Tour",
+    value: "group_tour",
+  },
+  {
+    label: "Solo Tour",
+    value: "solo_tour",
+  },
+];
+
+
+export enum VisaType {
+  TOURIST_VISA = 'tourist_visa',
+  TRAVEL_VISA = 'travel_visa',
+  BUSINESS_VISA = 'business_visa',
+  STUDENT_VISA = 'student_visa',
+  WORK_VISA = 'work_visa',
+  MEDICAL_VISA = 'medical_visa',
+  SPOUSE_VISA = 'spouse_visa',
+}

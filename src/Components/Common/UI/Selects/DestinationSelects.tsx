@@ -59,23 +59,23 @@ export default function DestinationSelect({
   value,
   onChange,
 }: Props) {
-const [search, setSearch] = useState("");
-const [debouncedKeyword, setDebouncedKeyword] = useState("");
+  const [search, setSearch] = useState("");
+  const [debouncedKeyword, setDebouncedKeyword] = useState("");
 
-// DEBOUNCE
-useEffect(() => {
-  const timer = setTimeout(() => {
-    setDebouncedKeyword(search);
-  }, 500);
+  // DEBOUNCE
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedKeyword(search);
+    }, 500);
 
-  return () => clearTimeout(timer);
-}, [search]);
+    return () => clearTimeout(timer);
+  }, [search]);
 
-// API CALL
-const { data, isLoading } = useDestinations({
-  limit: 100,
-  keyword: debouncedKeyword,
-});
+  // API CALL
+  const { data, isLoading } = useDestinations({
+    limit: 100,
+    keyword: debouncedKeyword,
+  });
 
   const destinations = data?.data ?? [];
 
@@ -98,14 +98,14 @@ const { data, isLoading } = useDestinations({
           instanceId="destination-select"
           options={options}
           value={value}
-         
-            onInputChange={(value) => {
-    setSearch(value);
-  }}
-  onChange={(selected) =>
-    onChange(selected as SingleValue<DestinationOption>)
-  }
-  
+          required
+          onInputChange={(value) => {
+            setSearch(value);
+          }}
+          onChange={(selected) =>
+            onChange(selected as SingleValue<DestinationOption>)
+          }
+
           isSearchable
           isLoading={isLoading}
           placeholder="Type Your Destination"
@@ -118,10 +118,9 @@ const { data, isLoading } = useDestinations({
           unstyled
           classNames={{
             control: ({ isFocused }) =>
-              `min-h-[100px] border rounded-[14px] bg-white pl-10 pr-3 py-2 shadow-sm cursor-pointer ${
-                isFocused
-                  ? "border-[#2979ff]"
-                  : "border-[#e5e5e5]"
+              `min-h-[100px] border rounded-[14px] bg-white pl-10 pr-3 py-2 shadow-sm cursor-pointer ${isFocused
+                ? "border-[#2979ff]"
+                : "border-[#e5e5e5]"
               }`,
 
             valueContainer: () => "p-0",
@@ -141,10 +140,9 @@ const { data, isLoading } = useDestinations({
               "max-h-[280px] overflow-y-auto py-1",
 
             option: ({ isFocused, isSelected }) =>
-              `px-4 py-3 cursor-pointer border-b border-[#f3f3f3] last:border-b-0 ${
-                isSelected
-                  ? "bg-[#f8f8f8]"
-                  : isFocused
+              `px-4 py-3 cursor-pointer border-b border-[#f3f3f3] last:border-b-0 ${isSelected
+                ? "bg-[#f8f8f8]"
+                : isFocused
                   ? "bg-[#f7f7f7]"
                   : "bg-white"
               }`,

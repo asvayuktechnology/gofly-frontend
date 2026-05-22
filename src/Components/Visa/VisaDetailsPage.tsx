@@ -1,110 +1,116 @@
-import React from 'react'
-import VisaPackageGrid from './VisaPackageGrid'
-import WhyChooseVisa from './WhyChooseVisa'
-import ContactCTASection from './ContactCtaSection'
-import WorkingProcessSection from './WorkingProcessSection'
-import FaqSection from '../Common/FaqSection'
-import RightGridLayout from '../layouts/Grids/RightGridLayout'
+"use client";
+import { useState } from 'react'
 import VisaListSection from './VisaListSection'
-import PackageSidebar from '../Common/Sidebars/PackageSidebar'
 import RelevantPackageSection from '../Common/RelaventPackageSection'
 import InfoListCard from '../Common/UI/Cards/InfoListCard'
-import { VisaAdditionalRequirements, VisaConditionalRequirements, VisaDocumentsRequirements } from '@/lib/data'
 import { svgIcon } from '../Common/Icons/SvgIcons'
+import VisaSidebar from '../Common/Sidebars/VisaSidebar'
+import VisaFaqSection from './VisaFaqSections'
+import { useVisaCategoryDetails } from '@/services/visaService'
+import GlobalLoader from '../Common/GlobalLoader';
 
 
 
+interface Props {
+    categoryId: string;
+}
 
-const VisaDetailsPage = () => {
+const VisaDetailsPage = ({ categoryId }: Props) => {
+    const { data, isLoading } =
+        useVisaCategoryDetails(categoryId);
+
+    const visaData = data?.data?.data;
+    const [activeIndex, setActiveIndex] = useState(0);
+    const visaTypes = visaData?.visaTypes ?? [];
+
+    const selectedVisa = visaTypes[activeIndex];
+    const requirement = selectedVisa?.requirement;
+    const hasDocs = requirement?.documents?.length > 0;
+    const hasAdditional = requirement?.additionalReqs?.length > 0;
+    const hasConditional = requirement?.conditionalReqs?.length > 0;
+    const hasRejection = requirement?.rejectionReasons?.length > 0;
+    const hasNotes = requirement?.importantNotes?.length > 0;
+    const hasFaqs = requirement?.faqs?.length > 0;
+
+    if (isLoading) {
+        return <GlobalLoader text="Fetching visa details..." />;
+    }
     return (
         <>
             <div className="visa-details-page pt-100 mb-100">
                 <div className="container mx-auto">
-                    <VisaListSection />
+
+
+                    <VisaListSection
+                        visaTypes={visaTypes}
+                        activeIndex={activeIndex}
+                        setActiveIndex={setActiveIndex}
+                    />
 
                 </div>
-
 
                 <div className="container mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                         <div className="lg:col-span-7">
                             <div className="visa-details-wrapper active">
-                                <div className="single-requirement mb-50">
-                                    <h2>Documents Requirement</h2>
-                                    <InfoListCard items={VisaDocumentsRequirements} />
-                                </div>
-                                <div className="single-requirement mb-50">
-                                    <h2>Additional Requirement</h2>
-                                    <InfoListCard items={VisaAdditionalRequirements} />
-                                </div>
-                                <div className="single-requirement mb-50">
-                                    <h2>Conditional Requirement</h2>
-                                    <InfoListCard items={VisaConditionalRequirements} />
-                                </div>
+                                {hasDocs && (
+                                    <div className="single-requirement mb-50">
+                                        <h2>Documents Requirement</h2>
+                                        <InfoListCard items={requirement.documents} />
+                                    </div>
+                                )}
+                                {hasAdditional && (
+                                    <div className="single-requirement mb-50">
+                                        <h2>Additional Requirement</h2>
+                                        <InfoListCard items={requirement.additionalReqs} />
+                                    </div>
+                                )}
+                                {hasConditional && (
+                                    <div className="single-requirement mb-50">
+                                        <h2>Conditional Requirement</h2>
+                                        <InfoListCard items={requirement.conditionalReqs} />
+                                    </div>
+                                )}
 
-                                <div className="visa-rejection-area mb-50">
-                                    <h2>
-                                        {svgIcon.VisaRejectionIcon}
-                                        Visa Rejection Reasons
-                                    </h2>
-                                    <div className="visa-rejection-wrapper">
-                                        <div className="visa-rejection-content">
-                                            <h5>Common Reasons for Rejection:</h5>
-                                            <ul className="info-list two">
-                                                <li>
-                                                    {svgIcon.TickIcon}
-                                                    Insufficient financial proof.
-                                                </li>
-                                                <li>
-                                                    {svgIcon.TickIcon}
-                                                    Lack of strong ties to home country.
-                                                </li>
-                                                <li>
-                                                    {svgIcon.TickIcon}
-                                                    Incomplete or false documentation.
-                                                </li>
-                                                <li>
-                                                    {svgIcon.TickIcon}
-                                                    Suspicious travel history or security concerns.
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="visa-rejection-img">
-                                            <img
-                                                alt=""
-                                                loading="lazy"
-                                                width={250}
-                                                height={220}
-                                                decoding="async"
-                                                data-nimg={1}
-                                                style={{ color: "transparent" }}
-                                                src="/assets/img/visa-rejection-img.webp"
-                                            />
+                                {hasRejection && (
+                                    <div className="visa-rejection-area mb-50">
+                                        <h2>
+                                            {svgIcon.VisaRejectionIcon}
+                                            Visa Rejection Reasons
+                                        </h2>
+
+                                        <div className="visa-rejection-wrapper">
+                                            <div className="visa-rejection-content">
+                                                <h5>Common Reasons for Rejection:</h5>
+                                                <ul className="info-list two">
+                                                    {requirement.rejectionReasons.map((item: string, i: number) => (
+                                                        <li key={i}>
+                                                            {svgIcon.TickIcon}
+                                                            {item}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                )}
 
-                                <div className="note-area">
-                                    <h2>
-                                        {svgIcon.WarningIcon}
-                                        Important Note
-                                    </h2>
-                                    <ul className="info-list three">
-                                        <li>
-                                            {svgIcon.TickIcon}
-                                            Not all applicants need to submit these additional documents.
-                                        </li>
-                                        <li>
-                                            {svgIcon.TickIcon}
-                                            Conditional requirements depend on your nationality, travel history, and
-                                            purpose of visit.
-                                        </li>
-                                        <li>
-                                            {svgIcon.TickIcon}
-                                            Providing incomplete or false information can lead to visa rejection.
-                                        </li>
-                                    </ul>
-                                </div>
+                                {hasNotes && (
+                                    <div className="note-area">
+                                        <h2>
+                                            {svgIcon.WarningIcon}
+                                            Important Note
+                                        </h2>
+                                        <ul className="info-list three">
+                                            {requirement.importantNotes.map((item: string, i: number) => (
+                                                <li key={i}>
+                                                    {svgIcon.TickIcon}
+                                                    {item}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
 
 
 
@@ -112,9 +118,11 @@ const VisaDetailsPage = () => {
 
 
                         </div>
-                        <div className="lg:col-span-4 lg:col-start-9">
-                            <PackageSidebar />
-                        </div>
+                        {selectedVisa && (
+                            <div className="lg:col-span-4 lg:col-start-9">
+                                <VisaSidebar visa={selectedVisa} />
+                            </div>
+                        )}
 
                         <div className="col-span-12">
                             <RelevantPackageSection />
@@ -125,8 +133,9 @@ const VisaDetailsPage = () => {
 
                     <div className="grid grid-cols-12">
                         <div className="xl:col-span-8 lg:col-span-10 xl:col-start-3 lg:col-start-2">
-
-                            <FaqSection />
+                            {hasFaqs && (
+                                <VisaFaqSection faqs={requirement.faqs} />
+                            )}
                         </div>
 
                     </div>

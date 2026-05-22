@@ -76,3 +76,44 @@ input {
 .destination-dropdown .css-b62m3t-container {
   width: 100%;
 }
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================= GLOBAL LOADER ================= */
+
+.global-loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  backdrop-filter: blur(6px);
+}
+
+
+/* Text under loader */
+.global-loader-text {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #374151;
+  text-align: center;
+}
+
+/* Animation */
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.global-loader {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: conic-gradient(#2563eb, #60a5fa, #93c5fd, #2563eb);
+  -webkit-mask: radial-gradient(circle, transparent 55%, black 56%);
+  animation: spin 1s linear infinite;
+}

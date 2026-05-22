@@ -43,14 +43,14 @@ export default async function TravelPackagePage({
   return (
     <>
       <Breadcrumb
-        title="Tour Package 01"
+        title="Discover Tour Package Highlights"
         items={[
           {
             label: "Home",
             href: "/",
           },
           {
-            label: "Tour Package 01",
+            label: "Explore This Travel Package",
           },
         ]}
       />

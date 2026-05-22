@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import TourTabContent from "./Filters/TabsContent/TourTabContent";
 import { svgIcon } from "../Common/Icons/SvgIcons";
+import VisaTabFilter from "./Filters/visaFilter/visafilter";
 
 const Filters: React.FC = () => {
   type TabType = "tours" | "hotels" | "visa" | "experience";
@@ -41,7 +42,7 @@ const Filters: React.FC = () => {
               </li> */}
 
               {/* Visa */}
-              {/* <li
+              <li
                 onClick={() => handleTabClick("visa")}
                 className={`single-item visa flex items-center gap-2 cursor-pointer px-4 py-2 rounded-md transition-all
             ${activeTab === "visa" ? "bg-black text-white" : "text-gray-600 hover:bg-gray-100"}
@@ -49,7 +50,7 @@ const Filters: React.FC = () => {
               >
                 {svgIcon.visaIcon}
                 <span>Visa</span>
-              </li> */}
+              </li>
 
               {/* Experience */}
               {/* <li
@@ -67,7 +68,7 @@ const Filters: React.FC = () => {
             <div className="filter-input-wrap">
               {activeTab === "tours" && <TourTabContent />}
               {activeTab === "hotels" && <div>Hotels Content</div>}
-              {activeTab === "visa" && <div>Visa Content</div>}
+              {activeTab === "visa" && <div><VisaTabFilter/></div>}
               {activeTab === "experience" && <div>Experience Content</div>}
               <p>
                 Can’t find what you’re looking for? create your{" "}

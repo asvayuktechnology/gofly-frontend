@@ -43,6 +43,7 @@ export default function TourDatePicker({
     onChange={(date: Date | null) =>
       onChange(date)
     }
+    required
     minDate={new Date()}
     dateFormat="dd MMM yyyy"
     customInput={
