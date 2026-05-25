@@ -100,10 +100,9 @@ const BlogSlider = () => {
           </div>
         </div>
 
-        {/* BUTTON */}
         <div className="flex justify-center">
           <SiteBtn
-            link="/blog/"
+            link="/travel-inspiration"
             svgIcon={svgIcon.arrow}
             iconPosition="end"
             text=" View All Inspiration"

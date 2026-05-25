@@ -281,11 +281,11 @@ const Footer: React.FC = () => {
                   },
                   {
                     title: "Visa Processing",
-                    url: "/visa-processing",
+                    url: "/visa",
                   },
                   {
                     title: "Customize Tour",
-                    url: "/customize-tour",
+                    url: "/contact",
                   },
                   {
                     title: "Travel Inspirations",
@@ -306,9 +306,7 @@ const Footer: React.FC = () => {
                   <ul className="widget-list">
                     {section.links.map((item, idx) => (
                       <li key={idx}>
-                        <Link href={item.url}>
-                          {item.title}
-                        </Link>
+                        <Link href={item.url}>{item.title}</Link>
                       </li>
                     ))}
                   </ul>

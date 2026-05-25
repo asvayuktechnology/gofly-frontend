@@ -9,13 +9,31 @@ import { Play } from 'lucide-react'
 import TestimonialSection from '../Home/TestimonialSection'
 import FaqSection from '../Common/FaqSection'
 import CounterSection from '../Common/CounterSection'
-import VideoSection from '../Common/VideoSection'
+import { useGetSettings } from '@/services/settingService'
 
-
+const counterData = [
+  {
+    title: "Happy Travelers",
+    value: 500,
+  },
+  {
+    title: "Team Members",
+    value: 120,
+  },
+  {
+    title: "Countries Covered",
+    value: 80,
+  },
+  {
+    title: "Retention Rate",
+    value: 98,
+  },
+];
 
 
 const AboutPage = () => {
     const [isOpen, setIsOpen] = useState(false);
+  const { data: settings } = useGetSettings();
     return (
         <>
             <AboutSection />
@@ -66,12 +84,12 @@ const AboutPage = () => {
             <div className="container mx-auto">
                 <div className="grid grid-cols-12">
                     <div className="col-span-8 col-start-3">
-
-                        <FaqSection />
+            
+                       <FaqSection faqData={settings?.faq || []} />
                     </div>
-                </div>
-            </div>
-            <CounterSection />
+                  </div>
+                  </div>
+                  <CounterSection counterData={settings?.numberSpeak || []} />
 
         </>
     )

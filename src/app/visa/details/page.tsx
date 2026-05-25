@@ -3,8 +3,13 @@ import VisaDetailsPage from "@/Components/Visa/VisaDetailsPage";
 import Visapage from "@/Components/Visa/Visapage";
 
 
+interface PageProps {
+    params: {
+        categoryId: string;
+    };
+}
 
-export default function TravelPackagePage() {
+export default function TravelPackagePage({ params }: PageProps) {
     return (
         <>
             <Breadcrumb
@@ -15,9 +20,7 @@ export default function TravelPackagePage() {
                 ]}
             />
 
-
-            <VisaDetailsPage />
-
+            <VisaDetailsPage categoryId={params.categoryId} />
         </>
     );
 }
