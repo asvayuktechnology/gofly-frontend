@@ -306,8 +306,8 @@ const Footer: React.FC = () => {
                   <ul className="widget-list">
                     {section.links.map((item, idx) => (
                       <li key={idx}>
-                        <Link href="#">
-                          {item}
+                        <Link href={item.url}>
+                          {item.title}
                         </Link>
                       </li>
                     ))}
