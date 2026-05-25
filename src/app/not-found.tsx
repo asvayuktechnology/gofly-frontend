@@ -56,7 +56,7 @@ export default function NotFound() {
         className="vector1 w-full"
       />
       <img
-        src="/assets/img/innerpages/vector/error-page-vector2.svg"
+        src="/assets/img/error-page-vector2.svg"
         alt=""
         className="vector2 w-full"
       />

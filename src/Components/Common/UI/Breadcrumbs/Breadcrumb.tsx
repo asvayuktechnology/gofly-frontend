@@ -27,7 +27,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
         <div className="banner-content text-center">
           {/* Page Title */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            {title}
+            {title}  Visa
           </h1>
 
           {/* Breadcrumb Navigation */}
@@ -42,7 +42,9 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                     {item.label}
                   </Link>
                 ) : (
-                  <span className="text-white font-semibold">{item.label}</span>
+                  <span className="text-white font-semibold">
+                    {item.label} Visa
+                  </span>
                 )}
 
                 {/* Separator */}

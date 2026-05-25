@@ -6,22 +6,34 @@ import { useState } from "react";
 import { svgIcon } from "../Icons/SvgIcons";
 import SiteBtn from "../SiteBtn/SiteBtn";
 
-const PackageSidebar = () => {
+interface PackageSidebarProps {
+  packageData: any;
+}
+
+const PackageSidebar = ({ packageData }: PackageSidebarProps) => {
   const [showBooking, setShowBooking] = useState(false);
   const [showEnquiry, setShowEnquiry] = useState(false);
-
+const discount = packageData?.discounts?.[0];
   return (
     <div className="package-details-sidebar">
       {/* Pricing */}
       <div className="pricing-and-booking-area mb-40">
         <div className="batch">
-          <span>10% Off</span>
-        </div>
+ {discount?.discount > 0 && (
+  <div className="batch">
+    <span>
+      {discount?.discount}
+      {discount?.type === "percentage" ? "% Off" : "$ Off"}
+    </span>
+  </div>
+)}
+    </div>
 
         <div className="price-area">
           <h6>Starting From</h6>
-          <span>
-            <del>$899</del> $800<sub>/per person</sub>
+           <span>
+            <del>${packageData?.originalPrice}</del> ${packageData?.pricePerPerson}
+            <sub>/per person</sub>
           </span>
         </div>
 

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import TourTabContent from "./Filters/TabsContent/TourTabContent";
 import { svgIcon } from "../Common/Icons/SvgIcons";
+import VisaTabFilter from "./Filters/visaFilter/visafilter";
 
 const Filters: React.FC = () => {
   type TabType = "tours" | "hotels" | "visa" | "experience";
@@ -30,7 +31,7 @@ const Filters: React.FC = () => {
               </li>
 
               {/* Hotels */}
-              <li
+              {/* <li
                 onClick={() => handleTabClick("hotels")}
                 className={`single-item hotel flex items-center gap-2 cursor-pointer px-4 py-2 rounded-md transition-all
             ${activeTab === "hotels" ? "bg-black text-white" : "text-gray-600 hover:bg-gray-100"}
@@ -38,7 +39,7 @@ const Filters: React.FC = () => {
               >
                 {svgIcon.hotelIcon}
                 <span>Hotels</span>
-              </li>
+              </li> */}
 
               {/* Visa */}
               <li
@@ -52,7 +53,7 @@ const Filters: React.FC = () => {
               </li>
 
               {/* Experience */}
-              <li
+              {/* <li
                 onClick={() => handleTabClick("experience")}
                 className={`single-item flex items-center gap-2 cursor-pointer px-4 py-2 rounded-md transition-all
             ${activeTab === "experience" ? "bg-black text-white" : "text-gray-600 hover:bg-gray-100"}
@@ -60,14 +61,14 @@ const Filters: React.FC = () => {
               >
                 {svgIcon.experienceIcon}
                 <span>Experience</span>
-              </li>
+              </li> */}
             </ul>
 
             {/* Content */}
             <div className="filter-input-wrap">
               {activeTab === "tours" && <TourTabContent />}
               {activeTab === "hotels" && <div>Hotels Content</div>}
-              {activeTab === "visa" && <div>Visa Content</div>}
+              {activeTab === "visa" && <div><VisaTabFilter/></div>}
               {activeTab === "experience" && <div>Experience Content</div>}
               <p>
                 Can’t find what you’re looking for? create your{" "}

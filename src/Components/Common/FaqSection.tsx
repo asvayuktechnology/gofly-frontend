@@ -1,11 +1,19 @@
 "use client";
 
-import { FAQ_ITEMS } from "@/lib/data";
 import React, { useState } from "react";
-import { BsFillCaretDownFill, BsFillCaretRightFill } from "react-icons/bs";
+import { BsFillCaretDownFill } from "react-icons/bs";
 
-const FaqSection: React.FC = () => {
-  const [active, setActive] = useState<string>("One");
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  faqData: FAQItem[];
+}
+
+const FaqSection: React.FC<Props> = ({ faqData }) => {
+  const [active, setActive] = useState<string>("0");
 
   const toggle = (id: string) => {
     setActive((prev) => (prev === id ? "" : id));
@@ -22,58 +30,76 @@ const FaqSection: React.FC = () => {
           <div className="col-xl-6 col-lg-8">
             <div className="section-title text-center">
               <h2>Questions &amp; Answer</h2>
+
               <p>
-                We’re committed to offering more than just products—we provide
-                exceptional experiences.
+                We’re committed to offering more than just
+                products—we provide exceptional experiences.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-12 ">
+        <div className="grid grid-cols-12">
           <div className="col-span-12">
             <div className="faq-wrap">
               <div className="accordion accordion-flush">
-                {FAQ_ITEMS.map((item, index) => {
-                  const isOpen = active === item.id;
+                {faqData?.map((item, index) => {
+                  const id = String(index);
+
+                  const isOpen = active === id;
 
                   return (
                     <div
-                      key={item.id}
+                      key={index}
                       className="accordion-item wow animate fadeInDown"
-                      data-wow-delay={`${200 + index * 200}ms`}
+                      data-wow-delay={`${
+                        200 + index * 200
+                      }ms`}
                       data-wow-duration="1500ms"
                     >
                       <h5 className="accordion-header">
                         <button
                           className={`accordion-button w-full flex justify-between items-center ${
-                            !isOpen ? "collapsed" : ""
+                            !isOpen
+                              ? "collapsed"
+                              : ""
                           }`}
                           type="button"
-                          onClick={() => toggle(item.id)}
+                          onClick={() => toggle(id)}
                         >
                           {item.question}
+
                           <BsFillCaretDownFill
                             size={12}
                             fill="#525252"
-                            className={` sidebar-category-icon transition-transform ${
-                              !isOpen ? "" : "rotate-180"
+                            className={`sidebar-category-icon transition-transform ${
+                              isOpen
+                                ? "rotate-180"
+                                : ""
                             }`}
                           />
                         </button>
                       </h5>
 
                       <div
-                        className={`accordion-collapse collapse  ${
+                        className={`accordion-collapse collapse ${
                           isOpen ? "show" : ""
                         }`}
                       >
-                        <div className="accordion-body">{item.answer}</div>
+                        <div className="accordion-body">
+                          {item.answer}
+                        </div>
                       </div>
                     </div>
                   );
                 })}
               </div>
+
+              {faqData?.length === 0 && (
+                <p className="text-center">
+                  No FAQs Found
+                </p>
+              )}
             </div>
           </div>
         </div>
