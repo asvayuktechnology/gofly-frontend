@@ -68,7 +68,7 @@ const Filters: React.FC = () => {
             <div className="filter-input-wrap">
               {activeTab === "tours" && <TourTabContent />}
               {activeTab === "hotels" && <div>Hotels Content</div>}
-              {activeTab === "visa" && <div><VisaTabFilter/></div>}
+              {activeTab === "visa" && <div><VisaTabFilter /></div>}
               {activeTab === "experience" && <div>Experience Content</div>}
               <p>
                 Can’t find what you’re looking for? create your{" "}

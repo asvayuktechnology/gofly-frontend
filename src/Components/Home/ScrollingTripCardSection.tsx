@@ -7,6 +7,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { BASE_URL } from "@/lib/const";
 
+
+
 interface Props {
   packages: any[];
   title: string;
@@ -29,7 +31,7 @@ export default function OneDayTripSection({
           </h2>
 
           <p className="text-gray-600">
-           {subtitle}
+           A curated list of the most popular travel packages based on different destinations.
           </p>
         </div>
 
