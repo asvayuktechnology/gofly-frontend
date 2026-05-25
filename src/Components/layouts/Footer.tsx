@@ -281,11 +281,11 @@ const Footer: React.FC = () => {
                   },
                   {
                     title: "Visa Processing",
-                    url: "/visa-processing",
+                    url: "/visa",
                   },
                   {
                     title: "Customize Tour",
-                    url: "/customize-tour",
+                    url: "/contact",
                   },
                   {
                     title: "Travel Inspirations",
@@ -303,15 +303,13 @@ const Footer: React.FC = () => {
                     <h5>{section.title}</h5>
                   </div>
 
-                 <ul className="widget-list">
-  {section.links.map((item, idx) => (
-    <li key={idx}>
-      <Link href={item.url}>
-        {item.title}
-      </Link>
-    </li>
-  ))}
-</ul>
+                  <ul className="widget-list">
+                    {section.links.map((item, idx) => (
+                      <li key={idx}>
+                        <Link href={item.url}>{item.title}</Link>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             ))}
