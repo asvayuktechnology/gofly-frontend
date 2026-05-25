@@ -22,12 +22,12 @@ export interface Destination {
   name: string;
   country: string;
   region:
-    | "Europe"
-    | "Asia"
-    | "Middle East"
-    | "Africa"
-    | "North America"
-    | "Oceania";
+  | "Europe"
+  | "Asia"
+  | "Middle East"
+  | "Africa"
+  | "North America"
+  | "Oceania";
   image: string;
   tourCount: number;
   departureCount: number;
@@ -111,6 +111,8 @@ export interface btnprops {
   className?: string;
   svgIcon?: ReactNode;
   iconPosition?: "start" | "end";
+    onClick?: () => void;
+
 }
 
 export interface TooltipProps {
@@ -124,12 +126,20 @@ export interface PackageCardProps {
   location: string;
   duration: string;
   price: number;
-  image: string;
+
+  image: string | string[]; // ✅ supports slider
   badge?: string;
-  link: string;
-  experiences: string;
-  inclusions: string;
-  delay?: number; // Optional for WOW.js animation
+
+  link?: string; // ✅ optional (fixes your error)
+
+  experiences?: string[]; // ✅ always array (cleaner)
+  inclusions?: string[]; // ✅ only for travel
+
+  priceLabel?: string; // ✅ for "Per Person" / "Starting From"
+
+  variant?: "travel" | "experience"; // ✅ future-safe UI control
+
+  delay?: number;
 }
 
 export type VisaPackage = {
@@ -148,16 +158,16 @@ export interface WhyChooseItem {
   variant?: "two" | "three" | "four";
   delay: string;
   icon?: ReactNode;
-};
+}
 
 export interface OfferProps {
   offer: Offer;
   priority?: boolean;
-};
+}
 
 export interface PopularTravelPackageProps {
   packages?: Packages[];
-};
+}
 
 export interface OfferBannerProps {
   backgroundImage: string;
@@ -167,7 +177,7 @@ export interface OfferBannerProps {
   authorRole?: string;
   buttonText?: string;
   buttonLink?: string;
-
+  link?: string ;
 }
 export interface Partner {
   id: number;
@@ -184,17 +194,17 @@ export type BlogCardProps = {
 };
 
 export interface FAQItem {
-    id: string;
-    question: string;
-    answer: React.ReactNode;
-};
+  id: string;
+  question: string;
+  answer: React.ReactNode;
+}
 
 export interface CounterItem {
   id: number;
   value: number;
   suffix: string;
   label: string;
-  icon: React. ReactNode;
+  icon: React.ReactNode;
 }
 export interface VisaDataItem {
   id: number;
@@ -206,4 +216,81 @@ export interface VisaDataItem {
 export interface InfoListProps {
   items: string[];
   className?: string;
+}
+export type Story = {
+  id: number;
+  image?: string;
+  video?: string;
+  quote?: string;
+  name?: string;
+  role?: string;
+};
+
+export type Office = {
+  id: number;
+  title: string;
+  phone: string;
+  address: string;
+  variant?: string;
+};
+export interface PackagePaginationProps {
+  currentPage?: number;
+  totalPages?: number;
+  onPageChange?: (page: number) => void;
+};
+
+export interface SortingSectionProps {
+  totalJourneys?: number;
+  onFilterClick?: () => void;
+  onSortChange?: (value: string) => void;
+  onViewChange?: (view: "grid" | "list") => void;
+};
+
+export interface Category {
+  name: string;
+  subCategories: SubCategory[];
+};
+export interface SubCategory {
+  name: string;
+  count: number;
+};
+export interface BreadcrumbItem {
+  label: string;
+  href?: string; // Optional for the current page
+}
+
+export interface BreadcrumbProps {
+  title: string;
+  items: BreadcrumbItem[];
+  backgroundImage?: string;
+  className?: string;
+}
+export type Location = {
+  title: string;
+  days: string;
+  image: string;
+};
+
+export interface ItineraryItem {
+  day: string;
+  title: string;
+  description?: string;
+  transport?: string;
+  activities?: string;
+  meals?: string;
+  hotel?: string;
+}
+
+export interface ExperienceCardItem {
+  id: number;
+  title: string;
+  location: string;
+  duration: string;
+  price: string;
+  priceLabel: string;
+  image: string[];
+  badge: string;
+  link?: string;
+  features: string[];
+  isSlider?: boolean;
 }

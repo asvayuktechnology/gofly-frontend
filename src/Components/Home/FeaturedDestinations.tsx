@@ -8,8 +8,9 @@ import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-
 import { svgIcon } from "../Common/Icons/SvgIcons";
+
+
 
 import { useDestinations } from "@/services/destinationService";
 import { DestinationItem } from "@/types/destinationType";

@@ -8,6 +8,7 @@ import VisaSidebar from '../Common/Sidebars/VisaSidebar'
 import VisaFaqSection from './VisaFaqSections'
 import { useVisaCategoryDetails } from '@/services/visaService'
 import GlobalLoader from '../Common/GlobalLoader';
+import SuccessStories from './SuccessStories'
 
 
 
@@ -141,6 +142,20 @@ const VisaDetailsPage = ({ categoryId }: Props) => {
                     </div>
                 </div>
             </div>
+            <div className="">
+                <SuccessStories />
+            </div>
+            <div className="container mx-auto">
+
+                <div className="grid grid-cols-12">
+                    <div className="xl:col-span-8 lg:col-span-10 xl:col-start-3 lg:col-start-2">
+
+                        {/* <FaqSection /> */}
+                    </div>
+
+                </div>
+            </div>
+
         </>
     )
 }

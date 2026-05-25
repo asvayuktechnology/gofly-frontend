@@ -7,12 +7,12 @@ import { OfferBannerProps } from "@/types";
 
 export default function OfferBanner({
   backgroundImage,
-  subtitle = "Make Meet Happiness.",
+  subtitle,
   title,
-  authorName = "Mr. Gabriel Haringson",
-  authorRole = "CEO, GoFly",
-  buttonText = "Grab the Deal Now",
-  buttonLink = "/travel-package",
+  authorName,
+  authorRole,
+  buttonText,
+  buttonLink,
 }: OfferBannerProps) {
   return (
     <div
@@ -33,10 +33,10 @@ export default function OfferBanner({
             <span className="text-sm opacity-90">{authorRole}</span>
           </div>
           <SiteBtn
-            link={buttonLink}
+            link={buttonLink || "#"}
             svgIcon={svgIcon.arrow}
             iconPosition="end"
-            text={buttonText}
+            text={buttonText || "Learn More"}
             className="primary-btn1 two inline-flex items-center gap-2"
           />
         </div>

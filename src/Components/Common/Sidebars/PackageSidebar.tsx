@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { svgIcon } from "../Icons/SvgIcons";
+import SiteBtn from "../SiteBtn/SiteBtn";
 
 interface PackageSidebarProps {
   packageData: any;
@@ -14,7 +16,6 @@ const PackageSidebar = ({ packageData }: PackageSidebarProps) => {
 const discount = packageData?.discounts?.[0];
   return (
     <div className="package-details-sidebar">
-      
       {/* Pricing */}
       <div className="pricing-and-booking-area mb-40">
         <div className="batch">
@@ -37,29 +38,31 @@ const discount = packageData?.discounts?.[0];
         </div>
 
         <ul>
-          <li>✔ Money Back Guarantee.</li>
-          <li>✔ Your Safety is Our Top Priority.</li>
+          <li>{svgIcon.detailcheckIcon} Money Back Guarantee.</li>
+          <li>{svgIcon.detailcheckIcon} Your Safety is Our Top Priority.</li>
         </ul>
 
         {/* Buttons */}
-        <button
+
+        <SiteBtn
+          link={"#"}
+          svgIcon={svgIcon.arrow}
+          iconPosition="end"
+          text="Check Availability"
           className="primary-btn1 mb-20"
           onClick={() => setShowBooking(true)}
-        >
-          <span>Check Availability</span>
-          <span>Check Availability</span>
-        </button>
+        />
 
-        <button
+        <SiteBtn
+          link={"#"}
+          svgIcon={svgIcon.arrow}
+          iconPosition="end"
+          text="Submit an Enquiry"
           className="primary-btn1 transparent"
           onClick={() => setShowEnquiry(true)}
-        >
-          <span>Submit an Enquiry</span>
-          <span>Submit an Enquiry</span>
-        </button>
-
+        />
         <span>
-          ℹ Bonus Activity Included – Limited Time!
+          {svgIcon.warningIcon2} Bonus Activity Included – Limited Time!
         </span>
       </div>
 
@@ -70,8 +73,8 @@ const discount = packageData?.discounts?.[0];
         </h2>
 
         <ul>
-          <li>✔ Make Your Favourite Package</li>
-          <li>✔ Enjoy Your Trip</li>
+          <li>{svgIcon.detailcheckIcon} Make Your Favourite Package</li>
+          <li>{svgIcon.detailcheckIcon} Enjoy Your Trip</li>
         </ul>
 
         {/* Counter Area */}
@@ -111,13 +114,13 @@ const discount = packageData?.discounts?.[0];
           </h6>
         </div>
 
-        <Link
-          href="/contact"
+        <SiteBtn
+          link="/contact"
+          svgIcon={svgIcon.arrow}
+          iconPosition="end"
+          text="Customize Package"
           className="primary-btn1 two black-bg"
-        >
-          <span>Customize Package</span>
-          <span>Customize Package</span>
-        </Link>
+        />
       </div>
 
       {/* Booking Modal */}
@@ -126,10 +129,7 @@ const discount = packageData?.discounts?.[0];
           <div className="bg-white p-6 rounded-lg w-[90%] max-w-md">
             <h4 className="mb-4">Check Availability</h4>
 
-            <input
-              type="date"
-              className="w-full border p-2 mb-3"
-            />
+            <input type="date" className="w-full border p-2 mb-3" />
             <input
               type="number"
               placeholder="Guests"

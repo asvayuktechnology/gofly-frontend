@@ -233,28 +233,64 @@ const Footer: React.FC = () => {
               {
                 title: "Top Destination",
                 links: [
-                  "Maldives Tour",
-                  "Bali, Indonesia Tour",
-                  "Thailand Tour",
-                  "Philippines Tour",
+                  {
+                    title: "Maldives Tour",
+                    url: "/maldives-tour",
+                  },
+                  {
+                    title: "Bali, Indonesia Tour",
+                    url: "/bali-indonesia-tour",
+                  },
+                  {
+                    title: "Thailand Tour",
+                    url: "/thailand-tour",
+                  },
+                  {
+                    title: "Philippines Tour",
+                    url: "/philippines-tour",
+                  },
                 ],
               },
               {
                 title: "Popular Search",
                 links: [
-                  "Adventure",
-                  "Hiking & Stiking",
-                  "Holiday Packages",
-                  "Flights And Hotels",
+                  {
+                    title: "Adventure",
+                    url: "/adventure",
+                  },
+                  {
+                    title: "Hiking & Stiking",
+                    url: "/hiking-stiking",
+                  },
+                  {
+                    title: "Holiday Packages",
+                    url: "/holiday-packages",
+                  },
+                  {
+                    title: "Flights And Hotels",
+                    url: "/flights-and-hotels",
+                  },
                 ],
               },
               {
                 title: "Resources",
                 links: [
-                  "About GoFly",
-                  "Visa Processing",
-                  "Customize Tour",
-                  "Travel Inspirations",
+                  {
+                    title: "About GoFly",
+                    url: "/about",
+                  },
+                  {
+                    title: "Visa Processing",
+                    url: "/visa-processing",
+                  },
+                  {
+                    title: "Customize Tour",
+                    url: "/customize-tour",
+                  },
+                  {
+                    title: "Travel Inspirations",
+                    url: "/travel-inspirations",
+                  },
                 ],
               },
             ].map((section, i) => (
@@ -267,15 +303,15 @@ const Footer: React.FC = () => {
                     <h5>{section.title}</h5>
                   </div>
 
-                  <ul className="widget-list">
-                    {section.links.map((item, idx) => (
-                      <li key={idx}>
-                        <Link href="#">
-                          {item}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                 <ul className="widget-list">
+  {section.links.map((item, idx) => (
+    <li key={idx}>
+      <Link href={item.url}>
+        {item.title}
+      </Link>
+    </li>
+  ))}
+</ul>
                 </div>
               </div>
             ))}
