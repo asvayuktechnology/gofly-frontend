@@ -35,7 +35,6 @@ const SiteBtn = ({
         {text}
         {iconPosition === "end" && svgIcon}
       </span>
-
       <span>
         {iconPosition === "start" && svgIcon}
         {text}

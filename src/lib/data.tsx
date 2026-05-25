@@ -17,6 +17,8 @@ import {
   Category,
   ItineraryItem,
   ExperienceCardItem,
+  WhyChooseCardData,
+  TravelSeasonCardData,
 } from "@/types";
 
 // export const POPULAR_PACKAGES: TravelPackage[] = [
@@ -991,6 +993,26 @@ export const locationsdetail = [
     days: "02 Days",
     image: "/assets/img/package-dt-location-img3.webp",
   },
+  {
+    title: "Loire Valley",
+    days: "01 Days",
+    image: "/assets/img/package-dt-location-img3.webp",
+  },
+  {
+    title: "Southern France",
+    days: "01 Days",
+    image: "/assets/img/package-dt-location-img3.webp",
+  },
+  {
+    title: "Louvre Museum",
+    days: "03 Days",
+    image: "/assets/img/package-dt-location-img3.webp",
+  },
+  {
+    title: "Palace of Versailles",
+    days: "02 Days",
+    image: "/assets/img/package-dt-location-img3.webp",
+  },
 ];
 
 export const itineraryData: ItineraryItem[] = [
@@ -1154,4 +1176,83 @@ export const ExperienceCardData: ExperienceCardItem[] = [
     ],
     isSlider: true,
   },
+];
+
+export const WhyChooseData: WhyChooseCardData[] = [
+    {
+        title: "Local Expertise",
+        description:
+            "From secret spots in Montmartre to skip-the-line Eiffel Tower access — we curate every journey with insider knowledge.",
+        delay: "200ms",
+        icon: svgIcon.localexpertiseIcon,
+    },
+    {
+        title: "Transparent Pricing",
+        description:
+            "No hidden charges, no last-minute surprises — just honest pricing and exceptional travel value.",
+        delay: "400ms",
+        icon:svgIcon.TransparentPricing,
+    },
+    {
+        title: "24/7 Support",
+        description:
+            "Travel confidently with round-the-clock assistance before, during, and after your journey.",
+        delay: "600ms",
+        icon: svgIcon.support,
+    },
+];
+
+export const travelSeasons: TravelSeasonCardData[] = [
+    {
+        title: "Spring (March–May)",
+        weather: "Weather: 12–20°C / 53–68°F",
+        image: "/assets/img/travel-season-img1.webp",
+        highlights: [
+            "Cherry blossoms, café culture.",
+            "Moderate crowds.",
+            "Ideal for outdoor walks & photo spots.",
+        ],
+        note:
+            "Perfect For: First-time travelers, couples, light packers",
+        delay: "200ms",
+    },
+    {
+        title: "Summer (June–August)",
+        weather: "Weather: 20–30°C / 68–86°F",
+        image: "/assets/img/travel-season-img1.webp",
+        highlights: [
+            "Long daylight hours.",
+            "Open-air cinema, festivals.",
+            "High tourist volume & prices.",
+        ],
+        note:
+            "Perfect For: Festival lovers, families, nightlife explorers",
+        delay: "400ms",
+    },
+    {
+        title: "Autumn (Sep to Nov)",
+        weather: "Weather: 0–18°C / 50–64°F",
+        image: "/assets/img/travel-season-img1.webp",
+        highlights: [
+            "Golden parks, wine season.",
+            "Fewer tourists, great photos.",
+            "Fashion Week buzz.",
+        ],
+        note:
+            "Photographers, solo travelers, wine lovers",
+        delay: "600ms",
+    },
+    {
+        title: "Winter (Dec to Feb)",
+        weather: "Weather: 3–8°C / 37–46°F",
+        image: "/assets/img/travel-season-img1.webp",
+        highlights: [
+            "Christmas markets, cozy cafés.",
+            "Fewer crowds, better deals.",
+            "Occasional snow = pure magic.",
+        ],
+        note:
+            "Budget travelers, romantics, festive moods",
+        delay: "600ms",
+    },
 ];

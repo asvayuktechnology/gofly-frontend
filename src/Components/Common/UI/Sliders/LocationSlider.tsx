@@ -24,6 +24,7 @@ interface LocationSliderProps {
     autoplayDelay?: number;
     loop?: boolean;
     showNavigation?: boolean;
+    slidesPerView?: number;
 }
 
 
@@ -35,6 +36,7 @@ export default function LocationSlider({
     autoplay = true,
     autoplayDelay = 3000,
     showNavigation = true,
+    slidesPerView = 3,
 }: LocationSliderProps) {
     const navigationId = Math.random().toString(36).substring(2, 9);
 
@@ -45,7 +47,7 @@ export default function LocationSlider({
                 className={sliderClassName}
                 modules={[Navigation, Autoplay]}
                 spaceBetween={20}
-                slidesPerView={3}
+                slidesPerView={slidesPerView}
                 navigation={{
                     nextEl: `.location-slider-next-${navigationId}`,
                     prevEl: `.location-slider-prev-${navigationId}`,
