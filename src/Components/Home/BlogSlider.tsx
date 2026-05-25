@@ -79,7 +79,7 @@ const BlogSlider = () => {
                             year: "numeric",
                           })}
                           description={blog.description}
-                          link={`/travel-inspiration/${blog.slug}`}
+                          link={`/blog/details/${blog._id}`}
                         />
                       </SwiperSlide>
                     ))}

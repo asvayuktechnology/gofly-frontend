@@ -85,45 +85,36 @@ ${hasError ? 'border-red-500' : 'border-black'}`}
       </ColumnDiv>
     );
   } else {
-    return (
-      <ColumnDiv>
-        <div className='relative'>
-          {authinput ? (
-            <label
-              htmlFor={name}
-              className={`absolute left-3 text-[11px] text-black pointer-events-none
-            ${inputValue ? 'opacity-0' : 'opacity-100 top-[3px]'}`}
-            >
-              {label}
-            </label>
-          ) : (
-            <label
-              htmlFor={name}
-              className="py-1 text-black text-[11px] absolute -top-[0px] left-3 pointer-events-none"
-            >
-              {label}
-            </label>
-          )}
+  return (
+    <ColumnDiv className="w-full">
+      <label
+        htmlFor={name}
+        className="block mb-2 text-[11px] text-black font-medium"
+      >
+        {label}
+      </label>
 
-          <input
-            id={name}
-            type={type}
-            value={inputValue}
-            placeholder={placeholder}
-            className="h-12 bg-white text-black border border-black 
-focus:outline-none focus:border-black 
-rounded-md w-full p-4 pl-2"
-            onChange={(e) => {
-              setInputValue(e.target.value);
-              onChange?.(e);
-            }}
-          />
-        </div>
+      <input
+        id={name}
+        name={name}
+        type={type}
+        value={inputValue}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        className={`h-12 bg-white text-black border rounded-[8px] w-full px-4
+        focus:outline-none focus:border-black
+        ${hasError ? "border-red-500" : "border-black"}`}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          onChange?.(e);
+        }}
+      />
 
-        <ErrorLabel fieldError={error} />
-      </ColumnDiv>
-    );
+      <ErrorLabel fieldError={error} />
+    </ColumnDiv>
+  );
+}
   }
-};
+
 
 export default TextInput;

@@ -1,6 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Button from "../Common/input/Button";
+import TextAreaInput from "../Common/input/TextAreaInput";
+import TextInput from "../Common/input/TextInput";
+import FileUploadInput from "../Common/input/uploadImage";
+
 
 interface Props {
   isOpen: boolean;
@@ -8,70 +13,136 @@ interface Props {
 }
 
 const VisaApplyModal = ({ isOpen, onClose }: Props) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    dob: "",
+    phone: "",
+    email: "",
+    notes: "",
+    file: null as File | null,
+  });
+
   if (!isOpen) return null;
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value, files } = e.target as HTMLInputElement;
+
+    if (files) {
+      setFormData((prev) => ({
+        ...prev,
+        file: files[0],
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    console.log(formData);
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       {/* Modal Box */}
-      <div className="bg-white w-full max-w-2xl rounded-2xl p-6 relative shadow-xl">
+      <div className="bg-white w-full max-w-2xl rounded-2xl p-6 relative shadow-xl max-h-[90vh] overflow-y-auto">
 
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-black"
+          className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl cursor-pointer"
         >
           ✕
         </button>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold mb-5">
+        <h2 className="text-2xl font-bold mb-6">
           Apply for Visa
         </h2>
 
         {/* Form */}
-        <form className="grid grid-cols-2 gap-4">
-
-          <input
-            placeholder="Your Name"
-            className="border p-3 rounded-lg col-span-1"
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-5"
+        >
+          {/* Name */}
+          <TextInput
+            name="name"
+            label="Your Name"
+            // placeholder="Enter your name"
+            value={formData.name}
+            onChange={handleChange}
           />
 
-          <input
+          {/* Date */}
+          <TextInput
+            name="dob"
             type="date"
-            className="border p-3 rounded-lg col-span-1"
+            label="Date of Birth"
+            value={formData.dob}
+            onChange={handleChange}
           />
 
-          <input
-            placeholder="Phone Number"
-            className="border p-3 rounded-lg col-span-1"
+          {/* Phone */}
+          <TextInput
+            name="phone"
+            label="Phone Number"
+            //placeholder="Enter phone number"
+            value={formData.phone}
+            onChange={handleChange}
           />
 
-          <input
-            placeholder="Email Address"
-            className="border p-3 rounded-lg col-span-1"
+          {/* Email */}
+
+
+          <TextInput
+            label="Email Address *"
+            name="email"
+            //  placeholder="Enter email"
+            value={formData.email}
+            onChange={handleChange}
           />
 
           {/* File Upload */}
-          <div className="col-span-2 border-dashed border-2 p-6 text-center rounded-lg">
-            Drag & Drop File Here To Upload
-            <p className="text-xs text-gray-500 mt-1">
-              PNG, JPG, PDF, DOCX
-            </p>
+          <div className="md:col-span-2">
+            <FileUploadInput
+              name="file"
+              label="Upload Documents"
+              file={formData.file}
+              onChange={(file) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  file,
+                }))
+              }
+            />
           </div>
 
-          <textarea
-            placeholder="Short Notes"
-            className="border p-3 rounded-lg col-span-2"
-          />
+          {/* Notes */}
+          <div className="md:col-span-2">
+            <TextAreaInput
+              name="notes"
+              label="Short Notes"
+              placeholder="Write your notes..."
+              value={formData.notes}
+              onChange={handleChange}
+            />
+          </div>
 
-          <button
-            type="submit"
-            className="col-span-2 bg-black text-white py-3 rounded-lg cursor-pointer"
-          >
-            Submit Now →
-          </button>
-
+          {/* Submit */}
+          <div className="md:col-span-2">
+            <Button
+              type="submit"
+              text="Submit Now →"
+              className="w-full h-12"
+            />
+          </div>
         </form>
       </div>
     </div>

@@ -15,17 +15,16 @@ export const getBlogs = async (): Promise<BlogResponse> =>
 // GET SINGLE BLOG
 // ─────────────────────────────────────────────
 export const getSingleBlog = async (
-  slug: string
+  id: string
 ): Promise<BlogItem> => {
-  if (!slug) {
-    throw new Error("Blog slug is required");
+  if (!id) {
+    throw new Error("Blog id is required");
   }
 
-  const res = await HttpService.get(`/blog/${slug}`);
+  const res = await HttpService.get(`/blog/${id}`);
 
   return res.data.data;
 };
-
 // ─────────────────────────────────────────────
 // USE BLOG LIST
 // ─────────────────────────────────────────────
@@ -38,9 +37,9 @@ export const useBlogs = () =>
 // ─────────────────────────────────────────────
 // USE SINGLE BLOG
 // ─────────────────────────────────────────────
-export const useSingleBlog = (slug: string) =>
+export const useSingleBlog = (id: string) =>
   useQuery({
-    queryKey: ["blog", slug],
-    queryFn: async () => await getSingleBlog(slug),
-    enabled: !!slug,
+    queryKey: ["blog", id],
+    queryFn: async () => await getSingleBlog(id),
+    enabled: !!id,
   });

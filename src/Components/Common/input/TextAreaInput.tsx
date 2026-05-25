@@ -1,8 +1,9 @@
 'use client';
-// import ColumnDiv from '../../ColumnDiv';
-import ErrorLabel from '../ErrorLabel';
 
+import React from 'react';
 import { FieldError, UseFormRegister } from 'react-hook-form';
+
+import ErrorLabel from '../ErrorLabel';
 import ColumnDiv from '../UI/ColumnDiv';
 
 type Props = {
@@ -10,55 +11,103 @@ type Props = {
   label: string;
   placeholder?: string;
   rows?: number;
-  className?:string;
-  labelstyle?:string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  className?: string;
+  labelstyle?: string;
+
   register?: UseFormRegister<any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   validationSchema?: any;
   error?: FieldError;
-  defaultValue?: string
+
+  defaultValue?: string;
+
+  value?: string;
+  onChange?: (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
+
+  readOnly?: boolean;
 };
-const TextAreaInput = (props: Props) => {
-  const {
-    name,
-    placeholder,
-    register,
-    validationSchema,
-    error,
-    label,
-    rows = 4,
-    defaultValue,
-    className,
-    labelstyle
-  } = props;
-  if (register) return (
-    <ColumnDiv>
-      <label className={`pt-2 text-slate-200 text-[11px] font-normal ${labelstyle ? labelstyle : null}`}>{label}</label>
+
+const TextAreaInput = ({
+  name,
+  placeholder,
+  register,
+  validationSchema,
+  error,
+  label,
+  rows = 4,
+  defaultValue,
+  className,
+  labelstyle,
+  value,
+  onChange,
+  readOnly,
+}: Props) => {
+
+  const textareaClass = `
+    w-full rounded-[8px]
+    border bg-white text-black
+    px-4 py-3
+    focus:outline-none focus:border-black
+    resize-none
+    ${error ? 'border-red-500' : 'border-black'}
+    ${className || ''}
+  `;
+
+  // ================= WITH REGISTER =================
+  if (register) {
+    return (
+      <ColumnDiv className="w-full">
+        <label
+          htmlFor={name}
+          className={`block mb-2 text-[11px] font-medium text-black ${
+            labelstyle || ''
+          }`}
+        >
+          {label}
+        </label>
+
+        <textarea
+          id={name}
+          placeholder={placeholder}
+          rows={rows}
+          defaultValue={defaultValue}
+          readOnly={readOnly}
+          {...register(name, { ...validationSchema })}
+          className={textareaClass}
+        />
+
+        <ErrorLabel fieldError={error} />
+      </ColumnDiv>
+    );
+  }
+
+  // ================= WITHOUT REGISTER =================
+  return (
+    <ColumnDiv className="w-full">
+      <label
+        htmlFor={name}
+        className={`block mb-2 text-[11px] font-medium text-black ${
+          labelstyle || ''
+        }`}
+      >
+        {label}
+      </label>
+
       <textarea
         id={name}
+        name={name}
         placeholder={placeholder}
         rows={rows}
-        {...register(name, { ...validationSchema })}
-        defaultValue={defaultValue}
-        className={`p-4 focus:outline-sky-300  focus:outline-0 focus:border-blue-400 active:border-[#8D8D94] border-[#3d44c1] rounded-[8px] ${className ? className : " border-2 border-[1px]"} `}
+        value={value}
+        onChange={onChange}
+        readOnly={readOnly}
+        className={textareaClass}
       />
+
       <ErrorLabel fieldError={error} />
     </ColumnDiv>
   );
-  else {
-    <ColumnDiv>
-      <label className="pt-2 text-slate-200 text-[11px] font-normal">{label}</label>
-      <textarea
-        id={name}
-        placeholder={placeholder}
-        rows={rows}
-        defaultValue={defaultValue}
-        className="border-2 p-4 focus:outline-sky-300 text-slate-200 border-[1px] p-4 focus:outline-0 focus:border-blue-400 active:border-[#8D8D94] border-[#3d44c1] rounded-[8px]"
-      />
-      <ErrorLabel fieldError={error} />
-    </ColumnDiv>
-  }
 };
 
 export default TextAreaInput;
