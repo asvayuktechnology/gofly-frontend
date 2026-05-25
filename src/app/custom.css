@@ -40422,7 +40422,7 @@ header.style-3.two .main-menu>ul>li.active>a i {
 }
 
 .about-page-journey-section {
-    background-image: url(/_next/static/media/about-page-journey-bg.123f5c0f.png), linear-gradient(180deg, #F0F0F0, #F0F0F0);
+    background-image: url(/assets/img/about-page-journey-bg.png), linear-gradient(180deg, #F0F0F0, #F0F0F0);
     background-size: cover;
     background-repeat: no-repeat;
     padding: 100px 0

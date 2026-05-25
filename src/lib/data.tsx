@@ -858,34 +858,179 @@ export const stories: Story[] = [
 ];
 
 export const offices: Office[] = [
-    {
-        id: 1,
-        title: "United State",
-        phone: "+1 (212) 555-7890",
-        address:
-            "Skyline Plaza, 5th Floor, 123 Main Street Los Angeles, CA 90001, USA",
-    },
-    {
-        id: 2,
-        title: "Dubai Office",
-        phone: "+971 4 123 4567",
-        address:
-            "Office No. 1203, 12th Floor, Bay Tower, Al Abraj Street, Business Bay, Dubai, UAE",
-        variant: "two",
-    },
-    {
-        id: 3,
-        title: "United Kingdom",
-        phone: "+44 20 7946 1234",
-        address:
-            "3rd Floor, 15 Bedford Street Covent Garden, London, WC2E 9HE, UK",
-        variant: "three",
-    },
+  {
+    id: 1,
+    title: "United State",
+    phone: "+1 (212) 555-7890",
+    address:
+      "Skyline Plaza, 5th Floor, 123 Main Street Los Angeles, CA 90001, USA",
+  },
+  {
+    id: 2,
+    title: "Dubai Office",
+    phone: "+971 4 123 4567",
+    address:
+      "Office No. 1203, 12th Floor, Bay Tower, Al Abraj Street, Business Bay, Dubai, UAE",
+    variant: "two",
+  },
+  {
+    id: 3,
+    title: "United Kingdom",
+    phone: "+44 20 7946 1234",
+    address:
+      "3rd Floor, 15 Bedford Street Covent Garden, London, WC2E 9HE, UK",
+    variant: "three",
+  },
+];
+
+export const destinations: Category[] = [
+  {
+    name: "Europe",
+    subCategories: [
+      { name: "Paris, France", count: 8 },
+      { name: "Rome, Italy", count: 12 },
+      { name: "United Kingdom", count: 15 },
+      { name: "Netherlands", count: 2 },
+      { name: "Portugal", count: 10 },
+      { name: "Germany", count: 12 },
+    ],
+  },
+  {
+    name: "Asia",
+    subCategories: [
+      { name: "Tokyo, Japan", count: 15 },
+      { name: "Indonesia", count: 7 },
+      { name: "Thailand", count: 18 },
+      { name: "Malaysia", count: 8 },
+      { name: "Hanoi, Vietnam", count: 10 },
+    ],
+  },
+  {
+    name: "Africa",
+    subCategories: [
+      { name: "Egypt", count: 5 },
+      { name: "South Africa", count: 7 },
+      { name: "Zimbabwe", count: 2 },
+      { name: "Morocco", count: 12 },
+    ],
+  },
+  {
+    name: "North America",
+    subCategories: [
+      { name: "United States", count: 20 },
+      { name: "Canada", count: 8 },
+      { name: "Mexico", count: 13 },
+      { name: "Costa Rica", count: 6 },
+    ],
+  },
+  {
+    name: "Oceania",
+    subCategories: [
+      { name: "Australia", count: 12 },
+      { name: "New Zealand", count: 8 },
+      { name: "Papua New Guinea", count: 14 },
+    ],
+  },
+  {
+    name: "Middle East",
+    subCategories: [
+      { name: "United Arab Emirates", count: 4 },
+      { name: "Qatar", count: 6 },
+      { name: "Saudi Arabia", count: 13 },
+      { name: "Jordan", count: 3 },
+    ],
+  },
+];
+
+export const activities = [
+  { name: "Hiking & Trekking", count: 4 },
+  { name: "Rock Climbing", count: 6 },
+  { name: "Zip-lining", count: 2 },
+  { name: "Bungee Jumping", count: 7 },
+  { name: "Paragliding", count: 12 },
+  { name: "Skydiving", count: 6 },
+  { name: "Surfing", count: 8 },
+];
+
+export const tourTypes = [
+  "Group Tours",
+  "Small Group",
+  "Family",
+  "Single Tours",
+  "Private Tours",
+];
+
+export const slides = [
+  "/assets/img/package-breadcrumb-bg1.jpg",
+  "/assets/img/package-breadcrumb-bg2.jpg",
+  "/assets/img/breadcrumb-bg9.jpg",
+];
+export const locationsdetail = [
+  {
+    title: "Eiffel Tower",
+    days: "02 Days",
+    image: "/assets/img/package-dt-location-img3.webp",
+  },
+  {
+    title: "Loire Valley",
+    days: "01 Days",
+    image: "/assets/img/package-dt-location-img3.webp",
+  },
+  {
+    title: "Southern France",
+    days: "01 Days",
+    image: "/assets/img/package-dt-location-img3.webp",
+  },
+  {
+    title: "Louvre Museum",
+    days: "03 Days",
+    image: "/assets/img/package-dt-location-img3.webp",
+  },
+  {
+    title: "Palace of Versailles",
+    days: "02 Days",
+    image: "/assets/img/package-dt-location-img3.webp",
+  },
+];
+
+export const itineraryData: ItineraryItem[] = [
+  {
+    day: "Day-01",
+    title: "Eiffel Tower – The symbol of France",
+    description:
+      "Climb the Eiffel Tower, enjoy sunset views, picnic at Champ de Mars, and bike tours.",
+    transport: "Car, Flight, Boat",
+    activities: "Climb Tower, Sunset view, Bike tour",
+    meals: "Breakfast, Lunch, Snacks",
+    hotel: "Rajonikanto Hotel",
+  },
+  {
+    day: "Day-02",
+    title: "Louvre Museum – Home of the Mona Lisa",
+  },
+  {
+    day: "Day-03",
+    title: "Notre-Dame – Iconic Cathedral",
+    description:
+      "Explore Gothic architecture and historic surroundings of Notre-Dame.",
+    transport: "Bus, Walk",
+    activities: "Sightseeing, Photography",
+    meals: "Breakfast, Lunch",
+    hotel: "Paris Central Hotel",
+  },
+];
+
+export const progressData = [
+  { label: "Overall", value: 90 },
+  { label: "Transport", value: 95 },
+  { label: "Food", value: 80 },
+  { label: "Accomodation", value: 98 },
+  { label: "Tour Guide", value: 80 },
 ];
 
 export const travelPackagesData = [
   {
-    id:1,
+    id: 1,
     title: "Maldives Beach Paradise",
     location: "Maldives",
     duration: "05 Days",
@@ -899,7 +1044,7 @@ export const travelPackagesData = [
       "Accommodation, Daily Meals, Entry Fees & Local Transfers",
   },
   {
-    id:2,
+    id: 2,
     title: "Maldives Beach Paradise",
     location: "Maldives",
     duration: "05 Days",
@@ -913,7 +1058,7 @@ export const travelPackagesData = [
       "Accommodation, Daily Meals, Entry Fees & Local Transfers",
   },
   {
-    id:3,
+    id: 3,
     title: "Maldives Beach Paradise",
     location: "Maldives",
     duration: "05 Days",
@@ -927,7 +1072,7 @@ export const travelPackagesData = [
       "Accommodation, Daily Meals, Entry Fees & Local Transfers",
   },
   {
-    id:4,
+    id: 4,
     title: "Maldives Beach Paradise",
     location: "Maldives",
     duration: "05 Days",
@@ -941,7 +1086,7 @@ export const travelPackagesData = [
       "Accommodation, Daily Meals, Entry Fees & Local Transfers",
   },
   {
-    id:5,
+    id: 5,
     title: "Maldives Beach Paradise",
     location: "Maldives",
     duration: "05 Days",
@@ -955,7 +1100,7 @@ export const travelPackagesData = [
       "Accommodation, Daily Meals, Entry Fees & Local Transfers",
   },
   {
-    id:6,
+    id: 6,
     title: "Maldives Beach Paradise",
     location: "Maldives",
     duration: "05 Days",
@@ -980,7 +1125,7 @@ export const ExperienceCardData: ExperienceCardItem[] = [
     priceLabel: "Per Person",
     image: ["/assets/img/tour-package-img1.webp"],
     badge: "Sale on!",
-    link:"/experience/details",
+    link: "/experience/details",
     features: [
       "Thrilling Aerial Adventure",
       "Breathtaking Scenic Views",
@@ -1001,7 +1146,7 @@ export const ExperienceCardData: ExperienceCardItem[] = [
       "/assets/img/tour-package-img1.webp",
     ],
     badge: "City Tour",
-    link:"/experience/details",
+    link: "/experience/details",
     features: [
       "Thrilling Aerial Adventure",
       "Breathtaking Scenic Views",
