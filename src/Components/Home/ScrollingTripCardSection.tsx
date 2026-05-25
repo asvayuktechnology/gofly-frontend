@@ -5,16 +5,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { POPULAR_PACKAGES } from "@/lib/data";
 
-export default function OneDayTripSection() {
+interface ScrollingTripCardsProps{
+  title:string,
+  subtitle:string,
+}
+
+export default function ScrollingTripCardSection({title,subtitle}:ScrollingTripCardsProps) {
   return (
     <div className="home1-travel-package-section py-16">
       <div className="container mx-auto px-4">
         {/* Section Title */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-2">One Day Trips</h2>
+          <h2 className="text-3xl font-bold mb-2"> {title}</h2>
           <p className="text-gray-600">
-            A curated list of the most popular travel packages based on
-            different destinations.
+           {subtitle}
           </p>
         </div>
 

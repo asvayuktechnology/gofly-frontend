@@ -1,5 +1,7 @@
 import { Icon } from "next/dist/lib/metadata/types/metadata-types";
+import { title } from "process";
 import { ReactNode } from "react";
+import { Interface } from "readline";
 
 export interface TravelPackage {
   id: string;
@@ -110,7 +112,7 @@ export interface btnprops {
   className?: string;
   svgIcon?: ReactNode;
   iconPosition?: "start" | "end";
-    onClick?: () => void;
+  onClick?: () => void;
 
 }
 
@@ -176,7 +178,7 @@ export interface OfferBannerProps {
   authorRole?: string;
   buttonText?: string;
   buttonLink?: string;
-  link?: string ;
+  link?: string;
 }
 export interface Partner {
   id: number;
@@ -293,3 +295,24 @@ export interface ExperienceCardItem {
   features: string[];
   isSlider?: boolean;
 }
+
+export interface ImgVideoSliderProps{
+  title?:string;
+  description?:string;
+}
+
+export interface WhyChooseCardData {
+  title: string;
+  description: string;
+  delay: string;
+  icon: ReactNode;
+}
+
+export type TravelSeasonCardData = {
+    title: string;
+    weather: string;
+    image: string;
+    highlights: string[];
+    note: string;
+    delay: string;
+};

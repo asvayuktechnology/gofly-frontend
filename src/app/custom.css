@@ -33620,7 +33620,7 @@ header.style-3.two .main-menu>ul>li.active>a i {
 }
 
 .destination-dt-why-choose-section {
-    background-image: url(/_next/static/media/destination-dt-why-choose-bg.b42f14c8.png), linear-gradient(180deg, #F2F2FF, #F2F2FF);
+    background-image: url(/assets/img/destination-dt-why-choose-bg.png), linear-gradient(180deg, #F2F2FF, #F2F2FF);
     background-size: cover;
     background-repeat: no-repeat;
     padding: 100px 0
@@ -34255,7 +34255,7 @@ header.style-3.two .main-menu>ul>li.active>a i {
 }
 
 .destination-dt-faq-section {
-    background-image: url(/_next/static/media/destination-dt-faq-bg.ab06a122.png), linear-gradient(180deg, #F2F2FF, #F2F2FF);
+    background-image: url(/assets/img/visa-package-grid-bg.png), linear-gradient(180deg, #F2F2FF, #F2F2FF);
     background-size: cover;
     background-repeat: no-repeat;
     padding: 375px 0 100px

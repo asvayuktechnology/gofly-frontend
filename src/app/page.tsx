@@ -8,7 +8,8 @@ import LastMinDeals from "@/Components/Home/LastMinDeals";
 import LocationSearchSection from "@/Components/Home/LocationSearchSection";
 import OfferBanner from "@/Components/Home/OfferBanner";
 import OfferSection from "@/Components/Home/Offersection";
-import OneDayTripSection from "@/Components/Home/OnedayTripSection";
+import ScrollingTripCardSection from "@/Components/Home/ScrollingTripCardSection";
+import OneDayTripSection from "@/Components/Home/ScrollingTripCardSection";
 import PartnerSection from "@/Components/Home/PartnerSections";
 import PopularTravelPackage from "@/Components/Home/PopularTravelPackage";
 import ServiceSection from "@/Components/Home/ServiceSection";
@@ -40,16 +41,17 @@ export default function HomePage() {
       <LastMinDeals />
       <LocationSearchSection />
       <PartnerSection />
-      <OneDayTripSection />
+      <ScrollingTripCardSection title="One Day Trips" subtitle=" A curated list of the most popular travel packages based on
+            different destinations. " />
       <BlogSlider />
       <TestimonialSection />
       <div className="container mx-auto">
         <div className="grid grid-cols-12">
-        <div className="col-span-8 col-start-3">
+          <div className="col-span-8 col-start-3">
 
-          <FaqSection />
+            <FaqSection />
+          </div>
         </div>
-      </div>
       </div>
       <CounterSection />
     </main>
