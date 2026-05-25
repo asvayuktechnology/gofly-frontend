@@ -213,7 +213,7 @@ export default function DestinationDetailsSection({
                     <VideoSection setIsOpen={setIsOpen} />
                 </div>
             </div>
-            <div className="destination-dt-faq-section mb-100">
+            {/* <div className="destination-dt-faq-section mb-100">
 
                 <div className="grid grid-cols-12">
                     <div className="col-span-8 col-start-3">
@@ -223,7 +223,7 @@ export default function DestinationDetailsSection({
             </div>
 
             <ScrollingTripCardSection title="3 Tours Available in Paris" subtitle=" A curated list of the most popular travel packages based on
-                            different destinations. " />
+                            different destinations. " /> */}
         </>
 
     );
