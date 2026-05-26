@@ -17,7 +17,8 @@ import { useGetSettings } from "@/services/settingService";
 import useAppCookies from "@/hook/useCookies";
 import { toastSuccess } from "@/utils/toast";
 import { BASE_URL } from "@/lib/const";
-
+import { useDestinations } from "@/services/destinationService";
+import { regionLabels } from "@/utils";
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -66,6 +67,20 @@ const Header = () => {
       }
     );
   };
+  const { data: destinationsData } = useDestinations();
+
+const destinations = destinationsData?.data || [];
+
+const groupedDestinations = Object.keys(regionLabels).reduce(
+  (acc: any, region) => {
+    acc[region] = destinations.filter(
+      (item: any) => item.region === region
+    );
+
+    return acc;
+  },
+  {}
+);
 
   return (
     <>
@@ -214,123 +229,62 @@ const Header = () => {
                 </li>
 
                 {/* Destination */}
-                <li className="group relative">
+              <li className="group relative">
+  <Link
+    href="/destination"
+    className={`flex items-center gap-1 transition hover:text-primary ${
+      pathname.startsWith("/destination")
+        ? "text-primary"
+        : ""
+    }`}
+  >
+    Destination
+    <BsCaretDownFill size={13} />
+  </Link>
+
+  {/* Mega Menu */}
+  <div className="invisible absolute left-0 top-8 z-50 mt-6 w-[900px] rounded-2xl bg-white p-8 opacity-0 shadow-xl transition duration-200 group-hover:visible group-hover:opacity-100">
+<div className="grid grid-cols-3 gap-8">
+      {Object.entries(groupedDestinations).map(
+        ([region, items]: any, index) => (
+          <div key={index}>
+            <h5 className="mb-3 text-lg font-semibold">
+  {regionLabels[region] || region}
+</h5>
+
+            <ul className="space-y-3">
+              {items.map((item: any) => (
+                <li key={item._id}>
                   <Link
-                    href="/destination"
-                    className={`flex items-center gap-1 transition hover:text-primary ${pathname.startsWith("/destination")
-                      ? "text-primary"
-                      : ""
-                      }`}
+                    href={`/destination/${item._id}`}
+                    className="flex items-center gap-2 hover:text-primary"
                   >
-                    Destination
-                    <BsCaretDownFill size={13} />
+                    <Image
+                      src={
+                        item?.images?.[0]
+                          ? `${BASE_URL}/${item.images[0]}`
+                          : "/assets/img/header-logo.svg"
+                      }
+                      alt={item.name}
+                      width={22}
+                      height={22}
+                      className="h-[22px] w-[22px] rounded-full object-cover"
+                    />
+
+                    <span>
+                      {item.country}
+                      {item.name ? ` - ${item.name}` : ""}
+                    </span>
                   </Link>
-
-                  {/* Mega Menu */}
-                  <div className="invisible absolute left-0 top-8 z-50 mt-6 w-[800px] rounded-2xl bg-white p-8 opacity-0 shadow-xl transition duration-200 group-hover:visible group-hover:opacity-100">
-                    <div className="grid grid-cols-2 gap-8">
-                      {/* Europe */}
-                      <div>
-                        <h5 className="mb-3 text-lg font-semibold">Europe</h5>
-
-                        <ul className="space-y-2">
-                          {[
-                            {
-                              name: "Paris, France",
-                              img: "france-flag.webp",
-                            },
-                            {
-                              name: "United Kingdom",
-                              img: "france-flag.webp",
-                            },
-                            {
-                              name: "Netherlands",
-                              img: "france-flag.webp",
-                            },
-                            {
-                              name: "Italy",
-                              img: "france-flag.webp",
-                            },
-                            {
-                              name: "Greece",
-                              img: "france-flag.webp",
-                            },
-                            {
-                              name: "Romania",
-                              img: "france-flag.webp",
-                            },
-                          ].map((item, index) => (
-                            <li key={index}>
-                              <Link
-                                href="/destination/details"
-                                className="flex items-center gap-2 hover:text-primary"
-                              >
-                                <Image
-                                  src={`/assets/img/${item.img}`}
-                                  alt={item.name}
-                                  width={18}
-                                  height={18}
-                                />
-
-                                {item.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Asia */}
-                      <div>
-                        <h5 className="mb-3 text-lg font-semibold">Asia</h5>
-
-                        <ul className="space-y-2">
-                          {[
-                            {
-                              name: "Tokyo, Japan",
-                              img: "france-flag.webp",
-                            },
-                            {
-                              name: "Indonesia",
-                              img: "france-flag.webp",
-                            },
-                            {
-                              name: "Thailand",
-                              img: "france-flag.webp",
-                            },
-                            {
-                              name: "Malaysia",
-                              img: "france-flag.webp",
-                            },
-                            {
-                              name: "Hanoi, Vietnam",
-                              img: "france-flag.webp",
-                            },
-                            {
-                              name: "India",
-                              img: "france-flag.webp",
-                            },
-                          ].map((item, index) => (
-                            <li key={index}>
-                              <Link
-                                href="/destination/details"
-                                className="flex items-center gap-2 hover:text-primary"
-                              >
-                                <Image
-                                  src={`/assets/img/${item.img}`}
-                                  alt={item.name}
-                                  width={18}
-                                  height={18}
-                                />
-
-                                {item.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
                 </li>
+              ))}
+            </ul>
+          </div>
+        )
+      )}
+    </div>
+  </div>
+</li>
 
                 <li>
                   <Link

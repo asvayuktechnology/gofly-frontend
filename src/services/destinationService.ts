@@ -17,16 +17,6 @@ import {
 // USE DESTINATIONS
 // ─────────────────────────────────────────────
 
-export const useDestinations = (params?: {
-  region?: string;
-  isFeatured?: boolean;
-  limit?: number;
-  keyword?: string;
-}) =>
-  useQuery({
-    queryKey: ["destinations", params],
-    queryFn: () => getDestinations(params),
-  });
 
 export const getDestinations = async (params?: {
   region?: string;
@@ -38,6 +28,18 @@ export const getDestinations = async (params?: {
     params,
   }).then((res) => res.data);
 };
+
+export const useDestinations = (params?: {
+  region?: string;
+  isFeatured?: boolean;
+  limit?: number;
+  keyword?: string;
+}) =>
+  useQuery({
+    queryKey: ["destinations", params],
+    queryFn: () => getDestinations(params),
+  });
+
 // ─────────────────────────────────────────────
 // GET SINGLE DESTINATION
 // ─────────────────────────────────────────────
