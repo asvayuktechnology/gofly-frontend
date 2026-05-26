@@ -77,7 +77,7 @@ const ImgVideoSlider = ({
                                 {/* Content */}
                                 <div className="success-story-content-wrap absolute inset-0 flex flex-col justify-between p-4 bg-black/40">
                                     <Image
-                                        src="/assets/img/innerpages/visa-dt-success-story-card-logo.svg"
+                                        src="/assets/img/error-page-img.webp"
                                         alt="logo"
                                         width={90}
                                         height={35}

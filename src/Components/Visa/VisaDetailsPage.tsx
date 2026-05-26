@@ -125,22 +125,18 @@ const VisaDetailsPage = ({ categoryId }: Props) => {
                             </div>
                         )}
 
-                        <div className="col-span-12">
+                        {/* <div className="col-span-12">
                             <RelevantPackageSection />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
-                <div className="container mx-auto">
+                {/* <div className="container mx-auto">
 
                     <div className="grid grid-cols-12">
-                        <div className="xl:col-span-8 lg:col-span-10 xl:col-start-3 lg:col-start-2">
-                            {hasFaqs && (
-                                <VisaFaqSection faqs={requirement.faqs} />
-                            )}
-                        </div>
+                       
 
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className="">
                 <SuccessStories />
@@ -148,10 +144,11 @@ const VisaDetailsPage = ({ categoryId }: Props) => {
             <div className="container mx-auto">
 
                 <div className="grid grid-cols-12">
-                    <div className="xl:col-span-8 lg:col-span-10 xl:col-start-3 lg:col-start-2">
-
-                        {/* <FaqSection /> */}
-                    </div>
+                     <div className="xl:col-span-8 lg:col-span-10 xl:col-start-3 lg:col-start-2">
+                            {hasFaqs && (
+                                <VisaFaqSection faqs={requirement.faqs} />
+                            )}
+                        </div>
 
                 </div>
             </div>

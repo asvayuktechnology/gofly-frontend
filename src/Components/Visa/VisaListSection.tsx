@@ -59,7 +59,7 @@ const VisaListSection = ({ visaTypes, activeIndex, setActiveIndex }: Props) => {
               </h6>
 
               <span>
-                ₹{item.price} <sub>/{item.priceLabel}</sub>
+                ${item.price} <sub>/{item.priceLabel}</sub>
               </span>
             </div>
           </SwiperSlide>

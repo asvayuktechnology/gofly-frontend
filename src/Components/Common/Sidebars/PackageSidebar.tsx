@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { svgIcon } from "../Icons/SvgIcons";
 import SiteBtn from "../SiteBtn/SiteBtn";
+import TextInput from "../input/TextInput";
+import TextAreaInput from "../input/TextAreaInput";
 
 interface PackageSidebarProps {
   packageData: any;
@@ -150,38 +152,49 @@ const discount = packageData?.discounts?.[0];
       )}
 
       {/* Enquiry Modal */}
-      {showEnquiry && (
-        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg w-[90%] max-w-md">
-            <h4 className="mb-4">Submit Enquiry</h4>
+     {showEnquiry && (
+  <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+    <div className="bg-white p-6 rounded-lg w-[90%] max-w-md">
+      <h4 className="mb-4">Submit Enquiry</h4>
 
-            <input
-              type="text"
-              placeholder="Your Name"
-              className="w-full border p-2 mb-3"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full border p-2 mb-3"
-            />
-            <textarea
-              placeholder="Message"
-              className="w-full border p-2 mb-3"
-            />
+      <TextInput
+        label="Your Name"
+        name="name"
+      
+        onChange={(e) => console.log(e.target.value)}
+      />
 
-            <div className="flex justify-end gap-2">
-              <button
-                className="primary-btn1"
-                onClick={() => setShowEnquiry(false)}
-              >
-                Close
-              </button>
-              <button className="primary-btn1 two">Send</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <TextInput
+        label="Email"
+        name="email"
+        type="email"
+
+        onChange={(e) => console.log(e.target.value)}
+      />
+
+      <TextAreaInput
+        name="message"
+        label="Message"
+       
+        rows={4}
+        onChange={(e) => console.log(e.target.value)}
+      />
+
+      <div className="flex justify-end gap-2 mt-4">
+        <button
+          className="primary-btn1"
+          onClick={() => setShowEnquiry(false)}
+        >
+          Close
+        </button>
+
+        <button className="primary-btn1 two">
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };

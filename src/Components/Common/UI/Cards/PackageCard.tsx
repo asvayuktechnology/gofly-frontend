@@ -49,7 +49,7 @@ export default function PackageCard({
         data-wow-delay={`${delay}ms`}
         data-wow-duration="1500ms"
       >
-        <div className="package-card bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden h-full flex flex-col">
+        <div className="package-card bg-white rounded-xl overflow-hidden h-full flex flex-col">
           {/* Image */}
           <div className="package-img-wrap relative overflow-hidden h-[200px]">
             <Link href={link} className="package-img block h-full">
@@ -152,7 +152,7 @@ export default function PackageCard({
       data-wow-delay={`${delay}ms`}
       data-wow-duration="1500ms"
     >
-      <div className="package-card bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden">
+      <div className="package-card bg-white rounded-xl  overflow-hidden">
         <div className="flex flex-col sm:flex-row gap-6 p-6">
           {/* Image */}
           <div className="package-img-wrap relative overflow-hidden rounded-lg flex-shrink-0 w-full sm:w-[300px] h-[200px] sm:h-[250px]">

@@ -69,18 +69,18 @@ const Header = () => {
   };
   const { data: destinationsData } = useDestinations();
 
-const destinations = destinationsData?.data || [];
+  const destinations = destinationsData?.data || [];
 
-const groupedDestinations = Object.keys(regionLabels).reduce(
-  (acc: any, region) => {
-    acc[region] = destinations.filter(
-      (item: any) => item.region === region
-    );
+  const groupedDestinations = Object.keys(regionLabels).reduce(
+    (acc: any, region) => {
+      acc[region] = destinations.filter(
+        (item: any) => item.region === region
+      );
 
-    return acc;
-  },
-  {}
-);
+      return acc;
+    },
+    {}
+  );
 
   return (
     <>
@@ -229,62 +229,62 @@ const groupedDestinations = Object.keys(regionLabels).reduce(
                 </li>
 
                 {/* Destination */}
-              <li className="group relative">
-  <Link
-    href="/destination"
-    className={`flex items-center gap-1 transition hover:text-primary ${
-      pathname.startsWith("/destination")
-        ? "text-primary"
-        : ""
-    }`}
-  >
-    Destination
-    <BsCaretDownFill size={13} />
-  </Link>
-
-  {/* Mega Menu */}
-  <div className="invisible absolute left-0 top-8 z-50 mt-6 w-[900px] rounded-2xl bg-white p-8 opacity-0 shadow-xl transition duration-200 group-hover:visible group-hover:opacity-100">
-<div className="grid grid-cols-3 gap-8">
-      {Object.entries(groupedDestinations).map(
-        ([region, items]: any, index) => (
-          <div key={index}>
-            <h5 className="mb-3 text-lg font-semibold">
-  {regionLabels[region] || region}
-</h5>
-
-            <ul className="space-y-3">
-              {items.map((item: any) => (
-                <li key={item._id}>
+                <li className="group relative">
                   <Link
-                    href={`/destination/${item._id}`}
-                    className="flex items-center gap-2 hover:text-primary"
+                    href="/destination"
+                    className={`flex items-center gap-1 transition hover:text-primary ${pathname.startsWith("/destination")
+                        ? "text-primary"
+                        : ""
+                      }`}
                   >
-                    <Image
-                      src={
-                        item?.images?.[0]
-                          ? `${BASE_URL}/${item.images[0]}`
-                          : "/assets/img/header-logo.svg"
-                      }
-                      alt={item.name}
-                      width={22}
-                      height={22}
-                      className="h-[22px] w-[22px] rounded-full object-cover"
-                    />
-
-                    <span>
-                      {item.country}
-                      {item.name ? ` - ${item.name}` : ""}
-                    </span>
+                    Destination
+                    <BsCaretDownFill size={13} />
                   </Link>
+
+                  {/* Mega Menu */}
+                  <div className="invisible absolute left-0 top-8 z-50 mt-6 w-[900px] rounded-2xl bg-white p-8 opacity-0 shadow-xl transition duration-200 group-hover:visible group-hover:opacity-100">
+                    <div className="grid grid-cols-3 gap-8">
+                      {Object.entries(groupedDestinations).map(
+                        ([region, items]: any, index) => (
+                          <div key={index}>
+                            <h5 className="mb-3 text-lg font-semibold">
+                              {regionLabels[region] || region}
+                            </h5>
+
+                            <ul className="space-y-3">
+                              {items.map((item: any) => (
+                                <li key={item._id}>
+                                  <Link
+                                    href={`/destination/${item._id}`}
+                                    className="flex items-center gap-2 hover:text-primary"
+                                  >
+                                    <Image
+                                    src={
+                                      item?.flagImage
+                                        ? `${BASE_URL}/${item.flagImage}`
+                                        : "/assets/img/header-logo.svg"
+                                    }
+                                    alt={item.name}
+                                    width={22}
+                                    height={22}
+                                    className="h-[22px] w-[22px] rounded-full object-cover"
+                                  unoptimized
+                                  />
+
+                                    <span>
+                                      {item.country}
+                                      {/* {item.name ? ` - ${item.name}` : ""} */}
+                                    </span>
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
                 </li>
-              ))}
-            </ul>
-          </div>
-        )
-      )}
-    </div>
-  </div>
-</li>
 
                 <li>
                   <Link
@@ -321,15 +321,22 @@ const groupedDestinations = Object.keys(regionLabels).reduce(
                 <li>
                   <Link
                     href="/experience"
-                    className={`transition hover:text-primary ${pathname === "/experience"
-                      ? "text-primary"
-                      : ""
+                    className={`transition hover:text-primary ${pathname === "/experience" ? "text-primary" : ""
                       }`}
                   >
                     Experience
                   </Link>
                 </li>
 
+                 <li>
+                  <Link
+                    href="/about"
+                    className={`transition hover:text-primary ${pathname === "/about" ? "text-primary" : ""
+                      }`}
+                  >
+                    About
+                  </Link>
+                </li>
                 <li>
                   <Link
                     href="/contact"

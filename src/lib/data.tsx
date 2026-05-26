@@ -819,40 +819,40 @@ export const VisaConditionalRequirements = [
 export const stories: Story[] = [
   {
     id: 1,
-    image: "/assets/img/innerpages/visa-dt-success-story-card-img1.jpg",
+    image: "/assets/img/travel-couple.png",
     quote: "Exceptional service with clear guidance.",
     name: "Mrs. Emily Patowary",
     role: "USA Student",
   },
   {
     id: 2,
-    image: "/assets/img/innerpages/visa-dt-success-story-card-img2.jpg",
+    image: "/assets/img/travel-couple.png",
   },
   {
     id: 3,
-    image: "/assets/img/innerpages/visa-dt-success-story-card-img3.jpg",
+    image: "/assets/img/tour-package-img1.webp",
     quote: "Fast response, accurate documentation, & friendly service.",
     name: "Mrs. Emelia Jong",
     role: "UK Student",
   },
   {
     id: 4,
-    image: "/assets/img/innerpages/visa-dt-success-story-card-img4.jpg",
+    image: "/assets/img/tour-package-img1.webp",
   },
   {
     id: 5,
-    video: "/assets/video/visa-details-video.mp4",
+    video: "/assets/img/home8-process-section-vector.webp",
     quote: "Got my visa approved faster than expected. Recommended!",
     name: "Mrs. Emily Patowary",
     role: "Czech Republic Student",
   },
   {
     id: 6,
-    image: "/assets/img/innerpages/visa-dt-success-story-card-img6.jpg",
+    image: "/assets/img/home8-process-section-vector.webp",
   },
   {
     id: 7,
-    image: "/assets/img/innerpages/visa-dt-success-story-card-img5.jpg",
+    image: "/assets/img/package-dt-location-img3.webp",
     quote: "Outstanding response with precise direction.",
     name: "Mrs. Emelia Jong",
     role: "UK Student",
