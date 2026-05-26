@@ -9,7 +9,7 @@ import LocationSearchSection from "@/Components/Home/LocationSearchSection";
 import OfferBanner from "@/Components/Home/OfferBanner";
 import OfferSection from "@/Components/Home/Offersection";
 import ScrollingTripCardSection from "@/Components/Home/ScrollingTripCardSection";
-import OneDayTripSection from "@/Components/Home/ScrollingTripCardSection";
+// import OneDayTripSection from "@/Components/Home/ScrollingTripCardSection";
 import PartnerSection from "@/Components/Home/PartnerSections";
 import PopularTravelPackage from "@/Components/Home/PopularTravelPackage";
 import ServiceSection from "@/Components/Home/ServiceSection";
@@ -66,7 +66,7 @@ export default async function HomePage() {
       <LastMinDeals packages={lastMinuteDeals} />
       <LocationSearchSection />
       <PartnerSection />
-      <OneDayTripSection packages={oneDayTrips} title="test" subtitle="test" />
+      <ScrollingTripCardSection paginate packages={oneDayTrips} title="One Day Trips " subtitle="A curated list of the most popular travel packages based on different destinations." />
       <BlogSlider />
       <TestimonialSection />
       <div className="container mx-auto">

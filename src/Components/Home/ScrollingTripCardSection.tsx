@@ -1,4 +1,4 @@
-// Components/Home/OneDayTripSection.tsx
+// Components/Home/ScrollingTripCardSection.tsx
 
 "use client";
 
@@ -10,28 +10,30 @@ import { BASE_URL } from "@/lib/const";
 
 
 interface Props {
-  packages: any[];
-  title: string;
-  subtitle: string;
+  packages: any[],
+  title: string,
+  subtitle: string,
+  paginate?: boolean,
 }
 
-export default function OneDayTripSection({
+export default function ScrollingTripCardSection({
   packages,
   title,
   subtitle,
+  paginate,
 }: Props) {
   return (
-    <div className="home1-travel-package-section py-16">
+    <div className="home1-travel-package-section mb-100">
       <div className="container mx-auto px-4">
 
         {/* Section Title */}
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-2">
-            One Day Trips
+            {title}
           </h2>
 
           <p className="text-gray-600">
-           A curated list of the most popular travel packages based on different destinations.
+            {subtitle}
           </p>
         </div>
 
@@ -73,7 +75,7 @@ export default function OneDayTripSection({
                     price={pkg.pricePerPerson}
                     image={`${BASE_URL}/${pkg.image}`}
                     badge="One Day Trip"
-                     link={`/travel-package/details/${pkg._id}`}
+                    link={`/travel-package/details/${pkg._id}`}
                     experiences="Adventure"
                     inclusions="Meals Included"
                     delay={200 + index * 100}
@@ -83,9 +85,12 @@ export default function OneDayTripSection({
             </Swiper>
 
             {/* Pagination */}
-            <div className="slider-pagi-wrap">
-              <div className="offer-pagination relative flex justify-center paginations"></div>
-            </div>
+            {paginate && (
+              <div className="slider-pagi-wrap">
+                <div className="offer-pagination relative flex justify-center paginations"></div>
+              </div>
+            )
+            }
           </>
         )}
       </div>

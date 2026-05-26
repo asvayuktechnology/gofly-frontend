@@ -8,7 +8,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import LocationSlider from "../Common/UI/Sliders/LocationSlider";
-import { locationsdetail } from "@/lib/data";
+import { locationsdetail, travelPackagesData } from "@/lib/data";
 import ImgVideoSlider from "../Common/ImgVideoSlider";
 import DestinationWhyChoose from "./DestinationWhyChoose";
 import DestinationTravelSeason from "./DestinationTravelSeason";
@@ -208,11 +208,12 @@ export default function DestinationDetailsSection({
                 </div>
             </div>
 
-            <ScrollingTripCardSection
-                packages={[]}
+          <ScrollingTripCardSection
+                packages={travelPackagesData}
                 title="3 Tours Available in Paris"
                 subtitle="A curated list of the most popular travel packages based on different destinations."
-            />
+                />
+                 {/* <OneDayTripSection packages={oneDayTrips} title="test" subtitle="test" /> */}
         </>
 
     );
