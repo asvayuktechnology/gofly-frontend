@@ -3,17 +3,36 @@
 import React, { useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
 
-interface FaqItem {
-  question: string;
-  answer: string;
-}
+const faqData = [
+  {
+    question: "What services do you provide?",
+    answer:
+      "We provide travel packages, hotel bookings, transport services, and visa assistance.",
+  },
+  {
+    question: "How can I book a package?",
+    answer:
+      "You can easily book a package through our website or contact our support team.",
+  },
+  {
+    question: "Can I customize my travel package?",
+    answer:
+      "Yes, we offer customized travel packages according to your preferences and budget.",
+  },
+  {
+    question: "Do you provide cancellation support?",
+    answer:
+      "Yes, cancellation and refund policies are available based on package terms.",
+  },
+  {
+    question: "Is customer support available 24/7?",
+    answer:
+      "Yes, our support team is available 24/7 to help you during your journey.",
+  },
+];
 
-interface FaqSectionProps {
-  faqs: FaqItem[];
-}
-
-const FaqPackage: React.FC<FaqSectionProps> = ({ faqs }) => {
-  const [active, setActive] = useState<string>("");
+const DestFaqSection = () => {
+  const [active, setActive] = useState<string>("0");
 
   const toggle = (id: string) => {
     setActive((prev) => (prev === id ? "" : id));
@@ -22,17 +41,14 @@ const FaqPackage: React.FC<FaqSectionProps> = ({ faqs }) => {
   return (
     <div className="home1-faq-section mb-100">
       <div className="container mx-auto">
-        <div
-          className="row justify-content-center mb-50 wow animate fadeInDown"
-          data-wow-delay="200ms"
-          data-wow-duration="1500ms"
-        >
+        <div className="row justify-content-center mb-50">
           <div className="col-xl-6 col-lg-8">
             <div className="section-title text-center">
-              <h2>Frequently Asked & Question</h2>
+              <h2>Questions &amp; Answer</h2>
+
               <p>
-                We're committed to offering more than just products—we provide
-                exceptional experiences.
+                We’re committed to offering more than just
+                products—we provide exceptional experiences.
               </p>
             </div>
           </div>
@@ -42,16 +58,15 @@ const FaqPackage: React.FC<FaqSectionProps> = ({ faqs }) => {
           <div className="col-span-12">
             <div className="faq-wrap">
               <div className="accordion accordion-flush">
-                {faqs?.map((item, index) => {
+                {faqData.map((item, index) => {
                   const id = String(index);
+
                   const isOpen = active === id;
 
                   return (
                     <div
                       key={index}
-                      className="accordion-item wow animate fadeInDown"
-                      data-wow-delay={`${200 + index * 200}ms`}
-                      data-wow-duration="1500ms"
+                      className="accordion-item"
                     >
                       <h5 className="accordion-header">
                         <button
@@ -62,10 +77,11 @@ const FaqPackage: React.FC<FaqSectionProps> = ({ faqs }) => {
                           onClick={() => toggle(id)}
                         >
                           {item.question}
+
                           <BsFillCaretDownFill
                             size={12}
                             fill="#525252"
-                            className={`sidebar-category-icon transition-transform ${
+                            className={`transition-transform ${
                               isOpen ? "rotate-180" : ""
                             }`}
                           />
@@ -77,7 +93,9 @@ const FaqPackage: React.FC<FaqSectionProps> = ({ faqs }) => {
                           isOpen ? "show" : ""
                         }`}
                       >
-                        <div className="accordion-body">{item.answer}</div>
+                        <div className="accordion-body">
+                          {item.answer}
+                        </div>
                       </div>
                     </div>
                   );
@@ -91,4 +109,4 @@ const FaqPackage: React.FC<FaqSectionProps> = ({ faqs }) => {
   );
 };
 
-export default FaqPackage;
+export default DestFaqSection;

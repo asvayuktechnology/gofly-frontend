@@ -1,19 +1,14 @@
-
 import BreadcrumbSlider from "@/Components/Common/UI/Breadcrumbs/BreadcrumbSlider";
-import DestinationDetails from "@/Components/DestinationPage/DestinationDetails";
-
-
+import DestinationDetailsSection from "@/Components/DestinationPage/DestinationDetailsSection";
 
 export default function DestinationDetailsPage() {
-    return (
-        <>
-            <div className="mb-50">
-                <BreadcrumbSlider />
-            </div>
-            <div className="">
+  return (
+    <>
+      <div className="mb-50">
+        <BreadcrumbSlider />
+      </div>
 
-                <DestinationDetails />
-            </div>
-        </>
-    );
+      <DestinationDetailsSection />
+    </>
+  );
 }

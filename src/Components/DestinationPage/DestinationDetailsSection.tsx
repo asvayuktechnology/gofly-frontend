@@ -16,6 +16,7 @@ import FaqSection from "../Common/FaqSection";
 import VideoSection from "../Common/VideoSection";
 import { useState } from "react";
 import ScrollingTripCardSection from "../Home/ScrollingTripCardSection";
+import DestFaqSection from "./DestFaqSection";
 
 interface DestinationInfoItem {
     label: string;
@@ -217,13 +218,16 @@ export default function DestinationDetailsSection({
 
                 <div className="grid grid-cols-12">
                     <div className="col-span-8 col-start-3">
-                        <FaqSection />
+                        <DestFaqSection />
                     </div>
                 </div>
             </div>
 
-            <ScrollingTripCardSection title="3 Tours Available in Paris" subtitle=" A curated list of the most popular travel packages based on
-                            different destinations. " />
+          <ScrollingTripCardSection
+                packages={[]}
+                title="3 Tours Available in Paris"
+                subtitle="A curated list of the most popular travel packages based on different destinations."
+                />
         </>
 
     );

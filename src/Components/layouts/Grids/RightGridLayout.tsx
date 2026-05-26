@@ -9,6 +9,8 @@ import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
 import { Autoplay, Navigation } from "swiper/modules";
 import { SwiperSlide, Swiper } from "swiper/react";
 import FaqPackage from "./Faqpackage";
+import Image from "next/image";
+import Link from "next/link";
 
 interface Props {
     packageData: any;
@@ -123,7 +125,7 @@ export default function RightGridLayout({
                         </div>
                         {packageData?.itinerary && packageData?.itinerary.length > 0 && (
                             <div className="location-slider-wrap mb-60">
-                                <h4>Tour Itinerary</h4>
+                                <h4>Explore Locations</h4>
 
                                 <div className="location-slider-area">
                                     <Swiper
@@ -372,16 +374,27 @@ export default function RightGridLayout({
                                 </ul>
                             </>
                         )}
+
+
                         {packageData?.mapEmbedUrl && (
+                            <>
+                            <h4 className="feature-list-area mb-50 mt-10">Package Destination Map</h4>
+                            
                             <MapSection mapUrl={packageData?.mapEmbedUrl} />
+                            </>
                         )}
+
+                  
+
                         {(packageData?.inclusions?.length > 0 || packageData?.exclusions?.length > 0) && (
-                            <div className="feature-list-area mb-60">
-                                <h4>Package Features List</h4>
+                            <>
+                             
+                           <div className="feature-list-area mb-60 mt-10">
+                                <h2>Package Features List</h2>
                                 <div className="grid grid-cols-12 gy-md-5 gy-4">
                                     {packageData?.inclusions?.length > 0 && (
                                         <div className="col-span-5 ">
-                                            <div className="single-feature-list">
+                                            <div className="single-feature-list mb-60 mt-10">
                                                 <h5>Include Features</h5>
 
                                                 <ul className="items-list two">
@@ -405,7 +418,7 @@ export default function RightGridLayout({
                                     )}
                                     {packageData?.exclusions?.length > 0 && (
                                         <div className="col-span-5 col-start-8">
-                                            <div className="single-feature-list">
+                                            <div className="single-feature-list mb-60 mt-10">
                                                 <h5>Exclude Features</h5>
 
                                                 <ul className="items-list two">
@@ -431,10 +444,13 @@ export default function RightGridLayout({
                                     )}
                                 </div>
                             </div>
+                            </>
                         )}
-                        {/* <Link href="assets/company-desk.pdf" download="company-desk.pdf" className="download-area mb-60">
+
+                        <Link href="assets/company-desk.pdf" download="company-desk.pdf" className="download-area mb-60 mt-10">
                             <Image alt="" className="w-full h-auto" width={512} height={100} src="/assets/img/package-dt-brochure-download-img.webp" />
-                        </Link> */}
+                        </Link>
+                        
                         {packageData?.additionalInfo && packageData?.additionalInfo.length > 0 && (
                             <div className="additional-info mb-60">
                                 <h4>Additional Info</h4>
@@ -460,8 +476,10 @@ export default function RightGridLayout({
                             </div>
                         )}
                         {packageData?.faqs && packageData?.faqs.length > 0 && (
+                            <>
+                          
                             <FaqPackage faqs={packageData?.faqs || []} />
-
+</>
                         )}
                         <CustomerReviewSection />
                     </div>
