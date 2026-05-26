@@ -12,7 +12,7 @@ interface ScrollingTripCardsProps{
 
 export default function ScrollingTripCardSection({title,subtitle}:ScrollingTripCardsProps) {
   return (
-    <div className="home1-travel-package-section py-16">
+    <div className="home1-travel-package-section mb-100">
       <div className="container mx-auto px-4">
         {/* Section Title */}
         <div className="text-center mb-12">
