@@ -1,4 +1,4 @@
-// Components/Home/OneDayTripSection.tsx
+// Components/Home/ScrollingTripCardSection.tsx
 
 "use client";
 
@@ -15,7 +15,7 @@ interface Props {
   subtitle: string;
 }
 
-export default function OneDayTripSection({
+export default function ScrollingTripCardSection({
   packages,
   title,
   subtitle,
@@ -27,11 +27,11 @@ export default function OneDayTripSection({
         {/* Section Title */}
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-2">
-            One Day Trips
+            {title}
           </h2>
 
           <p className="text-gray-600">
-           A curated list of the most popular travel packages based on different destinations.
+            {subtitle}
           </p>
         </div>
 
