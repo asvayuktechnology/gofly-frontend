@@ -66,7 +66,7 @@ export default async function HomePage() {
       <LastMinDeals packages={lastMinuteDeals} />
       <LocationSearchSection />
       <PartnerSection />
-      <ScrollingTripCardSection packages={oneDayTrips} title="One Day Trips " subtitle="A curated list of the most popular travel packages based on different destinations." />
+      <ScrollingTripCardSection paginate packages={oneDayTrips} title="One Day Trips " subtitle="A curated list of the most popular travel packages based on different destinations." />
       <BlogSlider />
       <TestimonialSection />
       <div className="container mx-auto">
