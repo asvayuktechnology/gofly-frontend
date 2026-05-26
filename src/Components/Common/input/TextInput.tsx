@@ -76,10 +76,10 @@ const TextInput = (props: Props) => {
           })}
           readOnly={readOnly}
           // placeholder={placeholder}
-          className={`peer h-14 w-full rounded-[8px] text-black bg-white border p-4 
-focus:outline-0 focus:border-black active:border-black
+          className={`peer h-14 w-full rounded-[8px] text-black bg-white border border-b-2 p-4 
+focus:outline-2 focus:border-black active:border-black
 ${hasError ? 'border-red-500' : 'border-black'}`}
-        />
+        />  
 
         <ErrorLabel fieldError={error} />
       </ColumnDiv>
