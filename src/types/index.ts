@@ -317,3 +317,29 @@ export type TravelSeasonCardData = {
     note: string;
     delay: string;
 };
+
+export type HotelCardProps = {
+    image: string;
+    title: string;
+    location: string;
+    rating: string;
+    price: string;
+    features: string[];
+    badge?: string;
+    mapUrl?: string;
+    detailUrl?: string;
+    cancellationText?: string;
+};
+
+export type HotelCardData = {
+    image: string;
+    title: string;
+    location: string;
+    rating: string;
+    price: string;
+    features: string[];
+    badge?: string;
+    mapUrl?: string;
+    detailUrl?: string;
+    cancellationText?: string;
+};

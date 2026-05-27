@@ -27,9 +27,11 @@ interface Props {
   minDays?: number;
   maxDays?: number;
   isActive?: boolean;
+  carddata?: {};
 }
 
 export default function LeftGridLayout({
+  carddata=[],
   destinationId = [],
   category = [],
   keyword,
