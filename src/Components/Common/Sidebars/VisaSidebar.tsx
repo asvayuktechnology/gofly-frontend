@@ -35,7 +35,7 @@ const VisaSidebar = ({ visa }: VisaSidebarProps) => {
         <div className="mt-6">
           <p className="text-sm text-gray-500">Visa Pricing</p>
           <h3 className="text-3xl font-bold text-gray-900">
-            ₹{visa.price}{" "}
+            ${visa.price}{" "}
             <span className="text-base font-normal text-gray-600">
               /{visa.priceLabel}
             </span>
@@ -65,10 +65,10 @@ const VisaSidebar = ({ visa }: VisaSidebarProps) => {
         </h2>
 
         <div className="flex gap-3 mt-3 text-sm">
-          <span className="bg-black px-3 py-1 rounded-full flex items-center gap-1">
+          <span className="bg-black text-white px-3 py-1 rounded-full flex items-center gap-1">
             ✔ Expert Guidance
           </span>
-          <span className="bg-black px-3 py-1 rounded-full flex items-center gap-1">
+          <span className="bg-black px-3 py-1 text-white rounded-full flex items-center gap-1">
             ✔ Fast Processing
           </span>
         </div>

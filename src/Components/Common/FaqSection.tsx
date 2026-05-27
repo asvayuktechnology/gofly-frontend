@@ -59,7 +59,7 @@ const FaqSection: React.FC<Props> = ({ faqData }) => {
                     >
                       <h5 className="accordion-header">
                         <button
-                          className={`accordion-button w-full flex justify-between items-center ${
+                          className={`accordion-button w-full flex justify-between items-center cursor-pointer ${
                             !isOpen
                               ? "collapsed"
                               : ""

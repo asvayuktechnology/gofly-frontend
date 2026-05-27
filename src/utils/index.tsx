@@ -144,3 +144,12 @@ export enum VisaType {
   MEDICAL_VISA = 'medical_visa',
   SPOUSE_VISA = 'spouse_visa',
 }
+
+export const regionLabels: Record<string, string> = {
+  europe: "Europe",
+  asia: "Asia",
+  middle_east: "Middle East",
+  africa: "Africa",
+  north_america: "North America",
+  oceania: "Oceania",
+};

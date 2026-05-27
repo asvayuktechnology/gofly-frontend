@@ -18,6 +18,12 @@ export interface DestinationItem {
   guestsTravelled: number;
   isActive: boolean;
   createdAt: string;
+  capital?:string
+  currency?:string
+  language?:string
+  description?:string
+  bestTimeToVisit?:[]
+   faqs?:[]
 }
 
 export interface DestinationResponse {
@@ -55,4 +61,26 @@ export interface DestinationWithCountResponse {
 
 export interface DestinationResponse {
   data: DestinationItem[];
+}
+
+export interface DestinationInfoItem {
+    label: string;
+    value: string;
+    tooltip?: string;
+    icon?: React.ReactNode;
+}
+
+export interface TouristPlace {
+    title: string;
+    image: string;
+    href?: string;
+    gallery?: string[];
+}
+
+export interface DestinationDetailsSectionProps {
+    id?: string;
+    title?: string;
+    description?: string;
+    destinationInfo?: DestinationInfoItem[];
+    touristPlaces?: TouristPlace[];
 }

@@ -16,29 +16,10 @@ import FaqSection from "../Common/FaqSection";
 import VideoSection from "../Common/VideoSection";
 import { useState } from "react";
 import ScrollingTripCardSection from "../Home/ScrollingTripCardSection";
-import DestFaqSection from "./DestFaqSection";
-import OneDayTripSection from "../Home/ScrollingTripCardSection";
+import { useSingleDestination } from "@/services/destinationService";
+import { DestinationDetailsSectionProps, DestinationInfoItem, TouristPlace } from "@/types/destinationType";
 
-interface DestinationInfoItem {
-    label: string;
-    value: string;
-    tooltip?: string;
-    icon?: React.ReactNode;
-}
 
-interface TouristPlace {
-    title: string;
-    image: string;
-    href?: string;
-    gallery?: string[];
-}
-
-interface DestinationDetailsSectionProps {
-    title?: string;
-    description?: string;
-    destinationInfo?: DestinationInfoItem[];
-    touristPlaces?: TouristPlace[];
-}
 
 const defaultDestinationInfo: DestinationInfoItem[] = [
     {
@@ -122,13 +103,17 @@ const defaultTouristPlaces: TouristPlace[] = [
 ];
 
 export default function DestinationDetailsSection({
+    id,
     title = "Paris, France",
     description = `Paris, known as the "City of Light" (La Ville Lumière), is the capital of France and one of the most romantic and iconic cities in the world. Known for its timeless architecture, world-class museums, charming streets, rich history, and exquisite cuisine, Paris is a must-visit destination for travelers from around the globe. Globally recognized as a fashion capital, Paris is the birthplace of haute couture and luxury brands like Chanel, Louis Vuitton, and Dior.`,
     destinationInfo = defaultDestinationInfo,
     touristPlaces = defaultTouristPlaces,
 }: DestinationDetailsSectionProps) {
     const [isOpen, setIsOpen] = useState(false);
-
+    const { data, isLoading } = useSingleDestination(id || "");
+    const capitalizeWords = (text?: string) =>
+        text?.replace(/\b\w/g, (char) => char.toUpperCase());
+    console.log("datacheck", data)
     return (
         <>
 
@@ -141,41 +126,38 @@ export default function DestinationDetailsSection({
                     >
                         <div className="col-lg-10">
                             <div className="destination-details-content">
-                                <h2>{title}</h2>
+                                <h2>
+                                    {capitalizeWords(data?.capital)},
+                                    {capitalizeWords(data?.country)}
+                                </h2>
+
 
                                 <ul className="destination-info flex flex-wrap items-center gap-5 mb-6">
-                                    {destinationInfo.map((item, index) => (
-                                        <li key={index} className="flex items-center gap-2">
-                                            <div className="content">
-                                                <span>{item.label} - </span>
-                                                {item.value}
-                                            </div>
 
-                                            {item.icon}
+                                    <li className="flex items-center gap-2">
+                                        <div className="content">
+                                            <span>Capital - </span>
+                                            {data?.capital}
+                                        </div>
+                                    </li>
 
-                                            {item.tooltip && (
-                                                <div className="info relative group">
-                                                    <svg
-                                                        width={12}
-                                                        height={12}
-                                                        viewBox="0 0 12 12"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <g>
-                                                            <path d="M6 0.375C4.88748 0.375 3.79995 0.704901 2.87492 1.32298C1.94989 1.94107 1.22892 2.81957 0.80318 3.84741C0.377437 4.87524 0.266043 6.00624 0.483085 7.09738C0.700127 8.18853 1.23586 9.19081 2.02253 9.97748C2.8092 10.7641 3.81148 11.2999 4.90262 11.5169C5.99376 11.734 7.12476 11.6226 8.1526 11.1968C9.18043 10.7711 10.0589 10.0501 10.677 9.12508C11.2951 8.20006 11.625 7.11252 11.625 6C11.6245 4.50831 11.0317 3.07786 9.97693 2.02307C8.92215 0.968289 7.49169 0.375497 6 0.375ZM6 9.375C5.85167 9.375 5.70666 9.33101 5.58333 9.2486C5.45999 9.16619 5.36386 9.04906 5.30709 8.91201C5.25033 8.77497 5.23548 8.62417 5.26441 8.47868C5.29335 8.3332 5.36478 8.19956 5.46967 8.09467C5.57456 7.98978 5.7082 7.91835 5.85369 7.88941C5.99917 7.86047 6.14997 7.87533 6.28702 7.93209C6.42406 7.98886 6.54119 8.08499 6.62361 8.20832C6.70602 8.33166 6.75 8.47666 6.75 8.625C6.74941 8.82373 6.6702 9.01415 6.52968 9.15468C6.38915 9.2952 6.19873 9.37441 6 9.375ZM6.85875 3.55875L6.6075 6.56625C6.5944 6.71834 6.52472 6.85999 6.41224 6.9632C6.29976 7.0664 6.15266 7.12367 6 7.12367C5.84735 7.12367 5.70024 7.0664 5.58776 6.9632C5.47528 6.85999 5.40561 6.71834 5.3925 6.56625L5.14125 3.55875C5.13042 3.44226 5.1434 3.32478 5.1794 3.21346C5.2154 3.10214 5.27367 2.99931 5.35067 2.91123C5.42767 2.82314 5.52178 2.75165 5.62729 2.70108C5.73279 2.65052 5.84748 2.62195 5.96437 2.61711C6.08127 2.61227 6.19793 2.63126 6.30725 2.67294C6.41657 2.71461 6.51627 2.77808 6.60029 2.8595C6.6843 2.94092 6.75087 3.03858 6.79595 3.14655C6.84103 3.25451 6.86367 3.37051 6.8625 3.4875C6.86313 3.51131 6.86187 3.53514 6.85875 3.55875Z" />
-                                                        </g>
-                                                    </svg>
+                                    <li className="flex items-center gap-2">
+                                        <div className="content">
+                                            <span>Currency - </span>
+                                            {data?.currency}
+                                        </div>
+                                    </li>
 
-                                                    <div className="tooltip-text absolute left-1/2 top-full z-20 mt-2 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-black px-3 py-2 text-xs text-white shadow-lg group-hover:block">
-                                                        {item.tooltip}
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </li>
-                                    ))}
+                                    <li className="flex items-center gap-2">
+                                        <div className="content">
+                                            <span>Language - </span>
+                                            {data?.language}
+                                        </div>
+                                    </li>
+
                                 </ul>
 
-                                <p>{description}</p>
+                                <p>{data?.description || description}</p>
 
                                 <Link
                                     href="#"
@@ -210,7 +192,9 @@ export default function DestinationDetailsSection({
             <DestinationWhyChoose />
             <ImgVideoSlider title="Recent Customer Experience" />
             <div className="container mx-auto">
-                <DestinationTravelSeason />
+                <DestinationTravelSeason
+                    seasons={data?.bestTimeToVisit || []}
+                />
                 <div className="destination-dt-faq-video-area">
                     <VideoSection setIsOpen={setIsOpen} />
                 </div>
@@ -219,7 +203,7 @@ export default function DestinationDetailsSection({
 
                 <div className="grid grid-cols-12">
                     <div className="col-span-8 col-start-3">
-                        <DestFaqSection />
+                        <FaqSection faqData={data?.faqs || []} />
                     </div>
                 </div>
             </div>

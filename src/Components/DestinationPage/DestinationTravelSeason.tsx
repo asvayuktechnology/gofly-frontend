@@ -7,9 +7,24 @@ import { travelSeasons } from "@/lib/data";
 import TravelSeasonCard from "../Common/UI/Cards/TravelSeasonCard";
 
 
+interface TravelSeason {
+  season: string;
+  months: string;
+  tempRange: string;
+  highlights: string[];
+  idealFor: string;
+  image: string;
+}
+
+interface DestinationTravelSeasonProps {
+  seasons?: TravelSeason[];
+}
 
 
-const DestinationTravelSeason = () => {
+const DestinationTravelSeason = ({
+  seasons = [],
+}: DestinationTravelSeasonProps) => {
+ 
     return (
         <div
             className="destination-dt-travel-season-section mb-100"
@@ -25,12 +40,12 @@ const DestinationTravelSeason = () => {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
-                    {travelSeasons.map((season, index) => (
-                        <TravelSeasonCard
-                            key={index}
-                            season={season}
-                        />
-                    ))}
+                      {seasons.map((season, index) => (
+            <TravelSeasonCard
+              key={index}
+              season={season}
+            />
+          ))}
                 </div>
             </div>
         </div>
