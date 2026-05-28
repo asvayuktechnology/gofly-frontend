@@ -20,31 +20,30 @@ interface Props {
 
 const VisaListSection = ({ visaTypes, activeIndex, setActiveIndex }: Props) => {
 
-    return (
-        <div className="visa-list-area mb-[60px]">
-            <Swiper
-                spaceBetween={24}
-                slidesPerView={1}
-                breakpoints={{
-                    576: {
-                        slidesPerView: 2,
-                    },
-                    768: {
-                        slidesPerView: 3,
-                    },
-                    1200: {
-                        slidesPerView: 6,
-                    },
-                }}
-                className="visa-dt-visa-list-slider"
-            >
-                {visaTypes.map((item, index) => (
-                    <SwiperSlide key={item._id}>
+  return (
+    <div className="visa-list-area mb-[60px]">
+      <Swiper
+        spaceBetween={24}
+        slidesPerView={1}
+        breakpoints={{
+          576: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          1200: {
+            slidesPerView: 6,
+          },
+        }}
+        className="visa-dt-visa-list-slider"
+      >
+        {visaTypes.map((item, index) => (
+          <SwiperSlide key={item._id}>
             <div
               onClick={() => setActiveIndex(index)}
-              className={`single-visa ${
-                activeIndex === index ? 'active' : ''
-              }`}
+              className={`single-visa ${activeIndex === index ? 'active' : ''
+                }`}
             >
               <div className="flex justify-center mb-4">
                 <img
@@ -55,7 +54,7 @@ const VisaListSection = ({ visaTypes, activeIndex, setActiveIndex }: Props) => {
               </div>
 
               <h6 className="capitalize text-center">
-                {item.visaType.replaceAll('_', ' ')}
+                {item.visaType?.replaceAll('_', ' ') || 'Unknown'}
               </h6>
 
               <span>
@@ -63,10 +62,10 @@ const VisaListSection = ({ visaTypes, activeIndex, setActiveIndex }: Props) => {
               </span>
             </div>
           </SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
-    )
+        ))}
+      </Swiper>
+    </div>
+  )
 }
 
 export default VisaListSection

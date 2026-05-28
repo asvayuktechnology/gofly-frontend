@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { toastError } from "@/utils/toast";
 
 const processSteps = [
   {
@@ -65,7 +66,18 @@ const MailIcon = () => (
   </svg>
 );
 
-export default function WorkingProcessSection() {
+interface BasicDetails {
+  email?: string;
+  phoneNumber?: string;
+  whatsappNo?: string;
+  address?: string;
+}
+
+interface Props {
+  basicDetails?: BasicDetails;
+}
+const WorkingProcessSection: React.FC<Props> = ({ basicDetails }) => {
+  console.log("testdata", basicDetails)
   return (
     <section className="home8-process-section two mb-100">
       <div className="container mx-auto">
@@ -85,6 +97,7 @@ export default function WorkingProcessSection() {
             </div>
           </div>
         </div>
+
 
         <div className="process-wrapper mb-16">
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -126,21 +139,28 @@ export default function WorkingProcessSection() {
             <div className="content">
               <span>E-Message</span>
 
-              <a href="mailto:info@example.com">info@example.com</a>
+              <a href={`mailto:${basicDetails?.email || ".com"}`}>
+                {basicDetails?.email || ""}
+              </a>
             </div>
           </div>
 
           <strong>OR</strong>
 
-          <Link href="/contact" className="primary-btn1 two">
+          <Link
+            href="#"
+            className="primary-btn1 two"
+            onClick={(e) => {
+              e.preventDefault();
+              toastError("Please select country first");
+            }}
+          >
             <span>
-              Apply Online
-              <ArrowIcon />
+              Apply Online <ArrowIcon />
             </span>
 
             <span>
-              Apply Online
-              <ArrowIcon />
+              Apply Online <ArrowIcon />
             </span>
           </Link>
         </div>
@@ -157,3 +177,4 @@ export default function WorkingProcessSection() {
     </section>
   );
 }
+export default WorkingProcessSection

@@ -82,10 +82,23 @@ export interface VisaSetting {
     question: string;
     answer: string;
   }[];
+email:string
+visaAssistance:string
 }
 
 export interface VisaSettingsResponse {
   data: VisaSetting[];
   httpStatus: number;
   message: string;
+}
+
+export interface CreateVisaRequestPayload {
+  visaCategory: string;
+  visaType: string;
+  fullName: string;
+  dob: string;
+  phone: string;
+  email: string;
+  notes?: string;
+  document?: File | null;
 }

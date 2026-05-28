@@ -29,9 +29,9 @@ export default function VisaPackageGrid({
     setVisibleCount((prev) => prev + ITEMS_PER_LOAD);
   };
 
-    if (isLoading) {
-        return <GlobalLoader text="Fetching visa details..." />;
-    }
+  if (isLoading) {
+    return <GlobalLoader text="Fetching visa details..." />;
+  }
 
   return (
     <section
@@ -69,7 +69,11 @@ export default function VisaPackageGrid({
                 <div className="visa-package-content mt-4 flex flex-col gap-2">
                   <h5 className="text-lg font-semibold leading-snug">
                     <Link
-                      href={`/visa/details/${item._id}`}
+                      href={
+                        item?.visaTypes?.[0]?.visaType
+                          ? `/visa/details/${item._id}?visaType=${item.visaTypes[0].visaType}`
+                          : `/visa/details/${item._id}`
+                      }
                       className="hover:text-primary transition-colors"
                     >
                       {item.country}
@@ -79,8 +83,8 @@ export default function VisaPackageGrid({
                   <span className="text-sm text-gray-600">
                     Processing Time -{" "}
                     <strong className="text-black">
-                      {item.processingTime.min} -{" "}
-                      {item.processingTime.max} Days
+                      {item.processingTime?.min} -{" "}
+                      {item.processingTime?.max} Days
                     </strong>
                   </span>
                 </div>

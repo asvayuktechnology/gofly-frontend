@@ -1,6 +1,7 @@
 "use client";
 
 import VisaApplyModal from "@/Components/Visa/VisaApplyModal";
+import { useVisaSettings } from "@/services/visaService";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -8,10 +9,12 @@ import { useState } from "react";
 interface VisaSidebarProps {
   visa: any;
 }
-
 const VisaSidebar = ({ visa }: VisaSidebarProps) => {
    const [isModalOpen, setIsModalOpen] = useState(false);
   if (!visa) return null;
+  const { data: settingsData } = useVisaSettings();
+
+  const settings = settingsData?.data?.[0];
 
   return (
     <div className="space-y-6">
@@ -28,16 +31,16 @@ const VisaSidebar = ({ visa }: VisaSidebarProps) => {
 
         {/* Badge */}
         <div className="mt-3 inline-block bg-white px-4 py-1 rounded-full text-sm font-medium text-blue-600">
-          Validity - {visa.validity} / {visa.entryType}
+          Validity - {visa?.validity} / {visa?.entryType}
         </div>
 
         {/* Pricing */}
         <div className="mt-6">
           <p className="text-sm text-gray-500">Visa Pricing</p>
           <h3 className="text-3xl font-bold text-gray-900">
-            ${visa.price}{" "}
+            ${visa?.price}{" "}
             <span className="text-base font-normal text-gray-600">
-              /{visa.priceLabel}
+              /{visa?.priceLabel}
             </span>
           </h3>
         </div>
@@ -83,7 +86,7 @@ const VisaSidebar = ({ visa }: VisaSidebarProps) => {
 
           <div>
             <p className="text-sm text-black">WhatsApp</p>
-            <p className="font-bold text-black">+91 345 546 4568</p>
+            <p className="font-bold text-black">+91 {settings?.visaAssistance}</p>
           </div>
         </div>
 
@@ -98,9 +101,11 @@ const VisaSidebar = ({ visa }: VisaSidebarProps) => {
         </div>
       </div>
  <VisaApplyModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+  isOpen={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  visaCategory={visa?.visaCategoryId || visa?.visaCategory}
+  visaType={visa?._id}
+/>
 
     </div>
   );
