@@ -19,6 +19,7 @@ import {
   ExperienceCardItem,
   WhyChooseCardData,
   TravelSeasonCardData,
+  HotelCardData,
 } from "@/types";
 
 // export const POPULAR_PACKAGES: TravelPackage[] = [
@@ -1254,5 +1255,80 @@ export const travelSeasons: TravelSeasonCardData[] = [
         note:
             "Budget travelers, romantics, festive moods",
         delay: "600ms",
+    },
+];
+
+
+export const hotelData: HotelCardData[] = [
+    {
+        image: "/assets/img/innerpages/hotel-img1.jpg",
+        title: "Rosewood Hotels & Resorts",
+        location: "Himachal Pradesh, India",
+        rating: "5.0 Review",
+        price: "$99",
+        features: [
+            "Free Wi-Fi",
+            "Air Conditioning",
+            "Swimming Pool",
+            "Laundry Services",
+        ],
+        badge: "Hot Sale!",
+        mapUrl: "https://www.google.com/maps",
+        detailUrl: "/hotel/details",
+        cancellationText: "Free Cancellation Policy",
+    },
+
+    {
+        image: "/assets/img/innerpages/hotel-img2.jpg",
+        title: "Taj Mountain Retreat",
+        location: "Manali, India",
+        rating: "4.8 Review",
+        price: "$120",
+        features: [
+            "Mountain View",
+            "Free Breakfast",
+            "Spa & Wellness",
+            "Parking Facility",
+        ],
+        badge: "Best Seller",
+        mapUrl: "https://www.google.com/maps",
+        detailUrl: "/hotel/details",
+        cancellationText: "Free Cancellation Available",
+    },
+
+    {
+        image: "/assets/img/innerpages/hotel-img3.jpg",
+        title: "Ocean Breeze Resort",
+        location: "Goa, India",
+        rating: "4.9 Review",
+        price: "$150",
+        features: [
+            "Beach Access",
+            "Private Balcony",
+            "Swimming Pool",
+            "Airport Pickup",
+        ],
+        badge: "Luxury Stay",
+        mapUrl: "https://www.google.com/maps",
+        detailUrl: "/hotel/details",
+        cancellationText: "Non-refundable",
+    },
+
+    {
+        image: "/assets/img/innerpages/hotel-img4.jpg",
+        title: "Royal Heritage Palace",
+        location: "Jaipur, India",
+        rating: "5.0 Review",
+        price: "$180",
+        features: [
+            "Heritage Rooms",
+            "Fine Dining",
+            "Free Wi-Fi",
+            "Cultural Events",
+        ],
+        badge: "Premium",
+        mapUrl: "https://www.google.com/maps",
+        detailUrl: "/hotel/details",
+        cancellationText: "Free Cancellation Policy",
     },
 ];
