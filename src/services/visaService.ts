@@ -1,7 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import HttpService from "./httpsService";
 
 import {
+  CreateVisaRequestPayload,
   VisaCategoryResponse,
   VisaSettingsResponse,
 } from "@/types/visaType";
@@ -26,12 +27,18 @@ export const getVisaCategories = async (
 // ─────────────────────────────────────────────
 
 export const getVisaCategoryDetails = async (
-  id: string
+  categoryId: string,
+  visaType?: string
 ) => {
+  const query = new URLSearchParams({
+    categoryId,
+    ...(visaType ? { visaType } : {}),
+  }).toString();
+ 
   const res = await HttpService.get(
-    `/visa/categories/detail/${id}`
+    `/visa/categories/detail?${query}`
   );
-
+ 
   return res;
 };
 
@@ -50,12 +57,26 @@ export const useVisaCategories = (
 
 
 
-export const useVisaCategoryDetails = (id: string) =>
-  useQuery({
-    queryKey: ["visa-category-details", id],
-    queryFn: () => getVisaCategoryDetails(id),
-    enabled: !!id,
-  });
+  export const useVisaCategoryDetails = (
+    categoryId: string,
+    visaType?: string
+  ) =>
+    useQuery({
+      queryKey: [
+        "visa-category-details",
+        categoryId,
+        visaType,
+      ],
+      queryFn: () =>
+        getVisaCategoryDetails(
+          categoryId,
+          visaType
+        ),
+      enabled: !!categoryId,
+    });
+
+
+
 
   export const getVisaSettings =
   async (): Promise<VisaSettingsResponse> =>
@@ -63,12 +84,61 @@ export const useVisaCategoryDetails = (id: string) =>
       (res) => res.data
     );
 
-// ─────────────────────────────────────────────
-// USE VISA SETTINGS
-// ─────────────────────────────────────────────
 
 export const useVisaSettings = () =>
   useQuery({
     queryKey: ["visa-settings"],
     queryFn: getVisaSettings,
   });
+
+  export const createVisaRequest = async (
+    payload: CreateVisaRequestPayload
+    ) => {
+    const formData = new FormData();
+    
+    // Append form fields
+    formData.append("visaCategory", payload.visaCategory);
+    formData.append("visaType", payload.visaType);
+    formData.append("fullName", payload.fullName);
+    formData.append("dob", payload.dob);
+    formData.append("phone", payload.phone);
+    formData.append("email", payload.email);
+    
+    // Append optional fields
+    if (payload.notes?.trim()) {
+        formData.append("notes", payload.notes);
+    }
+    
+    if (payload.document && payload.document instanceof File) {
+        formData.append("document", payload.document);
+    }
+    
+    const res = await HttpService.post(
+        "/visa/request",
+        formData,
+        {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        }
+    );
+    
+    return res.data;
+    };
+    
+    
+    export const useCreateVisaRequest = (
+    {
+        onSuccess,
+        onError,
+    }: {
+        onSuccess?: (data: any) => void;
+        onError?: (error: any) => void;
+    } = {}
+    ) =>
+    useMutation({
+        mutationFn: createVisaRequest,
+        onSuccess,
+        onError,
+    });
+    

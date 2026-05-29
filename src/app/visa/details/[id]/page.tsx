@@ -12,8 +12,10 @@ interface Props {
 export default async function TravelPackagePage({ params }: Props) {
   const { id } = await params;
 
-  const res = await getVisaCategoryDetails(id); // your API call
-  const category = res?.data?.data;
+  const res = await getVisaCategoryDetails(id);
+
+  // array ka first item
+  const category = res?.data?.data?.[0];
 
   return (
     <>

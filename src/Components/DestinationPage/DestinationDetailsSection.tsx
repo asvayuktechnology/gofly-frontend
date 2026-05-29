@@ -211,7 +211,7 @@ export default function DestinationDetailsSection({
           <ScrollingTripCardSection
                 packages={travelPackagesData}
                 title="3 Tours Available in Paris"
-                subtitle="A curated list of the most popular travel packages based on different destinations."
+                subtitle="Working Process"
                 />
                  {/* <OneDayTripSection packages={oneDayTrips} title="test" subtitle="test" /> */}
         </>
