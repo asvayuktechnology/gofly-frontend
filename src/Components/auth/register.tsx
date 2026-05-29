@@ -166,7 +166,7 @@ const onSubmit = (data: RegisterFormData) => {
   name="confirmPassword"
   placeholder="Enter password"
   register={register}
-  error={errors.confirmPassword}  // ✅ fixed
+  error={errors.confirmPassword}  
 />
 <Checkbox
 label= " Terms & Conditions"
