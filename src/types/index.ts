@@ -346,3 +346,20 @@ export type HotelCardData = {
     detailUrl?: string;
     cancellationText?: string;
 };
+
+export interface GuestRoom {
+  id: string;
+  adults: number;
+  children: number;
+}
+
+export interface HotelRoom {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  oldPrice?: number;
+  description: string;
+  images: string[];
+  services: string[];
+}
