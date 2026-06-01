@@ -3096,7 +3096,7 @@ header.style-1 .main-menu>ul {
 
 header.style-1 .main-menu>ul>li {
     display: inline-block;
-    position: relative;
+    /* position: relative; */
     padding: 0
 }
 
@@ -27812,7 +27812,7 @@ header.style-3.two .main-menu>ul>li.active>a i {
 }
 
 .breadcrumb-section.four {
-    background-image: url(/_next/static/media/breadcrumb-bg8.9b80c06a.png), linear-gradient(180deg, #BDEBCE, #BDEBCE);
+    background-image: url(/assets/img/breadcrumb-bg8.png), linear-gradient(180deg, #BDEBCE, #BDEBCE);
     padding: 70px 0 165px
 }
 

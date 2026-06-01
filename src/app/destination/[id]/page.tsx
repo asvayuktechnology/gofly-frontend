@@ -38,16 +38,16 @@ export default async function DestinationDetailsPage({
   }
 
   const destinationData: BreadcrumbDestination = {
-    title:  "",
-    country:  "",
+    title: "",
+    country: "",
     bannerImages: data?.images || [],
   };
 
   return (
     <>
-     <div className="mb-50">
-      <BreadcrumbSlider packageData={destinationData} />
-</div>
+      <div className="mb-50">
+        <BreadcrumbSlider packageData={destinationData} isDestinationPage={true}   />
+      </div>
       <DestinationDetailsSection id={id} />
     </>
   );

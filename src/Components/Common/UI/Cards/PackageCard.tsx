@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Tooltip from "../../Tooltip/Tooltip";
 import { svgIcon } from "../../Icons/SvgIcons";
+import SiteBtn from "../../SiteBtn/SiteBtn";
 
 interface PackageCardProps {
   title: string;
@@ -91,7 +92,8 @@ export default function PackageCard({
 
             {/* Button & Price */}
             <div className="btn-and-price-area flex justify-between items-end mb-4">
-              <Link
+              <SiteBtn text="Book Now" svgIcon={svgIcon.arrow} iconPosition="end" link={link} className="primary-btn1 inline-flex cursor-pointer items-center justify-center rounded-full bg-black px-6 py-2.5 font-medium text-white transition hover:bg-gray-800" />
+              {/* <Link
                 href={link}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition"
               >
@@ -99,7 +101,7 @@ export default function PackageCard({
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </Link>
+              </Link> */}
               <div className="price-area text-right">
                 <p className="text-xs text-gray-600">Per Person</p>
                 <span className="text-2xl font-bold text-gray-900">${price}</span>

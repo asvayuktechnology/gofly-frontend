@@ -15,11 +15,13 @@ import Link from "next/link";
 import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
 import GuestSelector from "@/Components/HotePage/GuestSelector";
 import RoomAccordion from "@/Components/HotePage/RoomAccordian";
-
-
+import { getSinglePackage } from "@/services/packageService";
+import HotelBreadcrumb from "@/Components/HotePage/HotelBreadcrumb";
+import HotelGallery from "@/Components/HotePage/HotelGallery";
 
 
 export default function Page() {
+
 
     const [page, setPage] = useState(1);
     const [openIndexes, setOpenIndexes] = useState<number[]>([0]);
@@ -117,10 +119,44 @@ export default function Page() {
     );
     return (
         <>
-            <BreadcrumbSlider />
+            <HotelBreadcrumb hotelName="Rosewood Hotel & Resorts" location="Himachal Pradesh, India" />
+
+            <HotelGallery
+                sliderImages={[
+                    {
+                        id: "1",
+                        image: "/assets/img/hotel-dt-gallery-img2.webp",
+                    },
+                    {
+                        id: "2",
+                        image: "/assets/img/hotel-dt-gallery-img7.webp",
+                    },
+                    {
+                        id: "3",
+                        image: "/assets/img/hotel-dt-gallery-img2.webp",
+                    },
+                ]}
+                galleryImages={[
+                    {
+                        id: "4",
+                        image: "/assets/img/hotel-dt-gallery-img2.webp",
+                    },
+                    {
+                        id: "5",
+                        image: "/assets/img/hotel-dt-gallery-img7.webp",
+                    },
+                    {
+                        id: "6",
+                        image: "/assets/img/hotel-dt-gallery-img2.webp",
+                    },
+                ]}
+                videoThumbnail="/images/video-thumb.jpg"
+                videoUrl="https://www.youtube.com/watch?v=u31qwQUeGuM"
+            />
+
             <div className="hotel-details-page mb-100">
 
-                <div className="container mx-auto pt-100">
+                <div className="container mx-auto ">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                         <div className="lg:col-span-7">
                             <div className="hotel-details-wrapper">
@@ -662,7 +698,7 @@ export default function Page() {
                             </div>
                         </div>
                         <div className="lg:col-span-4 lg:col-start-9">
-                            {/* <PackageSidebar /> */}
+                            <PackageSidebar />
                         </div>
 
                         <div className="col-span-12">

@@ -201,7 +201,7 @@ const Header = () => {
         />
       </div>
       {/* ===================== Main Header ===================== */}
-      <header className="style-1 bg-white shadow-sm  ">
+      <header className="style-1 bg-white shadow-sm  relative">
         <div className="container mx-auto px-3">
           <div className="flex flex-nowrap items-center justify-between ">
             {/* Mobile Logo */}
@@ -229,7 +229,7 @@ const Header = () => {
                 </li>
 
                 {/* Destination */}
-                <li className="group relative">
+                <li className="group static">
                   <Link
                     href="/destination"
                     className={`flex items-center gap-1 transition hover:text-primary ${pathname.startsWith("/destination")
@@ -242,7 +242,11 @@ const Header = () => {
                   </Link>
 
                   {/* Mega Menu */}
-                  <div className="invisible absolute left-0 top-8 z-50 mt-6 w-[900px] rounded-2xl bg-white p-8 opacity-0 shadow-xl transition duration-200 group-hover:visible group-hover:opacity-100">
+                  <div className="invisible absolute left-0 top-8 z-50 mt-6 w-full  bg-white p-8 opacity-0 shadow-xl transition duration-200 group-hover:visible group-hover:opacity-100 border border-[#e8e8e8]">
+                    <img alt="" loading="lazy" width="275" height="365" decoding="async" data-nimg="1" className="vector1 absolute bottom-0 -z-1 left-0" src="/assets/img/mega-menu-vector1.svg" ></img>
+                    <img alt="" loading="lazy" width="275" height="365" decoding="async" data-nimg="1" className="vector2 absolute bottom-0 -z-1 right-0" src="/assets/img/mega-menu-vector2.svg" ></img>
+                    <div className="container mx-auto">
+
                     <div className="grid grid-cols-3 gap-8">
                       {Object.entries(groupedDestinations).map(
                         ([region, items]: any, index) => (
@@ -282,6 +286,7 @@ const Header = () => {
                           </div>
                         )
                       )}
+                    </div>
                     </div>
                   </div>
                 </li>
