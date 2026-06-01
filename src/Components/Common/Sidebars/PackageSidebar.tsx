@@ -7,6 +7,7 @@ import { svgIcon } from "../Icons/SvgIcons";
 import SiteBtn from "../SiteBtn/SiteBtn";
 import TextInput from "../input/TextInput";
 import TextAreaInput from "../input/TextAreaInput";
+import EnquiryForm from "@/Components/Forms/EnquiryForm";
 
 interface PackageSidebarProps {
   packageData: any;
@@ -46,20 +47,20 @@ const discount = packageData?.discounts?.[0];
 
         {/* Buttons */}
 
-        <SiteBtn
+        {/* <SiteBtn
           link={"#"}
           svgIcon={svgIcon.arrow}
           iconPosition="end"
           text="Check Availability"
           className="primary-btn1 mb-20"
           onClick={() => setShowBooking(true)}
-        />
+        /> */}
 
         <SiteBtn
           link={"#"}
           svgIcon={svgIcon.arrow}
           iconPosition="end"
-          text="Submit an Enquiry"
+          text="Enquiry"
           className="primary-btn1 transparent"
           onClick={() => setShowEnquiry(true)}
         />
@@ -153,47 +154,48 @@ const discount = packageData?.discounts?.[0];
 
       {/* Enquiry Modal */}
      {showEnquiry && (
-  <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
-    <div className="bg-white p-6 rounded-lg w-[90%] max-w-md">
-      <h4 className="mb-4">Submit Enquiry</h4>
+  // <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+  //   <div className="bg-white p-6 rounded-lg w-[90%] max-w-md">
+  //     <h4 className="mb-4">Submit Enquiry</h4>
 
-      <TextInput
-        label="Your Name"
-        name="name"
+  //     <TextInput
+  //       label="Your Name"
+  //       name="name"
       
-        onChange={(e) => console.log(e.target.value)}
-      />
+  //       onChange={(e) => console.log(e.target.value)}
+  //     />
 
-      <TextInput
-        label="Email"
-        name="email"
-        type="email"
+  //     <TextInput
+  //       label="Email"
+  //       name="email"
+  //       type="email"
 
-        onChange={(e) => console.log(e.target.value)}
-      />
+  //       onChange={(e) => console.log(e.target.value)}
+  //     />
 
-      <TextAreaInput
-        name="message"
-        label="Message"
+  //     <TextAreaInput
+  //       name="message"
+  //       label="Message"
        
-        rows={4}
-        onChange={(e) => console.log(e.target.value)}
-      />
+  //       rows={4}
+  //       onChange={(e) => console.log(e.target.value)}
+  //     />
 
-      <div className="flex justify-end gap-2 mt-4">
-        <button
-          className="primary-btn1"
-          onClick={() => setShowEnquiry(false)}
-        >
-          Close
-        </button>
+  //     <div className="flex justify-end gap-2 mt-4">
+  //       <button
+  //         className="primary-btn1"
+  //         onClick={() => setShowEnquiry(false)}
+  //       >
+  //         Close
+  //       </button>
 
-        <button className="primary-btn1 two">
-          Send
-        </button>
-      </div>
-    </div>
-  </div>
+  //       <button className="primary-btn1 two">
+  //         Send
+  //       </button>
+  //     </div>
+  //   </div>
+  // </div>
+  <EnquiryForm/>
 )}
     </div>
   );

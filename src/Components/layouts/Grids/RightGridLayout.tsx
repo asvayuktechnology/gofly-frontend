@@ -11,6 +11,7 @@ import { SwiperSlide, Swiper } from "swiper/react";
 import FaqPackage from "./Faqpackage";
 import Image from "next/image";
 import Link from "next/link";
+import { svgIcon } from "@/Components/Common/Icons/SvgIcons";
 
 interface Props {
     packageData: any;
@@ -217,163 +218,153 @@ export default function RightGridLayout({
                             </div>
                         )}
                         {packageData?.itinerary && packageData?.itinerary.length > 0 && (
-                            <>
-                                {/* Title */}
-                                <div className="itinerary-title flex items-center justify-between mb-6">
-                                    <h4 className="text-2xl font-semibold">Tour Itinerary</h4>
+    <div className="tour-itinerary-area mb-16">
+        {/* Title */}
+        <div className="itinerary-title flex items-center justify-between mb-6">
+            <h4 className="text-2xl font-semibold">Tour Itinerary</h4>
+
+            <button
+                onClick={handleExpandAll}
+                className="expand-btn text-primary text-sm font-medium hover:underline"
+            >
+                {expandAll ? "Collapse All -" : "Expand All +"}
+            </button>
+        </div>
+
+        {/* List */}
+        <ul className="itinerary-list space-y-4">
+            {packageData?.itinerary?.map((item: any, index: number) => (
+                <li
+                    key={index}
+                    className="single-itinerary rounded-xl overflow-hidden"
+                >
+                    {/* Location Title */}
+                    <div className="location-title flex items-center gap-3 p-4">
+                        <div className="icon">
+                            {svgIcon.detailtourlocation}
+                        </div>
+
+                        <h5 className="font-semibold">
+                            {item.accommodation || item.title}
+
+                            <span className="text-sm text-gray-500 ml-2">
+                                (
+                                Departure:{" "}
+                                <strong>
+                                    {item.departure_time || "8:00 am - 8:30am"}
+                                </strong>
+                                )
+                            </span>
+                        </h5>
+                    </div>
+
+                    {/* Accordion */}
+                    <div className="tour-plan-wrap">
+                        <div className="space-y-2 accordion">
+                            <div className="border-b accordion-item">
+                                {/* Header */}
+                                <div className="accordion-header">
                                     <button
-                                        onClick={handleExpandAll}
-                                        className="expand-btn text-primary text-sm font-medium hover:underline"
+                                        onClick={() => toggleItem(index)}
+                                        className="accordion-button w-full flex justify-between items-center text-left transition"
                                     >
-                                        {expandAll ? "Collapse All -" : "Expand All +"}
+                                        <h6 className="flex items-center gap-2">
+                                            <span className="text-primary flex items-center gap-1">
+                                                {svgIcon.locationIcon2}
+                                                Day-0{item.day || index + 1}
+                                            </span>
+
+                                            {item.title}
+                                        </h6>
+
+                                        <span className="text-lg">
+                                            {openItems.includes(index) ? (
+                                                <BsFillCaretUpFill
+                                                    size={12}
+                                                    color="#525252"
+                                                />
+                                            ) : (
+                                                <BsFillCaretDownFill
+                                                    size={12}
+                                                    color="#525252"
+                                                />
+                                            )}
+                                        </span>
                                     </button>
                                 </div>
 
-                                {/* List */}
-                                <ul className="itinerary-list space-y-4">
-                                    {packageData?.itinerary?.map((item: any, index: number) => (
-                                        <li key={index} className="single-itinerary rounded-xl overflow-hidden">
+                                {/* Content */}
+                                {openItems.includes(index) && (
+                                    <div className="accordion-body p-4 text-gray-600 text-sm space-y-4">
+                                        {/* Description */}
+                                        {item.description && (
+                                            <p className="leading-relaxed text-black">
+                                                {item.description}
+                                            </p>
+                                        )}
 
-                                            {/* Location Title */}
-                                            <div className="location-title flex items-center gap-3 p-4">
-                                                <div className="icon">
-                                                    <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.4555 2.20848L8.9555 14.2085C8.90963 14.3093 8.83158 14.392 8.73359 14.4437C8.63561 14.4954 8.52325 14.513 8.41414 14.4939C8.30503 14.4748 8.20536 14.42 8.13076 14.3381C8.05617 14.2562 8.01088 14.1519 8.002 14.0415L7.537 8.46298L1.959 7.99798C1.84877 7.98891 1.74466 7.94355 1.66297 7.869C1.58127 7.79444 1.5266 7.69491 1.50751 7.58596C1.48841 7.47702 1.50598 7.36483 1.55746 7.26694C1.60894 7.16905 1.69143 7.09099 1.792 7.04498L13.792 1.54498C13.8848 1.50238 13.9884 1.48922 14.0889 1.50725C14.1894 1.52528 14.2819 1.57364 14.3541 1.64584C14.4263 1.71803 14.4747 1.8106 14.4927 1.91109C14.5108 2.01158 14.4976 2.11519 14.455 2.20798L14.4555 2.20848Z"></path></svg>
-                                                </div>
-                                                <h5 className="font-semibold">
-                                                    {item.accommodation}{" "}
-                                                    <span className="text-sm font-normal">
-                                                        ( Departure: <strong>8:00 am - 8:30am</strong> )
-                                                    </span>
-                                                </h5>
+                                        {/* Transport */}
+                                        {item.transport && (
+                                            <div className="flex items-start gap-3">
+                                                <strong className="min-w-[120px] text-black">
+                                                    Transport :
+                                                </strong>
+
+                                                <span>{item.transport}</span>
                                             </div>
+                                        )}
 
-                                            {/* Accordion Wrapper */}
-                                            <div className="tour-plan-wrap border  rounded-xl mx-4 mb-4">
-                                                <div className="accordion">
+                                        {/* Activities */}
+                                        {item.activities?.length > 0 && (
+                                            <div className="flex items-start gap-3">
+                                                <strong className="min-w-[120px] text-black">
+                                                    Activities :
+                                                </strong>
 
-                                                    <div className="accordion-item">
-
-                                                        {/* Accordion Header */}
-                                                        <div className="accordion-header border-b ">
-                                                            <button
-                                                                onClick={() => toggleItem(index)}
-                                                                className="accordion-button w-full flex justify-between items-center text-left px-5 py-4 transition"
-                                                            >
-                                                                <h6 className="flex items-center gap-3 text-sm font-semibold">
-                                                                    <span className="text-primary flex items-center gap-1">
-                                                                        <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                                                                            <path d="M7 14C7 14 12.25 9.02475 12.25 5.25C12.25 3.85761 11.6969 2.52226 10.7123 1.53769C9.72774 0.553123 8.39239 0 7 0C5.60761 0 4.27226 0.553123 3.28769 1.53769C2.30312 2.52226 1.75 3.85761 1.75 5.25C1.75 9.02475 7 14 7 14ZM7 7.875C6.30381 7.875 5.63613 7.59844 5.14384 7.10616C4.65156 6.61387 4.375 5.94619 4.375 5.25C4.375 4.55381 4.65156 3.88613 5.14384 3.39384C5.63613 2.90156 6.30381 2.625 7 2.625C7.69619 2.625 8.36387 2.90156 8.85616 3.39384C9.34844 3.88613 9.625 4.55381 9.625 5.25C9.625 5.94619 9.34844 6.61387 8.85616 7.10616C8.36387 7.59844 7.69619 7.875 7 7.875Z" />
-                                                                        </svg>
-                                                                        Day-0{item.day}
-                                                                    </span>
-                                                                    {item.title}
-                                                                </h6>
-                                                                <span>
-                                                                    {openItems.includes(index)
-                                                                        ? <BsFillCaretUpFill size={12} color="#525252" />
-                                                                        : <BsFillCaretDownFill size={12} color="#525252" />}
-                                                                </span>
-                                                            </button>
-                                                        </div>
-
-                                                        {/* Accordion Body */}
-                                                        {openItems.includes(index) && (
-                                                            <div className="accordion-body px-5 py-5 text-black text-sm space-y-4">
-
-                                                                {/* Description */}
-                                                                {item.description && (
-                                                                    <p className="text-black text-sm leading-relaxed">
-                                                                        {item.description}
-                                                                    </p>
-                                                                )}
-
-                                                                {/* Details Grid */}
-                                                                <div className="space-y-3 pt-2">
-
-                                                                    {/* Transport */}
-                                                                    {item.transport && (
-                                                                        <div className="flex items-center gap-3">
-                                                                            <div className="flex items-center gap-2 w-36 shrink-0">
-                                                                                <span className="text-primary">
-                                                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                                                        <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                                                        <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <strong className="text-black font-semibold text-sm">Transport</strong>
-                                                                            </div>
-                                                                            <span className="text-black">:</span>
-                                                                            <span className="text-black">{item.transport}</span>
-                                                                        </div>
-                                                                    )}
-
-                                                                    {/* Activities */}
-                                                                    {item.activities?.length > 0 && (
-                                                                        <div className="flex items-center gap-3">
-                                                                            <div className="flex items-center gap-2 w-36 shrink-0">
-                                                                                <span className="text-primary">
-                                                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                                                                                        <path d="M12 8V12L15 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <strong className="text-black font-semibold text-sm">Activities</strong>
-                                                                            </div>
-                                                                            <span className="text-black">:</span>
-                                                                            <span className="text-black">{item.activities.join(", ")}</span>
-                                                                        </div>
-                                                                    )}
-
-                                                                    {/* Meals */}
-                                                                    {item.meals && (
-                                                                        <div className="flex items-center gap-3">
-                                                                            <div className="flex items-center gap-2 w-36 shrink-0">
-                                                                                <span className="text-primary">
-                                                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                                                                                        <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <strong className="text-black font-semibold text-sm">Meals</strong>
-                                                                            </div>
-                                                                            <span className="text-black">:</span>
-                                                                            <span className="text-black">{item.meals}</span>
-                                                                        </div>
-                                                                    )}
-
-                                                                    {/* Accommodation */}
-                                                                    {item.accommodation && (
-                                                                        <div className="flex items-center gap-3">
-                                                                            <div className="flex items-center gap-2 w-36 shrink-0">
-                                                                                <span className="text-primary">
-                                                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <strong className="text-black font-semibold text-sm">Accomodation</strong>
-                                                                            </div>
-                                                                            <span className="text-black">:</span>
-                                                                            <span className="text-black">{item.accommodation}</span>
-                                                                            <a href="#" className="ml-auto text-primary text-sm font-semibold hover:underline">
-                                                                                View Hotel
-                                                                            </a>
-                                                                        </div>
-                                                                    )}
-
-                                                                </div>
-                                                            </div>
-                                                        )}
-
-                                                    </div>
-                                                </div>
+                                                <span>
+                                                    {item.activities.join(", ")}
+                                                </span>
                                             </div>
+                                        )}
 
-                                        </li>
-                                    ))}
-                                </ul>
-                            </>
-                        )}
+                                        {/* Meals */}
+                                        {item.meals && (
+                                            <div className="flex items-start gap-3">
+                                                <strong className="min-w-[120px] text-black">
+                                                    Meals :
+                                                </strong>
+
+                                                <span>{item.meals}</span>
+                                            </div>
+                                        )}
+
+                                        {/* Accommodation */}
+                                        {item.accommodation && (
+                                            <div className="flex items-start gap-3">
+                                                <strong className="min-w-[120px] text-black">
+                                                    Accommodation :
+                                                </strong>
+
+                                                <span>{item.accommodation}</span>
+
+                                                <a
+                                                    href="#"
+                                                    className="ml-auto text-primary text-sm font-semibold hover:underline"
+                                                >
+                                                    View Hotel
+                                                </a>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            ))}
+        </ul>
+    </div>
+)}
 
 
                         {packageData?.mapEmbedUrl && (

@@ -4,6 +4,8 @@ import { HotelCardProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { BiStar } from "react-icons/bi";
+import { BsFillStarFill, BsStar, BsStarHalf } from "react-icons/bs";
 
 
 
@@ -18,16 +20,18 @@ const HotelCard = ({
     mapUrl = "https://www.google.com/maps",
     detailUrl = "/hotel/details",
     cancellationText = "Free Cancellation Policy",
+    layout = "grid",
 }: HotelCardProps) => {
     return (
-        <div className="hotel-card">
-            <div className="hotel-img-wrap">
+        <div className={`hotel-card ${layout === "list" ? "listview flex flex-col md:flex-row gap-6" : ""}`}>
+            <div className={`hotel-img-wrap ${layout === "list" ? "md:w-1/3" : ""}`}>
                 <Link className="hotel-img" href={detailUrl}>
                     <Image
                         src={image}
                         alt={title}
                         width={650}
                         height={385}
+                        className={`${layout === "list" ? "" : "max-h-[234px]"}`}
                     />
                 </Link>
 
@@ -38,12 +42,32 @@ const HotelCard = ({
 
             <div className="hotel-content">
                 <div className="rating-area">
-                    <ul className="star">
-                        {Array.from({ length: 5 }).map((_, index) => (
-                            <li key={index}>
-                                <i className="bi bi-star-fill" />
-                            </li>
-                        ))}
+                    <ul className="star flex items-center gap-1">
+                        {Array.from({ length: 5 }).map((_, index) => {
+                            const starNumber = index + 1;
+
+                            if (rating >= starNumber) {
+                                return (
+                                    <li key={index}>
+                                        <BsFillStarFill className="text-[#DDA701] text-[12px]" />
+                                    </li>
+                                );
+                            }
+
+                            if (rating >= starNumber - 0.5) {
+                                return (
+                                    <li key={index}>
+                                        <BsStarHalf className="text-[#DDA701] text-[12px]" />
+                                    </li>
+                                );
+                            }
+
+                            return (
+                                <li key={index}>
+                                    <BsStar className="text-[#DDA701] text-[12px]" />
+                                </li>
+                            );
+                        })}
                     </ul>
 
                     <span>{rating}</span>

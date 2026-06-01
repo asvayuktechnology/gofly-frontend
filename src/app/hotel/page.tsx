@@ -1,46 +1,10 @@
 import Breadcrumb from "@/Components/Common/UI/Breadcrumbs/Breadcrumb";
-import Filters from "@/Components/Home/Filters";
-import LeftGridLayout from "@/Components/layouts/Grids/LeftGridLayout";
-import { hotelData } from "@/lib/data";
-interface Props {
-  searchParams: Promise<{
-    destinationId?: string | string[];
-    category?: string | string[];
-    keyword?: string;
-    page?: string;
-    limit?: string;
-    sortBy?: string;
-    startDate?: string;
-    endDate?: string;
-    minPrice?: string;
-    maxPrice?: string;
-    minDays?: string;
-    maxDays?: string;
-  }>;
-}
+import HotelSearchBar from "@/Components/HotePage/HotelSearchBar";
+import HotelPackageSearchSection from "@/Components/HotePage/HotePackageSearchSection";
 
-export default async function TravelPackagePage({
-  searchParams,
-}: Props) {
-  const params = await searchParams;
 
-  const destinationId = Array.isArray(
-    params.destinationId
-  )
-    ? params.destinationId
-    : params.destinationId
-    ? [params.destinationId]
-    : [];
 
-    const category = Array.isArray(
-  params.category
-)
-  ? params.category
-  : params.category
-  ? [params.category]
-  : [];
-//   console.log("destinationId", destinationId);
-
+export default async function HotelPackagePage() {
   return (
     <>
       <Breadcrumb
@@ -56,14 +20,15 @@ export default async function TravelPackagePage({
         ]}
       />
 
+      <HotelSearchBar />
 
-      <Filters/>
 
-      <div className="container mx-auto pt-100 mb-100">
-        <LeftGridLayout
-          carddata={hotelData}
-        />
+      <div className="hotel-grid-page mb-100">
+        <div className="container mx-auto">
+          <HotelPackageSearchSection />
+        </div>
       </div>
+
     </>
   );
 }

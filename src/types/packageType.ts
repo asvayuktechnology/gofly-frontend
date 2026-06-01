@@ -39,7 +39,7 @@ export interface Package {
   durationDays: number;
   pricePerPerson: number;
   image: string;
-
+  rating?: string;
   isHotSale?: boolean;
   isLastMinuteDeal?: boolean;
   isOneDayTrip?: boolean;

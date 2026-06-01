@@ -322,13 +322,14 @@ export type HotelCardProps = {
     image: string;
     title: string;
     location: string;
-    rating: string;
+    rating?: string;
     price: string;
     features: string[];
     badge?: string;
     mapUrl?: string;
     detailUrl?: string;
     cancellationText?: string;
+    layout?: "grid" | "list";
 };
 
 export type HotelCardData = {
