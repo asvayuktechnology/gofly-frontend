@@ -2,6 +2,7 @@ import { Icon } from "next/dist/lib/metadata/types/metadata-types";
 import { title } from "process";
 import { ReactNode } from "react";
 import { Interface } from "readline";
+import { SuccessStory } from "./successStoryType";
 
 export interface TravelPackage {
   id: string;
@@ -300,6 +301,7 @@ export interface ExperienceCardItem {
 export interface ImgVideoSliderProps{
   title?:string;
   description?:string;
+  stories?: SuccessStory[];
 }
 
 export interface WhyChooseCardData {

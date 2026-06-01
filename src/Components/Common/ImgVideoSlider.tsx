@@ -1,16 +1,17 @@
+
 "use client";
 
-import { stories } from "@/lib/data";
+import { BASE_URL } from "@/lib/const";
 import { ImgVideoSliderProps } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 
 const ImgVideoSlider = ({
     title,
     description,
+    stories,
 }: ImgVideoSliderProps) => {
     return (
         <div className="visa-dt-success-story-section mb-24">
@@ -20,13 +21,12 @@ const ImgVideoSlider = ({
                     <h2 className="text-3xl md:text-4xl font-semibold">
                         {title}
                     </h2>
-                    {
-                        description && (
-                            <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-                                {description}
-                            </p>
-                        )
-                    }
+
+                    {description && (
+                        <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+                            {description}
+                        </p>
+                    )}
                 </div>
             </div>
 
@@ -46,60 +46,73 @@ const ImgVideoSlider = ({
                     }}
                     className="swiper destionation-dt-customer-gallery-slider"
                 >
-                    {stories.map((story) => (
-                        <SwiperSlide key={story.id}>
-                            <div className="success-story-card relative overflow-hidden rounded-xl">
-                                {/* Image / Video */}
-                                {story.video ? (
-                                    <div className="video-area">
-                                        <video
-                                            autoPlay
-                                            loop
-                                            muted
-                                            playsInline
-                                            className="w-full h-[480px] object-cover"
-                                        >
-                                            <source src={story.video} type="video/mp4" />
-                                        </video>
-                                    </div>
-                                ) : (
-                                    story.image && (
+                    {stories?.map((story) => {
+                        const fileUrl = `${BASE_URL}/${story.file}`;
+                        const isVideo =
+                            story.file?.endsWith(".mp4") ||
+                            story.file?.endsWith(".webm") ||
+                            story.file?.endsWith(".ogg");
+
+                        return (
+                            <SwiperSlide key={story._id}>
+                                <div className="success-story-card relative overflow-hidden rounded-xl">
+                                    {/* Image / Video */}
+                                    {isVideo ? (
+                                        <div className="video-area">
+                                            <video
+                                                autoPlay
+                                                loop
+                                                muted
+                                                playsInline
+                                                className="w-full h-[480px] object-cover "
+                                            >
+                                                <source src={fileUrl} type="video/mp4" />
+                                            </video>
+                                        </div>
+                                    ) : (
                                         <Image
-                                            src={story.image}
+                                            src={fileUrl}
                                             alt={story.name || "success story"}
                                             width={340}
                                             height={480}
                                             className="w-full h-[480px] object-cover"
                                         />
-                                    )
-                                )}
+                                    )}
 
-                                {/* Content */}
-                                <div className="success-story-content-wrap absolute inset-0 flex flex-col justify-between p-4 bg-black/40">
-                                    <Image
-                                        src="/assets/img/error-page-img.webp"
-                                        alt="logo"
-                                        width={90}
-                                        height={35}
-                                    />
+                                    {/* Overlay */}
+                                    <div className="success-story-content-wrap absolute inset-0 flex flex-col justify-between p-4 bg-black/40">
+                                        <Link href="/">
+                                            <Image
+                                                src="/assets/img/visa-dt-success-story-card-logo.png"
+                                                alt="logo"
+                                                width={90}
+                                                height={35}
+                                                className="cursor-pointer"
+                                            />
+                                        </Link>
 
-                                    {story.quote && (
                                         <div className="success-story-content text-white">
                                             <h5 className="text-lg font-medium mb-2">
-                                                “{story.quote}”
+                                                “{story?.review}”
                                             </h5>
+
                                             <div className="author-info">
-                                                <h6 className="font-semibold">{story.name}</h6>
+                                                <h6 className="font-semibold">
+                                                    {story?.name}
+                                                </h6>
+
                                                 <span className="text-sm text-gray-200">
-                                                    {story.role}
+                                                    {story?.designation}
                                                 </span>
+
+                                               
                                             </div>
                                         </div>
-                                    )}
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
-                    ))}
+                            </SwiperSlide>
+                        );
+                    })}
                 </Swiper>
 
                 {/* Pagination */}

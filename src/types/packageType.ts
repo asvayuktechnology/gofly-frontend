@@ -50,3 +50,24 @@ export interface PackageResponse {
   totalCount: number;
   currentCount: number;
 }
+
+export interface EnquiryPayload {
+  packageId?: string;
+  fullName: string;
+  phone: string;
+  email: string;
+  details: string;
+  numberOfPeople:number
+  travelDate:Date
+}
+
+export interface EnquiryResponse {
+  _id: string;
+  packageId?: string;
+  fullName: string;
+  phone: string;
+  email: string;
+  details: string;
+  createdAt: string;
+  updatedAt: string;
+}

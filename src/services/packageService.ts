@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import HttpService from "./httpsService";
-import { PackageItem, PackageListResponse, PackageResponse } from "@/types/packageType";
+import { EnquiryPayload, EnquiryResponse, PackageItem, PackageListResponse, PackageResponse } from "@/types/packageType";
 
 
 
@@ -183,6 +183,23 @@ export const getPackages = async (
 };
 
 
+
+export const postEnquiry = async (
+  payload: EnquiryPayload
+): Promise<EnquiryResponse> => {
+  const res = await HttpService.post(
+    "/packages-enquiry",
+    payload
+  );
+
+  return res.data.data;
+};
+
+
+export const usePostEnquiry = () =>
+  useMutation({
+    mutationFn: postEnquiry,
+  });
 // ─────────────────────────────────────────────
 // USE PACKAGES
 // ─────────────────────────────────────────────
