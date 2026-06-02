@@ -54,7 +54,7 @@ export default async function TravelPackagePage({
 
       <div className="package-details-page">
         <div className="container mx-auto pt-100">
-          <RightGridLayout packageData={data} />
+          <RightGridLayout packageData={data} relevantPackages={data?.relevantPackages || []} />
         </div>
       </div>
     </>

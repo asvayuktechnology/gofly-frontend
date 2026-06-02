@@ -101,6 +101,15 @@ export const maskWallet = (text: string): string => {
 };
 
 
+// export const SORT_OPTIONS = [
+//   { label: "Default", value: "default" },
+//   { label: "Latest", value: "latest" },
+//   { label: "Price High", value: "price_high" },
+//   { label: "Price Low", value: "price_low" },
+//   { label: "Popular", value: "popular" },
+//   { label: "Duration Low", value: "duration_low" },
+//   { label: "Duration High", value: "duration_high" },
+// ] as const;
 export const SORT_OPTIONS = [
   { label: "Default", value: "default" },
   { label: "Latest", value: "latest" },
@@ -109,8 +118,7 @@ export const SORT_OPTIONS = [
   { label: "Popular", value: "popular" },
   { label: "Duration Low", value: "duration_low" },
   { label: "Duration High", value: "duration_high" },
-] as const;
-
+];
 export const categoryOptions = [
   {
     label: "Family Tour",
@@ -153,3 +161,20 @@ export const regionLabels: Record<string, string> = {
   north_america: "North America",
   oceania: "Oceania",
 };
+
+export type TabKey =
+  | "europe"
+  | "asia"
+  | "middle_east"
+  | "africa"
+  | "north_america"
+  | "oceania";
+
+export const TABS: { id: TabKey; label: string }[] = [
+  { id: "europe", label: "Europe" },
+  { id: "asia", label: "Asia" },
+  { id: "middle_east", label: "Middle East" },
+  { id: "africa", label: "Africa" },
+  { id: "north_america", label: "North America" },
+  { id: "oceania", label: "Oceania" },
+];

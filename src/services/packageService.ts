@@ -13,19 +13,17 @@ import { EnquiryPayload, EnquiryResponse, PackageItem, PackageListResponse, Pack
 // ─────────────────────────────────────────────
 // GET SINGLE PACKAGE
 // ─────────────────────────────────────────────
-export const getSinglePackage = async (
-  id: string
-): Promise<PackageItem> => {
-
+export const getSinglePackage = async (id: string) => {
   if (!id) {
     throw new Error("Package ID is required");
   }
 
   const res = await HttpService.get(`/packages/${id}`);
 
-  
-
-  return res.data.data;
+  return {
+    ...res.data.data,
+    relevantPackages: res.data.relevantPackages || [],
+  };
 };
 // ─────────────────────────────────────────────
 // USE PACKAGE LIST

@@ -19,6 +19,7 @@ import { toastSuccess } from "@/utils/toast";
 import { BASE_URL } from "@/lib/const";
 import { useDestinations } from "@/services/destinationService";
 import { regionLabels } from "@/utils";
+
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -368,14 +369,16 @@ const Header = () => {
                     />
                   </div>
                   <div className="content">
-                    <span className="block text-gray-500">WhatsApp</span>
-                    <a
-                      href="https://wa.me/91345533865" target="_blank"
-                      className="font-semibold text-gray-900 hover:text-primary"
-                    >
-                      +91 345 533 865
-                    </a>
-                  </div>
+                <span>WhatsApp</span>
+
+                <a
+                  href={`https://wa.me/${settings?.basicDetails?.whatsappNo}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  +91 {settings?.basicDetails?.whatsappNo}
+                </a>
+              </div>
                 </div>
                 <BsCaretDownFill
                   className="contact-dropdown-btn"

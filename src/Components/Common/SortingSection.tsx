@@ -3,6 +3,7 @@
 import { SortingSectionProps } from "@/types";
 import React, { useState } from "react";
 import { svgIcon } from "./Icons/SvgIcons";
+import { SORT_OPTIONS } from "@/utils";
 
 const SortingSection: React.FC<SortingSectionProps> = ({
   totalJourneys = 70,
@@ -14,11 +15,14 @@ const SortingSection: React.FC<SortingSectionProps> = ({
   const [view, setView] = useState<"grid" | "list">("grid");
   const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
 
-  const handleSortChange = (value: string) => {
-    setSortBy(value);
-    setIsSelectOpen(false);
-    onSortChange?.(value);
-  };
+const handleSortChange = (
+  label: string,
+  value: string
+) => {
+  setSortBy(label);
+  setIsSelectOpen(false);
+  onSortChange?.(value);
+};
 
   const handleViewChange = (selectedView: "grid" | "list") => {
     setView(selectedView);
@@ -59,18 +63,21 @@ const SortingSection: React.FC<SortingSectionProps> = ({
                 isSelectOpen ? "block" : "hidden"
               }`}
             >
-              {["Default", "Latest", "Price High", "Price Low"].map(
-                (option) => (
-                  <li
-                    key={option}
-                    className="option px-4  hover:bg-gray-100 cursor-pointer"
-                    data-value={option}
-                    onClick={() => handleSortChange(option)}
-                  >
-                    {option}
-                  </li>
-                ),
-              )}
+             {SORT_OPTIONS.map((option) => (
+  <li
+    key={option.value}
+    className="option px-4 hover:bg-gray-100 cursor-pointer"
+    data-value={option.value}
+    onClick={() =>
+      handleSortChange(
+        option.label,
+        option.value
+      )
+    }
+  >
+    {option.label}
+  </li>
+))}
             </ul>
           </div>
         </div>

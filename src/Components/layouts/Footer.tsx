@@ -15,9 +15,12 @@ import {
 import { svgIcon } from "../Common/Icons/SvgIcons";
 import { BASE_URL } from "@/lib/const";
 import { useGetSettings } from "@/services/settingService";
-
+import { useDestinations } from "@/services/destinationService";
 const Footer: React.FC = () => {
   const { data: settings } = useGetSettings();
+  const { data: destinationsData } = useDestinations();
+
+  const destinations = destinationsData?.data || [];
 
   return (
     <footer className="footer-section">
@@ -131,90 +134,88 @@ const Footer: React.FC = () => {
                 <div className="address-area">
                   <span>GoFly Travel Agency</span>
 
-                  <a href="#">
-                    {settings?.basicDetails?.address}
-                  </a>
+                  <a href="#">{settings?.basicDetails?.address}</a>
                 </div>
 
                 <ul className="social-list">
-  {/* Facebook */}
-  {settings?.socialLinks?.facebook && (
-    <li>
-      <a
-        href={settings.socialLinks.facebook}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <BiLogoFacebook />
-      </a>
-    </li>
-  )}
+                  {/* Facebook */}
+                  {settings?.socialLinks?.facebook && (
+                    <li>
+                      <a
+                        href={settings.socialLinks.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <BiLogoFacebook />
+                      </a>
+                    </li>
+                  )}
 
-  {/* Twitter */}
-  {settings?.socialLinks?.twitter && (
-    <li>
-      <a
-        href={settings.socialLinks.twitter}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <BiLogoTwitter />
-      </a>
-    </li>
-  )}
+                  {/* Twitter */}
+                  {settings?.socialLinks?.twitter && (
+                    <li>
+                      <a
+                        href={settings.socialLinks.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <BiLogoTwitter />
+                      </a>
+                    </li>
+                  )}
 
-  {/* Telegram */}
-  {settings?.socialLinks?.telegram && (
-    <li>
-      <a
-        href={settings.socialLinks.telegram}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <BiLogoTelegram />
-      </a>
-    </li>
-  )}
+                  {/* Telegram */}
+                  {settings?.socialLinks?.telegram && (
+                    <li>
+                      <a
+                        href={settings.socialLinks.telegram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <BiLogoTelegram />
+                      </a>
+                    </li>
+                  )}
 
-  {/* LinkedIn */}
-  {settings?.socialLinks?.linkedin && (
-    <li>
-      <a
-        href={settings.socialLinks.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <BiLogoLinkedin />
-      </a>
-    </li>
-  )}
+                  {/* LinkedIn */}
+                  {settings?.socialLinks?.linkedin && (
+                    <li>
+                      <a
+                        href={settings.socialLinks.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <BiLogoLinkedin />
+                      </a>
+                    </li>
+                  )}
 
-  {/* YouTube */}
-  {settings?.socialLinks?.youtube && (
-    <li>
-      <a
-        href={settings.socialLinks.youtube}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <BiLogoYoutube />
-      </a>
-    </li>
-  )}
+                  {/* YouTube */}
+                  {settings?.socialLinks?.youtube && (
+                    <li>
+                      <a
+                        href={settings.socialLinks.youtube}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <BiLogoYoutube />
+                      </a>
+                    </li>
+                  )}
 
-  {/* Instagram */}
-  {settings?.socialLinks?.instagram && (
-    <li>
-      <a
-        href={settings.socialLinks.instagram}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <BiLogoInstagram />
-      </a>
-    </li>
-  )}
-</ul>
+                  {/* Instagram */}
+                  {settings?.socialLinks?.instagram && (
+                    <li>
+                      <a
+                        href={settings.socialLinks.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <BiLogoInstagram />
+                      </a>
+                    </li>
+                  )}
+                </ul>
 
                 <a href="#">
                   <Image
@@ -227,30 +228,23 @@ const Footer: React.FC = () => {
                 </a>
               </div>
             </div>
+            <div className="lg:col-span-3 md:col-span-3 sm:col-span-2 flex justify-end">
+              <div className="footer-widget">
+                <div className="widget-title">
+                  <h5>Top Destination</h5>
+                </div>
 
+                <ul className="widget-list">
+                  {destinations.slice(0, 8).map((item: any) => (
+                    <li key={item._id}>
+                      <Link href={`/destination/${item._id}`}>{item.name}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
             {/* Widgets */}
             {[
-              {
-                title: "Top Destination",
-                links: [
-                  {
-                    title: "Maldives Tour",
-                    url: "/maldives-tour",
-                  },
-                  {
-                    title: "Bali, Indonesia Tour",
-                    url: "/bali-indonesia-tour",
-                  },
-                  {
-                    title: "Thailand Tour",
-                    url: "/thailand-tour",
-                  },
-                  {
-                    title: "Philippines Tour",
-                    url: "/philippines-tour",
-                  },
-                ],
-              },
               {
                 title: "Popular Search",
                 links: [
@@ -321,9 +315,7 @@ const Footer: React.FC = () => {
       <div className="footer-bottom">
         <div className="container mx-auto">
           <div className="copyright-and-payment-method-area">
-            <p>
-              Copyright {new Date().getFullYear()} | All Right Reserved.
-            </p>
+            <p>Copyright {new Date().getFullYear()} | All Right Reserved.</p>
 
             <div className="payment-method-area">
               <span>Accepted Payment Methods :</span>

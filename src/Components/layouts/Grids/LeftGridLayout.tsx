@@ -220,12 +220,15 @@ export default function LeftGridLayout({
       {/* Content */}
       <div className="lg:col-span-8">
         <div className="package-grid-page">
-          <SortingSection
-            totalJourneys={packages.length}
-            onSortChange={(value) => setSortByState(value)}
-            onViewChange={(v) => setViewType(v)}
-            onFilterClick={() => console.log("filter")}
-          />
+         <SortingSection
+  totalJourneys={data?.totalCount || 0}
+  onSortChange={(value) => {
+    console.log("SORT =>", value);
+    setSortByState(value);
+  }}
+  onViewChange={(v) => setViewType(v)}
+  onFilterClick={() => console.log("filter")}
+/>
         </div>
 
         {packages.length === 0 ? (
