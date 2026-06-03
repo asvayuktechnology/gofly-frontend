@@ -63,6 +63,8 @@ const BreadcrumbSlider = ({
 
           setTimeout(() => {
             if (
+              swiper &&
+              swiper.params &&
               swiper.params.navigation &&
               typeof swiper.params.navigation !== "boolean"
             ) {
