@@ -50,7 +50,7 @@ export default function Login() {
 
     auth.setIsLoggedIn(true);
 
-    router.replace("/user/dashboard");
+    router.replace("/");
   },
 
   onError: (err: any) => {

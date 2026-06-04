@@ -314,7 +314,7 @@ const Header = () => {
                   </Link>
                 </li>
 
-                <li>
+                {/* <li>
                   <Link
                     href="/hotel"
                     className={`transition hover:text-primary ${pathname === "/hotel" ? "text-primary" : ""
@@ -332,7 +332,7 @@ const Header = () => {
                   >
                     Experience
                   </Link>
-                </li>
+                </li> */}
 
                  <li>
                   <Link

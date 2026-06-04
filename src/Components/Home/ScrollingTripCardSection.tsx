@@ -10,10 +10,11 @@ import { BASE_URL } from "@/lib/const";
 
 
 interface Props {
-  packages: any[],
-  title: string,
-  subtitle: string,
-  paginate?: boolean,
+  packages: any[];
+  title: string;
+  subtitle: string;
+  paginate?: boolean;
+  destinationId?: string;
 }
 
 export default function ScrollingTripCardSection({
@@ -21,7 +22,18 @@ export default function ScrollingTripCardSection({
   title,
   subtitle,
   paginate,
+  destinationId,
 }: Props) {
+ const filteredPackages = packages.filter(
+  (pkg) => String(pkg.destinationId) === String(destinationId)
+);
+// console.log("destinationId prop:", destinationId);
+// console.log("id:", destinationId);
+// console.log("packages:", packages);
+// console.log("filteredPackages:", filteredPackages);
+// console.log("destinationId:", destinationId);
+// console.log("first package:", packages[0]);
+// console.log("pkg.destinationId:", packages[0]?.destinationId);
   return (
     <div className="home1-travel-package-section mb-100">
       <div className="container mx-auto px-4">
@@ -66,22 +78,22 @@ export default function ScrollingTripCardSection({
               }}
               className="mb-40"
             >
-              {packages.map((pkg, index) => (
-                <SwiperSlide key={pkg._id}>
-                  <PackageCard
-                    title={pkg.title}
-                    location={pkg.country}
-                    duration={`${pkg.durationDays} Days`}
-                    price={pkg.pricePerPerson}
-                    image={`${BASE_URL}/${pkg.image}`}
-                    badge="One Day Trip"
-                    link={`/travel-package/details/${pkg._id}`}
-                    experiences="Adventure"
-                    inclusions="Meals Included"
-                    delay={200 + index * 100}
-                  />
-                </SwiperSlide>
-              ))}
+              {filteredPackages.map((pkg, index) => (
+  <SwiperSlide key={pkg._id}>
+                 <PackageCard
+  title={pkg.title}
+  location={pkg.country}
+  duration={`${pkg.durationDays} Days`}
+  price={pkg.pricePerPerson}
+  image={`${BASE_URL}/${pkg.image}`}
+  badge="One Day Trip"
+  link={`/travel-package/details/${pkg._id}?destinationId=${destinationId}`}
+  experiences="Adventure"
+  inclusions="Meals Included"
+  delay={200 + index * 100}
+/>
+               </SwiperSlide>
+))}
             </Swiper>
 
             {/* Pagination */}
