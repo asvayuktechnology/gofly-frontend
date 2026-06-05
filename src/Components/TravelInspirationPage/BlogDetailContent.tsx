@@ -5,24 +5,31 @@ import BlogCommentSection from './BlogCommentSection';
 import { BASE_URL } from '@/lib/const';
 
 interface BlogDetailContentProps {
-    blog: {
-        title: string;
-        content: string;
-        image: string;
-        country?: string;
-        createdAt: string;
-    };
+  blog?: {
+    title: string;
+    content: string;
+    image: string;
+    country?: string;
+    createdAt: string;
+  };
 }
 
-const BlogDetailContent = ({
-    blog,
-}: BlogDetailContentProps) => {
+const BlogDetailContent = ({ blog }: BlogDetailContentProps) => {
+if (!blog) {
+    return (
+      <div className="inspiration-details">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <h3>Blog not found</h3>
+        </div>
+      </div>
+    );
+  }
     return (
         <>
             <div className="inspiration-details">
                 {/* Title */}
                 <h2 className="wp-block-heading">
-                    {blog.title}
+                    {blog?.title}
                 </h2>
 
                 <div style={{ height: 30 }} />
@@ -30,34 +37,32 @@ const BlogDetailContent = ({
                 {/* Date & Country */}
                 <div className="mb-4 flex items-center gap-3">
                     <span>
-                        {new Date(blog.createdAt).toLocaleDateString("en-GB", {
+                        {new Date(blog?.createdAt).toLocaleDateString("en-GB", {
                             day: "2-digit",
                             month: "long",
                             year: "numeric",
                         })}
                     </span>
 
-                    {blog.country && (
+                    {blog?.country && (
                         <span className="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm">
                             {blog.country}
                         </span>
                     )}
                 </div>
 
-                {/* Featured Image */}
-                {blog.image && (
-                    <figure className="wp-block-image size-full is-style-default">
-                        <Image
-                            src={`${BASE_URL}/${blog.image}`}
-                            alt={blog.title}
-                            width={760}
-                            height={350}
-                            priority
-                            className="wp-image-2632"
-                        />
-                    </figure>
-                )}
+    
+ {blog?.image && (
 
+                 <div className="relative w-full h-[250px] md:h-[450px] rounded-3xl overflow-hidden mb-8">
+                                <Image
+                                  src={`${BASE_URL}/${blog.image}`}
+                                  alt={blog.title}
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+ )}
                 <div style={{ height: 30 }} />
 
                 {/* Dynamic Blog Content */}
@@ -85,7 +90,7 @@ const BlogDetailContent = ({
       prose-blockquote:italic
     "
                     dangerouslySetInnerHTML={{
-                        __html: blog.content,
+                        __html: blog?.content,
                     }}
                 />
 
@@ -99,7 +104,7 @@ const BlogDetailContent = ({
                         <ul className="tag-list">
                             <li>
                                 <Link href="#">
-                                    {blog.country || "Travel"}
+                                    {blog?.country || "Travel"}
                                 </Link>
                             </li>
                         </ul>

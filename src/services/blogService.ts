@@ -8,19 +8,15 @@ import { BlogItem, BlogResponse } from "@/types/blogType";
 // ─────────────────────────────────────────────
 // GET BLOG LIST
 // ─────────────────────────────────────────────
-export const getBlogs = async (): Promise<BlogResponse> =>
-  HttpService.get("/blog").then((res) => res.data);
-
-// ─────────────────────────────────────────────
-// GET SINGLE BLOG
-// ─────────────────────────────────────────────
-export const getSingleBlog = async (
-  id: string
-): Promise<BlogItem> => {
-  if (!id) {
-    throw new Error("Blog id is required");
-  }
-
+export const getBlogs = async (params?: {
+  title?: string;
+  category?: string;
+}): Promise<BlogResponse> =>
+  HttpService.get("/blog", {
+    params,
+  }).then((res) => res.data);
+  
+export const getSingleBlog = async (id: string) => {
   const res = await HttpService.get(`/blog/${id}`);
 
   return res.data.data;
@@ -28,11 +24,11 @@ export const getSingleBlog = async (
 // ─────────────────────────────────────────────
 // USE BLOG LIST
 // ─────────────────────────────────────────────
-export const useBlogs = () =>
-  useQuery({
-    queryKey: ["blogs"],
-    queryFn: getBlogs,
-  });
+// export const useBlogs = () =>
+//   useQuery({
+//     queryKey: ["blogs"],
+//     queryFn: getBlogs,
+//   });
 
 // ─────────────────────────────────────────────
 // USE SINGLE BLOG
@@ -42,4 +38,11 @@ export const useSingleBlog = (id: string) =>
     queryKey: ["blog", id],
     queryFn: async () => await getSingleBlog(id),
     enabled: !!id,
+  });
+
+
+export const useBlogs = (params?: { title?: string; category?: string }) =>
+  useQuery({
+    queryKey: ["blogs", params],
+    queryFn: () => getBlogs(params),
   });

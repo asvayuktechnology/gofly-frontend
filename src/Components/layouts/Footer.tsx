@@ -282,8 +282,8 @@ const Footer: React.FC = () => {
                     url: "/contact",
                   },
                   {
-                    title: "Travel Inspirations",
-                    url: "/travel-inspirations",
+                    title: "Travel Inspiration",
+                    url: "/travel-inspiration",
                   },
                 ],
               },

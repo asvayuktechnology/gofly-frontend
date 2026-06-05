@@ -8,7 +8,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import LocationSlider from "../Common/UI/Sliders/LocationSlider";
-import { locationsdetail, travelPackagesData } from "@/lib/data";
+import { locationsdetail } from "@/lib/data";
 import ImgVideoSlider from "../Common/ImgVideoSlider";
 import DestinationWhyChoose from "./DestinationWhyChoose";
 import DestinationTravelSeason from "./DestinationTravelSeason";
@@ -20,6 +20,7 @@ import { useSingleDestination } from "@/services/destinationService";
 import { DestinationDetailsSectionProps, DestinationInfoItem, TouristPlace } from "@/types/destinationType";
 
 import { useSuccessStories } from "@/services/successStoryService";
+import DestinationsPackagelist from "../Home/DestinationsPackagelist";
 
 
 
@@ -216,10 +217,9 @@ const {
                 </div>
             </div>
 
-         <ScrollingTripCardSection
-  packages={travelPackagesData}
- title={`Tours Available in ${data?.name}`}
-  subtitle="Working Process"
+         <DestinationsPackagelist
+  title={`Tours Available in ${data?.name}`}
+  subtitle="A curated list of the most popular travel packages based on different destinations."
   destinationId={id}
 />
                  {/* <OneDayTripSection packages={oneDayTrips} title="test" subtitle="test" /> */}
