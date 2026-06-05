@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import { VisaCategory } from "@/types/visaType";
 import { BASE_URL } from "@/lib/const";
 import GlobalLoader from "../Common/GlobalLoader";
+import Loader from "../Common/Loader";
 
 interface Props {
   visaPackages: VisaCategory[];
@@ -30,7 +31,7 @@ export default function VisaPackageGrid({
   };
 
   if (isLoading) {
-    return <GlobalLoader text="Fetching visa details..." />;
+    return <Loader/>;
   }
 
   return (

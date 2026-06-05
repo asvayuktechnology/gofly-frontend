@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import HttpService from "./httpsService";
 import { EnquiryPayload, EnquiryResponse, PackageItem, PackageListResponse, PackageResponse } from "@/types/packageType";
 
@@ -209,4 +209,6 @@ export const usePackages = (
     queryKey: ["packages", params],
 
     queryFn: () => getPackages(params),
+
+    placeholderData: keepPreviousData,
   });

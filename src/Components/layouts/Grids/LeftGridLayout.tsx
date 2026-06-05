@@ -125,6 +125,7 @@ export default function LeftGridLayout({
   const {
     data,
     isLoading,
+    isFetching,
     isError,
   } = usePackages({
     destinationId:
@@ -178,7 +179,7 @@ export default function LeftGridLayout({
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  if (isLoading) {
+  if (isLoading && !data) {
     return (
       <div className="py-20 text-center">
         <h4>Loading packages...</h4>
@@ -186,7 +187,7 @@ export default function LeftGridLayout({
     );
   }
 
-  if (isError) {
+  if (isError && !data) {
     return (
       <div className="py-20 text-center text-red-500">
         <h4>Failed to load packages</h4>
@@ -196,6 +197,13 @@ export default function LeftGridLayout({
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      {/* {isFetching && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 pointer-events-none">
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg px-6 py-3 shadow-lg">
+            <p className="text-sm text-gray-600">Updating results...</p>
+          </div>
+        </div>
+      )} */}
       {/* Sidebar */}
       <div className="lg:col-span-4">
         <FilterSidebar

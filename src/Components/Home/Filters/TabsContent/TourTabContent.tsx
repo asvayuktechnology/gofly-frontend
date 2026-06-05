@@ -155,57 +155,44 @@ const TourTabContent = () => {
 
   
 {/* Category */}
-<div
-  className="single-search-box relative"
-  ref={categoryRef}
->
-  {/* Selected Box */}
-  <div
-    className="custom-select-dropdown cursor-pointer"
-    onClick={() =>
-      setCategoryOpen((prev) => !prev)
-    }
-  >
-    <div className="w-full">
-      <h6 className="mb-0">
-        {selectedCategory?.label ||
-          "Select Category"}
-      </h6>
+{/* Category */}
+<div className="single-search-box">
+  <div className="custom-select-dropdown destination-dropdown">
+    <select
+      value={selectedCategory?.value || ""}
+      onChange={(e) => {
+        const selected = categoryOptions.find(
+          (cat) => cat.value === e.target.value
+        );
 
-      <span>Category</span>
+        setSelectedCategory(selected || null);
+      }}
+      className="absolute inset-0 opacity-0 cursor-pointer z-10"
+    >
+      <option value="">
+        Select Category
+      </option>
+
+      {categoryOptions.map((cat) => (
+        <option
+          key={cat.value}
+          value={cat.value}
+        >
+          {cat.label}
+        </option>
+      ))}
+    </select>
+
+    <div className="input-field-value">
+      <div className="destination">
+        <h6>
+          {selectedCategory?.label ||
+            "Select Category"}
+        </h6>
+        <span>Category</span>
+      </div>
     </div>
   </div>
-
-  {/* Dropdown List */}
-  {categoryOpen && (
-    <div
-      className="absolute left-0 top-[110%] w-full bg-white rounded-lg shadow-lg z-[99999] border"
-      style={{
-        display: "block",
-      }}
-    >
-      <ul className="max-h-[250px] overflow-y-auto">
-        {categoryOptions.map((cat) => (
-         <li
-  key={cat.value}
-  className={`p-3 cursor-pointer text-black hover:bg-gray-100 ${
-    selectedCategory?.value === cat.value
-      ? "bg-gray-100"
-      : ""
-  }`}
-  onClick={() => {
-    setSelectedCategory(cat);
-    setCategoryOpen(false);
-  }}
->
-  <h6 className="text-black mb-0">
-    {cat.label}
-  </h6>
-</li>
-        ))}
-      </ul>
-    </div>
-  )}
 </div>
 
       {/* Search Button */}

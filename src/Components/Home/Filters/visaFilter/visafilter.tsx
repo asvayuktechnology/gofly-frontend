@@ -97,6 +97,7 @@ const VisaTabFilter = () => {
             onChange={(e) => setVisaType(e.target.value)}
             className="absolute inset-0 opacity-0 cursor-pointer z-10"
           >
+            
             {categoryOptions.map((item) => (
               <option key={item} value={item}>
                 {item}
@@ -114,7 +115,8 @@ const VisaTabFilter = () => {
       </div>
 
       {/* SEARCH */}
-      <button type="submit" className="primary-btn1 cursor-pointer">
+      <button type="submit" className="primary-btn1 cursor-pointer"
+         disabled={!categoryId || !countryOptions}>
         <span>SEARCH</span>
       </button>
     </form>
