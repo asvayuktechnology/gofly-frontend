@@ -19,6 +19,12 @@ const nextConfig: NextConfig = {
         port: "7003",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "travelapi.houzer.tech",
+        port: "7008",
+        pathname: "/**",
+      },
     ],
     unoptimized: true,
   },
