@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Breadcrumb from "@/Components/Common/UI/Breadcrumbs/Breadcrumb";
 import VisaDetailsPage from "@/Components/Visa/VisaDetailsPage";
 import Visapage from "@/Components/Visa/Visapage";
@@ -20,7 +21,9 @@ export default function TravelPackagePage({ params }: PageProps) {
                 ]}
             />
 
-            <VisaDetailsPage categoryId={params.categoryId} />
+            <Suspense fallback={<div>Loading...</div>}>
+                <VisaDetailsPage categoryId={params.categoryId} />
+            </Suspense>
         </>
     );
 }

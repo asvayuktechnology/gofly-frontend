@@ -8,17 +8,19 @@ interface PageProps {
     }>;
 }
 
-const BlogDetailsPage = async ({ params }: PageProps) => {
+export default async function BlogDetailsPage({ params }: PageProps) {
     const { id } = await params;
 
     return (
         <>
-      
-
-            <BlogDetails id={id} />;
+            <Breadcrumb
+                title="Blog Details"
+                items={[
+                    { label: "Home", href: "/" },
+                    { label: "Blog Details" },
+                ]}
+            />
+            <BlogDetails id={id} />
         </>
-    )
-
-};
-
-export default BlogDetailsPage;
+    );
+}
