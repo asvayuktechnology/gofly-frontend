@@ -137,7 +137,7 @@ const Footer: React.FC = () => {
                   <a href="#">{settings?.basicDetails?.address}</a>
                 </div>
 
-                <ul className="social-list">
+                <ul className="social-list text-white">
                   {/* Facebook */}
                   {settings?.socialLinks?.facebook && (
                     <li>

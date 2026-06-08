@@ -129,3 +129,16 @@ button:disabled {
   z-index: 999;
   background: #fff;
 }
+.social-list a {
+  color: white;
+}
+.dropdown {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.dropdown-search {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
