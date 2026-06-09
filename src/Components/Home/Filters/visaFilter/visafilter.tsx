@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useVisaCategories } from '@/services/visaService'
 import { VisaType } from '@/utils'
+import SiteBtn from '@/Components/Common/SiteBtn/SiteBtn'
 
 const VisaTabFilter = () => {
   const router = useRouter()
@@ -115,10 +116,12 @@ const VisaTabFilter = () => {
       </div>
 
       {/* SEARCH */}
-      <button type="submit" className="primary-btn1 cursor-pointer"
-         disabled={!categoryId || !countryOptions}>
-        <span>SEARCH</span>
-      </button>
+  <SiteBtn
+  type="submit"
+  className="primary-btn1 cursor-pointer"
+  text="SEARCH"
+  disabled={!categoryId || !countryOptions}
+/>
     </form>
   )
 }

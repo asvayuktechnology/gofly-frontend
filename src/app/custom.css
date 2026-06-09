@@ -34405,6 +34405,25 @@ header.style-3.two .main-menu>ul>li.active>a i {
     background-color: #BDEBCE
 }
 
+.contact-page .single-contact {
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.contact-page .single-contact.active {
+    outline: 3px solid var(--black-color);
+    outline-offset: 2px;
+    transform: scale(1.02);
+}
+
+.contact-page .single-contact.active .icon {
+    background-color: var(--black-color);
+}
+
+.contact-page .single-contact.active .icon svg {
+    fill: var(--white-color);
+}
+
 .contact-page .contact-form .contact-form-wrap {
     padding: 60px;
     background-color: #F2F2FF;

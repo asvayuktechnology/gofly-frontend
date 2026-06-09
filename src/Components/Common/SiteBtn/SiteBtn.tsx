@@ -8,11 +8,18 @@ const SiteBtn = ({
   text,
   svgIcon,
   iconPosition,
-   onClick,
+  onClick,
+  type = "button",
+  disabled = false,
 }: btnprops) => {
   if (!link) {
     return (
-      <button className={className}>
+      <button
+        type={type}
+        className={className}
+        onClick={onClick}
+        disabled={disabled}
+      >
         <span>
           {iconPosition === "start" && svgIcon}
           {text}
@@ -29,12 +36,17 @@ const SiteBtn = ({
   }
 
   return (
-    <Link href={link} className={className} onClick={onClick}>
+    <Link
+      href={link}
+      className={className}
+      onClick={onClick}
+    >
       <span>
         {iconPosition === "start" && svgIcon}
         {text}
         {iconPosition === "end" && svgIcon}
       </span>
+
       <span>
         {iconPosition === "start" && svgIcon}
         {text}

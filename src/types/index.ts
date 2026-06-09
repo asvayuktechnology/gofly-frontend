@@ -109,13 +109,14 @@ export interface Destination {
 export type DestinationMap = Record<TabKey, Destination[]>;
 
 export interface btnprops {
-  link: string;
-  text: string;
+  link?: string;
   className?: string;
-  svgIcon?: ReactNode;
+  text: string;
+  svgIcon?: React.ReactNode;
   iconPosition?: "start" | "end";
   onClick?: () => void;
-
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export interface TooltipProps {
