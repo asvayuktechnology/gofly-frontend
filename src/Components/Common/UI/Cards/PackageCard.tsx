@@ -104,7 +104,7 @@ export default function PackageCard({
               </Link> */}
               <div className="price-area text-right">
                 <p className="text-xs text-gray-600">Per Person</p>
-                <span className="text-2xl font-bold text-gray-900">${price}</span>
+                <span className="text-2xl font-bold text-gray-900">₹{price}</span>
               </div>
             </div>
 
@@ -240,7 +240,7 @@ export default function PackageCard({
               </Link>
               <div className="price-area text-right">
                 <p className="text-sm text-gray-600">Per Person</p>
-                <span className="text-3xl font-bold text-gray-900">${price}</span>
+                <span className="text-3xl font-bold text-gray-900">₹{price}</span>
               </div>
             </div>
 

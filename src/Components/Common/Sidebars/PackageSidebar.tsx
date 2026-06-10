@@ -116,7 +116,7 @@ const PackageSidebar = ({ packageData }: PackageSidebarProps) => {
             <div className="batch">
               <span>
                 {discount?.discount}
-                {discount?.type === "percentage" ? "% Off" : "$ Off"}
+                {discount?.type === "percentage" ? "% Off" : "₹ Off"}
               </span>
             </div>
           )}
@@ -125,7 +125,7 @@ const PackageSidebar = ({ packageData }: PackageSidebarProps) => {
         <div className="price-area">
           <h6>Starting From</h6>
           <span>
-            <del>${packageData?.originalPrice}</del> $
+            <del>₹{packageData?.originalPrice}</del> ₹
             {packageData?.pricePerPerson}
             <sub>/per person</sub>
           </span>

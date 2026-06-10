@@ -118,7 +118,7 @@ const BreadcrumbSlider = ({
                 <span className="text-lg">
                   Starting From{" "}
                   <strong>
-                    ${packageData.pricePerPerson}
+                    ₹{packageData.pricePerPerson}
                   </strong>{" "}
                   / per person
                 </span>

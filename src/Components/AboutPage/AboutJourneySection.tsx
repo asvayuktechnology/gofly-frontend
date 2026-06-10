@@ -135,12 +135,12 @@ export default function AboutJourneySection({
                                         slidesPerView: 6,
                                     },
                                 }}
-                                className="about-page-journey-slider"
+                                className="about-page-journey-slider cursor-pointer"
                             >
                                 {journeys.map((item, index) => (
                                     <SwiperSlide key={item.year}>
                                         <div
-                                            className="nav-item relative flex flex-col items-center"
+                                            className="nav-item relative flex flex-col items-center cursor-pointer"
                                             role="presentation"
                                         >
                                             <button
@@ -157,13 +157,13 @@ export default function AboutJourneySection({
                                                     alt={item.title}
                                                     width={195}
                                                     height={195}
-                                                    className={`rounded-full object-cover border-4 transition-all duration-300 ${activeIndex === index
+                                                    className={`rounded-full object-cover border-4 transition-all duration-300 cursor-pointer ${activeIndex === index
                                                             ? "border-black"
                                                             : "border-transparent"
                                                         }`}
                                                 />
 
-                                                <h4 className="text-center mt-4 text-lg font-semibold">
+                                                <h4 className="text-center mt-4 text-lg font-semibold cursor-pointer">
                                                     {item.year}
                                                 </h4>
                                             </button>

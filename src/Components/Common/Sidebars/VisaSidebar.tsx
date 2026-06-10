@@ -38,7 +38,7 @@ const VisaSidebar = ({ visa }: VisaSidebarProps) => {
         <div className="mt-6">
           <p className="text-sm text-gray-500">Visa Pricing</p>
           <h3 className="text-3xl font-bold text-gray-900">
-            ${visa?.price}{" "}
+            ₹{visa?.price}{" "}
             <span className="text-base font-normal text-gray-600">
               /{visa?.priceLabel}
             </span>

@@ -91,6 +91,7 @@ export default function AboutSection({
                   height={220}
                   priority
                   className="w-full h-auto object-cover rounded-2xl"
+                   unoptimized
                 />
               </div>
             </div>
