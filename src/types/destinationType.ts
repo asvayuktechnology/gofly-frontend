@@ -36,6 +36,7 @@ export interface DestinationResponse {
 export interface Destination {
   _id: string;
   name: string;
+  country: string;
   count: number;
 }
 

@@ -9,7 +9,8 @@ import PackageCard from "@/Components/Common/UI/Cards/PackageCard";
 import PackagePagination from "@/Components/Common/UI/Paginations/PackagePagination";
 
 import { usePackages } from "@/services/packageService";
-import { useDestinationsWithCount } from "@/services/destinationService";
+import { useDestinations } from "@/services/destinationService";
+import type { DestinationRegion } from "@/types/destinationType";
 
 import { BASE_URL } from "@/lib/const";
 
@@ -163,10 +164,33 @@ export default function LeftGridLayout({
 
   // destinations api
   const { data: destinationData } =
-    useDestinationsWithCount({
-      page: 1,
-      limit: 40,
-    });
+    useDestinations({ limit: 50 });
+
+  const destinationsForSidebar: DestinationRegion[] =
+    (destinationData?.data || []).reduce((acc, dest) => {
+      const region = dest.region;
+      let regionGroup = acc.find((r) => r.region === region);
+      if (!regionGroup) {
+        regionGroup = { region, destinations: [] };
+        acc.push(regionGroup);
+      }
+      // Group by country within each region
+      const existing = regionGroup.destinations.find(
+        (d) => d.country === dest.country
+      );
+      if (existing) {
+        existing._id = existing._id + "," + dest._id;
+        existing.count += dest.totalTours || 0;
+      } else {
+        regionGroup.destinations.push({
+          _id: dest._id,
+          name: dest.name,
+          country: dest.country,
+          count: dest.totalTours || 0,
+        });
+      }
+      return acc;
+    }, [] as DestinationRegion[]);
 
   const totalPages = Math.ceil((data?.totalCount || 0) / (limit || 10));
   const packages = data?.data || [];
@@ -207,9 +231,7 @@ export default function LeftGridLayout({
       {/* Sidebar */}
       <div className="lg:col-span-4">
         <FilterSidebar
-          destinations={
-            destinationData?.data || []
-          }
+          destinations={destinationsForSidebar}
           selectedDestinationIds={
             selectedDestinationIds
           }

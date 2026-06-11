@@ -6,6 +6,7 @@ import { BsFillCaretRightFill } from "react-icons/bs";
 interface Destination {
   _id: string;
   name: string;
+  country: string;
   count: number;
 }
 
@@ -89,7 +90,7 @@ const FilterSidebar: React.FC<Props> = ({
     regionDestinations: Destination[],
     regionName: string
   ) => {
-    const ids = regionDestinations.map((item) => item._id);
+    const ids = regionDestinations.flatMap((item) => item._id.split(","));
     const isCurrentlySelected = ids.every((id) =>
       selectedDestinationIds.includes(id)
     );
@@ -107,14 +108,21 @@ const FilterSidebar: React.FC<Props> = ({
     }
   };
 
-  // Select single destination
-  const handleDestinationSelect = (id: string) => {
-    if (selectedDestinationIds.includes(id)) {
+  // Select single destination/country
+  const handleDestinationSelect = (ids: string) => {
+    const idList = ids.split(",");
+    const allSelected = idList.every((id) =>
+      selectedDestinationIds.includes(id)
+    );
+
+    if (allSelected) {
       setSelectedDestinationIds((prev) =>
-        prev.filter((item) => item !== id)
+        prev.filter((item) => !idList.includes(item))
       );
     } else {
-      setSelectedDestinationIds((prev) => [...prev, id]);
+      setSelectedDestinationIds((prev) => [
+        ...new Set([...prev, ...idList]),
+      ]);
     }
   };
 
@@ -159,8 +167,8 @@ const FilterSidebar: React.FC<Props> = ({
 
           <ul className="space-y-3">
             {destinations.map((region) => {
-              const regionIds = region.destinations.map((item) => item._id);
-              const isRegionSelected = regionIds.every((id) =>
+              const regionIds = region.destinations.flatMap((item) => item._id.split(","));
+              const isRegionSelected = regionIds.some((id) =>
                 selectedDestinationIds.includes(id)
               );
 
@@ -215,7 +223,12 @@ const FilterSidebar: React.FC<Props> = ({
                   {/* Destinations List */}
                   {openRegions[region.region] && (
                     <ul className="ml-6 mt-3 space-y-2">
-                      {region.destinations.map((destination) => (
+                      {region.destinations.map((destination) => {
+                        const destIds = destination._id.split(",");
+                        const isDestSelected = destIds.some((id) =>
+                          selectedDestinationIds.includes(id)
+                        );
+                        return (
                         <li
                           key={destination._id}
                           className="flex items-center justify-between cursor-pointer group"
@@ -228,16 +241,12 @@ const FilterSidebar: React.FC<Props> = ({
                           >
                             <span
                               className={`w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center transition-colors flex-shrink-0 ${
-                                selectedDestinationIds.includes(
-                                  destination._id
-                                )
+                                isDestSelected
                                   ? "bg-blue-500 border-blue-500"
                                   : "group-hover:border-blue-500"
                               }`}
                             >
-                              {selectedDestinationIds.includes(
-                                destination._id
-                              ) && (
+                              {isDestSelected && (
                                 <svg
                                   className="w-3 h-3 text-white"
                                   fill="none"
@@ -254,15 +263,17 @@ const FilterSidebar: React.FC<Props> = ({
                               )}
                             </span>
                             <span className="text-[16px] font-medium text-[#525252]">
-                              {destination.name}
+                              {destination.country}
                             </span>
                           </div>
 
                           <span className="text-[16px] font-semibold text-[#525252]">
                             {String(destination.count).padStart(2, "0")}
                           </span>
+                          
                         </li>
-                      ))}
+                      );
+                      })}
                     </ul>
                   )}
                 </li>
