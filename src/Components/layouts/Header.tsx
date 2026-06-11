@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -65,22 +64,29 @@ const Header = () => {
           setShowLogoutModal(false);
           router.replace("/login");
         },
-      }
+      },
     );
   };
-  const { data: destinationsData } = useDestinations();
+  const { data: destinationsData } = useDestinations({ limit: 1000 });
 
   const destinations = destinationsData?.data || [];
 
   const groupedDestinations = Object.keys(regionLabels).reduce(
     (acc: any, region) => {
-      acc[region] = destinations.filter(
-        (item: any) => item.region === region
+      const unique = destinations.filter(
+        (item: any, index: number, self: any[]) =>
+          item.region === region &&
+          index ===
+            self.findIndex(
+              (d: any) =>
+                d.country?.trim().toLowerCase() ===
+                item.country?.trim().toLowerCase(),
+            ),
       );
-
+      acc[region] = unique;
       return acc;
     },
-    {}
+    {},
   );
 
   return (
@@ -123,8 +129,6 @@ const Header = () => {
 
             {/* Right Side */}
             <div className="topbar-right flex items-center gap-6">
-
-
               {/* Help + Language */}
               <div className="support-and-language-area flex items-center gap-6">
                 <Link
@@ -193,8 +197,6 @@ const Header = () => {
           </div>
         </div>
 
-
-
         <LogoutModal
           isOpen={showLogoutModal}
           onClose={() => setShowLogoutModal(false)}
@@ -222,8 +224,9 @@ const Header = () => {
                 <li>
                   <Link
                     href="/"
-                    className={`transition hover:text-primary ${pathname === "/" ? "text-primary" : ""
-                      }`}
+                    className={`transition hover:text-primary ${
+                      pathname === "/" ? "text-primary" : ""
+                    }`}
                   >
                     Home
                   </Link>
@@ -233,10 +236,9 @@ const Header = () => {
                 <li className="group static">
                   <Link
                     href="/destination"
-                    className={`flex items-center gap-1 transition hover:text-primary ${pathname.startsWith("/destination")
-                        ? "text-primary"
-                        : ""
-                      }`}
+                    className={`flex items-center gap-1 transition hover:text-primary ${
+                      pathname.startsWith("/destination") ? "text-primary" : ""
+                    }`}
                   >
                     Destination
                     <BsCaretDownFill size={13} />
@@ -244,50 +246,66 @@ const Header = () => {
 
                   {/* Mega Menu */}
                   <div className="invisible absolute left-0 top-8 z-50 mt-6 w-full  bg-white p-8 opacity-0 shadow-xl transition duration-200 group-hover:visible group-hover:opacity-100 border border-[#e8e8e8]">
-                    <img alt="" loading="lazy" width="275" height="365" decoding="async" data-nimg="1" className="vector1 absolute bottom-0 -z-1 left-0" src="/assets/img/mega-menu-vector1.svg" ></img>
-                    <img alt="" loading="lazy" width="275" height="365" decoding="async" data-nimg="1" className="vector2 absolute bottom-0 -z-1 right-0" src="/assets/img/mega-menu-vector2.svg" ></img>
+                    <img
+                      alt=""
+                      loading="lazy"
+                      width="275"
+                      height="365"
+                      decoding="async"
+                      data-nimg="1"
+                      className="vector1 absolute bottom-0 -z-1 left-0"
+                      src="/assets/img/mega-menu-vector1.svg"
+                    ></img>
+                    <img
+                      alt=""
+                      loading="lazy"
+                      width="275"
+                      height="365"
+                      decoding="async"
+                      data-nimg="1"
+                      className="vector2 absolute bottom-0 -z-1 right-0"
+                      src="/assets/img/mega-menu-vector2.svg"
+                    ></img>
                     <div className="container mx-auto">
+                      <div className="grid grid-cols-3 gap-8">
+                        {Object.entries(groupedDestinations).map(
+                          ([region, items]: any, index) => (
+                            <div key={index}>
+                              <h5 className="mb-3 text-lg font-semibold">
+                                {regionLabels[region] || region}
+                              </h5>
 
-                    <div className="grid grid-cols-3 gap-8">
-                      {Object.entries(groupedDestinations).map(
-                        ([region, items]: any, index) => (
-                          <div key={index}>
-                            <h5 className="mb-3 text-lg font-semibold">
-                              {regionLabels[region] || region}
-                            </h5>
+                              <ul className="space-y-3">
+                                {items.map((item: any) => (
+                                  <li key={item._id}>
+                                    <Link
+                                      href={`/destination/${item._id}`}
+                                      className="flex items-center gap-2 hover:text-primary"
+                                    >
+                                      <div className="w-[22px] h-[22px] rounded-full overflow-hidden flex items-center justify-center bg-white">
+                                        <Image
+                                          src={
+                                            item?.flagImage
+                                              ? `${BASE_URL}/${item.flagImage}`
+                                              : "/assets/img/header-logo.svg"
+                                          }
+                                          alt={item.country}
+                                          width={22}
+                                          height={22}
+                                          className="w-full h-full object-cover"
+                                          unoptimized
+                                        />
+                                      </div>
 
-                            <ul className="space-y-3">
-                              {items.map((item: any) => (
-                                <li key={item._id}>
-                                  <Link
-                                    href={`/destination/${item._id}`}
-                                    className="flex items-center gap-2 hover:text-primary"
-                                  >
-                                    <Image
-                                    src={
-                                      item?.flagImage
-                                        ? `${BASE_URL}/${item.flagImage}`
-                                        : "/assets/img/header-logo.svg"
-                                    }
-                                    alt={item.name}
-                                    width={22}
-                                    height={22}
-                                    className="h-[22px] w-[22px] rounded-full object-cover"
-                                  unoptimized
-                                  />
-
-                                    <span>
-                                      {item.country}
-                                      {/* {item.name ? ` - ${item.name}` : ""} */}
-                                    </span>
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )
-                      )}
-                    </div>
+                                      <span>{item.country}</span>
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ),
+                        )}
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -295,10 +313,9 @@ const Header = () => {
                 <li>
                   <Link
                     href="/travel-package"
-                    className={`transition hover:text-primary ${pathname === "/travel-package"
-                      ? "text-primary"
-                      : ""
-                      }`}
+                    className={`transition hover:text-primary ${
+                      pathname === "/travel-package" ? "text-primary" : ""
+                    }`}
                   >
                     Travel Package
                   </Link>
@@ -307,8 +324,9 @@ const Header = () => {
                 <li>
                   <Link
                     href="/visa"
-                    className={`transition hover:text-primary ${pathname === "/visa" ? "text-primary" : ""
-                      }`}
+                    className={`transition hover:text-primary ${
+                      pathname === "/visa" ? "text-primary" : ""
+                    }`}
                   >
                     Visa
                   </Link>
@@ -334,11 +352,12 @@ const Header = () => {
                   </Link>
                 </li> */}
 
-                 <li>
+                <li>
                   <Link
                     href="/about"
-                    className={`transition hover:text-primary ${pathname === "/about" ? "text-primary" : ""
-                      }`}
+                    className={`transition hover:text-primary ${
+                      pathname === "/about" ? "text-primary" : ""
+                    }`}
                   >
                     About
                   </Link>
@@ -346,8 +365,9 @@ const Header = () => {
                 <li>
                   <Link
                     href="/contact"
-                    className={`transition hover:text-primary ${pathname === "/contact" ? "text-primary" : ""
-                      }`}
+                    className={`transition hover:text-primary ${
+                      pathname === "/contact" ? "text-primary" : ""
+                    }`}
                   >
                     Contact
                   </Link>
@@ -369,16 +389,16 @@ const Header = () => {
                     />
                   </div>
                   <div className="content">
-                <span>WhatsApp</span>
+                    <span>WhatsApp</span>
 
-                <a
-                  href={`https://wa.me/${settings?.basicDetails?.whatsappNo}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  +91 {settings?.basicDetails?.whatsappNo}
-                </a>
-              </div>
+                    <a
+                      href={`https://wa.me/${settings?.basicDetails?.whatsappNo}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      +91 {settings?.basicDetails?.whatsappNo}
+                    </a>
+                  </div>
                 </div>
                 <BsCaretDownFill
                   className="contact-dropdown-btn"
