@@ -3,22 +3,32 @@
 import { useState } from "react";
 import Link from "next/link";
 import { svgIcon } from "../Common/Icons/SvgIcons";
-import SiteBtn from "../Common/SiteBtn/SiteBtn";
-import { locations } from "@/lib/data";
 
+import { useDestinations } from "@/services/destinationService";
+import { useRouter } from "next/navigation";
 export default function LocationSearchSection() {
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-
-  const filteredLocations = locations.filter((loc) =>
-    loc.toLowerCase().includes(searchTerm.toLowerCase()),
+  const { data: destinationsData } = useDestinations();
+  const destinations = destinationsData?.data || [];
+  const [selectedDestinationId, setSelectedDestinationId] = useState("");
+  const filteredDestinations = destinations.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.country.toLowerCase().includes(searchTerm.toLowerCase()),
   );
+  const handleSearch = () => {
+    if (!selectedDestinationId) return;
 
-  const handleSelect = (location: string) => {
-    setSearchTerm(location);
-    setShowDropdown(false);
+    router.push(`/travel-package?destinationId=${selectedDestinationId}`);
   };
 
+  const handleSelect = (destination: any) => {
+    setSearchTerm(`${destination.name}, ${destination.country}`);
+    setSelectedDestinationId(destination._id);
+    setShowDropdown(false);
+  };
   return (
     <div className="home1-location-search-section mb-100">
       <div className="container mx-auto">
@@ -51,14 +61,14 @@ export default function LocationSearchSection() {
                     className="dropdown-list"
                     style={{ display: showDropdown ? "block" : "none" }}
                   >
-                    {filteredLocations.length > 0 ? (
-                      filteredLocations.map((location, index) => (
+                    {filteredDestinations.length > 0 ? (
+                      filteredDestinations.map((destination) => (
                         <li
-                          key={index}
+                          key={destination._id}
                           style={{ cursor: "pointer" }}
-                          onClick={() => handleSelect(location)}
+                          onClick={() => handleSelect(destination)}
                         >
-                          {location}
+                          {destination.name}, {destination.country}
                         </li>
                       ))
                     ) : (
@@ -70,11 +80,13 @@ export default function LocationSearchSection() {
                 </div>
 
                 {/* Search Button */}
-                <SiteBtn
-                  link="/travel-package"
-                  text="Search Now"
-                  className="primary-btn1"
-                />
+                <button
+                  type="button"
+                  className="primary-btn1 cursor-pointer"
+                  onClick={handleSearch}
+                >
+                  Search Now
+                </button>
               </div>
             </form>
 

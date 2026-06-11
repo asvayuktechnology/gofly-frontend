@@ -21,7 +21,15 @@ const DestinationList = () => {
   });
 
   const destinations: DestinationItem[] = data?.data || [];
-
+const uniqueDestinations = destinations.filter(
+  (item, index, self) =>
+    index ===
+    self.findIndex(
+      (d) =>
+        d.country.trim().toLowerCase() ===
+        item.country.trim().toLowerCase()
+    )
+);
   useEffect(() => {
     if (typeof window !== "undefined" && (window as any).WOW) {
       new (window as any).WOW().init();
@@ -62,7 +70,7 @@ const DestinationList = () => {
         ) : destinations.length > 0 ? (
           <>
             <div className="grid grid-cols-4 gap-6 home1-destination-slider mb-40">
-              {destinations.map((item) => (
+            {uniqueDestinations.map((item) => (
                 <div key={item._id} className="destination-card">
                   <Link
                     href={`/destination/${item._id}`}
@@ -70,7 +78,7 @@ const DestinationList = () => {
                   >
                     <Image
                       src={`${BASE_URL}/${item.images?.[0]}`}
-                      alt={item.name}
+                      alt={item.country}
                       width={550}
                       height={220}
                       unoptimized
@@ -84,7 +92,7 @@ const DestinationList = () => {
                       className="title-area"
                     >
                       {svgIcon.location}
-                      {item.name}
+                      {item.country}
                     </Link>
 
                     <div className="content">

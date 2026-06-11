@@ -6,7 +6,7 @@ import { svgIcon } from "../../Icons/SvgIcons";
 
 const PackagePagination: React.FC<PackagePaginationProps> = ({
   currentPage = 1,
-  totalPages = 4,
+  totalPages = 20,
   onPageChange,
 }) => {
   const handleClick = (page: number) => {

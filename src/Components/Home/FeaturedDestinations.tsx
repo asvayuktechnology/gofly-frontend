@@ -52,7 +52,10 @@ const { data, isLoading } = useDestinations({
 
   const destinations: DestinationItem[] =
     data?.data || [];
-
+const uniqueDestinations = destinations.filter(
+  (item, index, self) =>
+    index === self.findIndex((d) => d.country === item.country)
+);
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
@@ -135,44 +138,43 @@ const { data, isLoading } = useDestinations({
                   },
                 }}
               >
-                {destinations.map((item) => (
-                  <SwiperSlide key={item._id}>
-                    <div className="destination-card">
-                      <Link
-                        href={`/destination/${item._id}`}
-                        className="destination-img block relative overflow-hidden rounded-[20px]"
-                      >
-                        <Image
-                          src={`${BASE_URL}/${item.images?.[0]}`}
-                          alt={item.name}
-                          width={550}
-                          height={220}
-                          unoptimized
-                          className="w-full h-[220px] object-cover"
-                        />
-                      </Link>
+               {uniqueDestinations.map((item) => (
+  <SwiperSlide key={item._id}>
+    <div className="destination-card">
+      <Link
+        href={`/destination/${item._id}`}
+        className="destination-img block relative overflow-hidden rounded-[20px]"
+      >
+        <Image
+          src={`${BASE_URL}/${item.images?.[0]}`}
+          alt={item.name}
+          width={550}
+          height={220}
+          unoptimized
+          className="w-full h-[220px] object-cover"
+        />
+      </Link>
 
-                      <div className="destination-content">
-                        <Link
-                          href={`/destination/${item._id}`}
-                          className="title-area"
-                        >
-                          {svgIcon.location}
-                          {item.name}
-                        </Link>
+      <div className="destination-content">
+        <Link
+          href={`/destination/${item._id}`}
+          className="title-area"
+        >
+          {svgIcon.location}
+          {item.country}
+        </Link>
 
-                        <div className="content">
-                          <p>
-                            {item.totalTours} tours |{" "}
-                            {item.totalDepartures} departures{" "}
-                            {item.guestsTravelled.toLocaleString()} guests
-                            travelled.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
+        <div className="content">
+          <p>
+            {item.totalTours} tours |{" "}
+            {item.totalDepartures} departures{" "}
+            {item.guestsTravelled.toLocaleString()} guests travelled.
+          </p>
+        </div>
+      </div>
+    </div>
+  </SwiperSlide>
+))}
               </Swiper>
             </div>
 

@@ -61,7 +61,7 @@ export default async function TravelPackagePage({
           category={category}
           keyword={params.keyword}
           page={Number(params.page) || 1}
-          limit={Number(params.limit) || 5}
+          limit={Number(params.limit) || 20}
           sortBy={params.sortBy || "latest"}
           startDate={params.startDate}
           endDate={params.endDate}
