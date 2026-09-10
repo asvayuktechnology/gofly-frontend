@@ -268,7 +268,7 @@ export default function HotelPackageSearchSection({
                                             rating={pkg.rating || "4.5"}
                                             price={`$${pkg.pricePerPerson}`}
                                             badge={badge}
-                                            detailUrl={`/travel-package/details/${pkg._id}`}
+                                            detailUrl={`/hotel/details`}
                                             features={[
                                                 `${pkg.durationDays} Days`,
                                                 "Meals Included",
@@ -305,7 +305,7 @@ export default function HotelPackageSearchSection({
                                             rating={pkg.rating || "4.5"}
                                             price={`$${pkg.pricePerPerson}`}
                                             badge={badge}
-                                            detailUrl={`/travel-package/details/${pkg._id}`}
+                                            detailUrl={`/hotel/details`}
                                             features={[
                                                 `${pkg.durationDays} Days`,
                                                 "Meals Included",
