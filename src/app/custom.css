@@ -39658,7 +39658,7 @@ header.style-3.two .main-menu>ul>li.active>a i {
 }
 
 .hotel-details-page .hotel-details-wrapper .booking-area .hotel-room-list .accordion .accordion-item .accordion-header .accordion-button:not(.collapsed) .title-area .check:before {
-    content: "\f26e";
+    /* content: "\f26e"; */
     font-family: bootstrap-icons !important;
     width: unset;
     height: unset;

@@ -110,7 +110,7 @@ const HotelSidebar = ({
   const todayStr = new Date().toISOString().split("T")[0];
 
   return (
-    <div className="package-details-sidebar">
+    <div className="package-details-sidebar hotel-details-sidebar">
       {/* PRICING — now driven by hotel price/discount props */}
       <div className="pricing-and-booking-area mb-40">
         <div className="batch">
@@ -161,48 +161,7 @@ const HotelSidebar = ({
         </span>
       </div>
 
-      {/* CUSTOMIZE */}
-      <div className="customize-package-banner-wrap">
-        <h2>
-          <span>Customize</span> Travel Package!
-        </h2>
-
-        <ul>
-          <li>{svgIcon.detailcheckIcon} Make Your Favourite Package</li>
-          <li>{svgIcon.detailcheckIcon} Enjoy Your Trip</li>
-        </ul>
-
-        <div className="counter-area">
-          <ul className="counter-img-grp">
-            {[1, 2, 3].map((i) => (
-              <li key={i}>
-                <Image
-                  src="/assets/img/counter-people-img1.webp"
-                  alt="user"
-                  width={50}
-                  height={50}
-                />
-              </li>
-            ))}
-          </ul>
-
-          <h6>
-            <strong>
-              <span className="counter">60</span>+
-            </strong>{" "}
-            Guide Await to Help You
-          </h6>
-        </div>
-
-        <SiteBtn
-          link="#"
-          svgIcon={svgIcon.arrow}
-          iconPosition="end"
-          text="Submit an Enquiry"
-          className="primary-btn1 two black-bg"
-          onClick={() => setShowEnquiry(true)}
-        />
-      </div>
+  
 
       {/* MODAL */}
       {showEnquiry && (
