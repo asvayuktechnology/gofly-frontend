@@ -3,34 +3,52 @@
 import { useMemo, useState } from "react";
 
 interface Room {
-  id: number;
+  id: string;
   adults: number;
   children: number;
 }
 
-export default function GuestRoomDropdown() {
+interface GuestSelectorProps {
+  rooms?: Room[];
+  setRooms?: React.Dispatch<React.SetStateAction<Room[]>>;
+  totalAdults?: number;
+  totalChildren?: number;
+}
+
+export default function GuestRoomDropdown({
+  rooms: propRooms,
+  setRooms: propSetRooms,
+  totalAdults: propTotalAdults,
+  totalChildren: propTotalChildren,
+}: GuestSelectorProps = {}) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [rooms, setRooms] = useState<Room[]>([
+  const [internalRooms, setInternalRooms] = useState<Room[]>([
     {
-      id: 1,
+      id: "1",
       adults: 1,
       children: 0,
     },
   ]);
 
+  const isControlled = propRooms !== undefined && propSetRooms !== undefined;
+  const rooms = isControlled ? propRooms! : internalRooms;
+  const setRooms = (isControlled ? propSetRooms! : setInternalRooms) as React.Dispatch<
+    React.SetStateAction<Room[]>
+  >;
+
   const totalAdults = useMemo(
-    () => rooms.reduce((sum, room) => sum + room.adults, 0),
-    [rooms]
+    () => propTotalAdults ?? rooms.reduce((sum, room) => sum + room.adults, 0),
+    [rooms, propTotalAdults]
   );
 
   const totalChildren = useMemo(
-    () => rooms.reduce((sum, room) => sum + room.children, 0),
-    [rooms]
+    () => propTotalChildren ?? rooms.reduce((sum, room) => sum + room.children, 0),
+    [rooms, propTotalChildren]
   );
 
   const updateRoom = (
-    roomId: number,
+    roomId: string,
     field: "adults" | "children",
     operation: "plus" | "minus"
   ) => {
@@ -55,14 +73,14 @@ export default function GuestRoomDropdown() {
     setRooms((prev) => [
       ...prev,
       {
-        id: Date.now(),
+        id: typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
         adults: 1,
         children: 0,
       },
     ]);
   };
 
-  const removeRoom = (roomId: number) => {
+  const removeRoom = (roomId: string) => {
     if (rooms.length === 1) return;
 
     setRooms((prev) => prev.filter((room) => room.id !== roomId));

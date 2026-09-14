@@ -178,3 +178,66 @@ export const TABS: { id: TabKey; label: string }[] = [
   { id: "north_america", label: "North America" },
   { id: "oceania", label: "Oceania" },
 ];
+
+
+// ─────────────────────────────────────────────
+// HOTEL CATEGORIES – strongly typed with TypeScript
+// ─────────────────────────────────────────────
+
+export const HOTEL_CATEGORIES = [
+  { label: "Hotels", value: "hotels" },
+  { label: "Luxury Hotels", value: "luxury-hotels" },
+  { label: "Boutique Hotels", value: "boutique-hotels" },
+  { label: "Resorts", value: "resorts" },
+  { label: "Beach Resorts", value: "beach-resorts" },
+  { label: "Mountain Resorts", value: "mountain-resorts" },
+  { label: "Business Hotels", value: "business-hotels" },
+  { label: "Budget Hotels", value: "budget-hotels" },
+  { label: "5-Star Hotels", value: "5-star-hotels" },
+  { label: "4-Star Hotels", value: "4-star-hotels" },
+  { label: "Airport Hotels", value: "airport-hotels" },
+  { label: "Motel / Highway Hotels", value: "motels-highway-hotels" },
+  { label: "Heritage Hotels", value: "heritage-hotels" },
+  { label: "Homestays", value: "homestays" },
+  { label: "Guest Houses", value: "guest-houses" },
+  { label: "Bed & Breakfast", value: "bed-and-breakfast" },
+  { label: "Hostels", value: "hostels" },
+  { label: "Serviced Apartments", value: "serviced-apartments" },
+  { label: "Aparthotels", value: "aparthotels" },
+  { label: "Extended Stay Hotels", value: "extended-stay-hotels" },
+  { label: "Wellness & Spa Hotels", value: "wellness-spa-hotels" },
+  { label: "Eco Hotels / Eco Lodges", value: "eco-hotels-eco-lodges" },
+  { label: "Casino Hotels", value: "casino-hotels" },
+  { label: "Convention Hotels", value: "convention-hotels" },
+  { label: "Glamping / Tented Stays", value: "glamping-tented-stays" },
+] as const;
+
+// Derived TypeScript types – single source of truth for propertyType
+export type HotelCategory = (typeof HOTEL_CATEGORIES)[number];
+export type HotelCategoryValue = HotelCategory["value"];
+export type HotelCategoryLabel = HotelCategory["label"];
+
+// Runtime helpers / maps
+
+/** Map: value -> label (fully typed) */
+export const HOTEL_CATEGORY_MAP: Record<HotelCategoryValue, HotelCategoryLabel> = Object.fromEntries(
+  HOTEL_CATEGORIES.map((c) => [c.value, c.label])
+) as Record<HotelCategoryValue, HotelCategoryLabel>;
+
+/** All values array – useful for validation / zod enum */
+export const HOTEL_CATEGORY_VALUES = HOTEL_CATEGORIES.map((c) => c.value) as unknown as readonly HotelCategoryValue[];
+
+/** Option list alias – for Select / Dropdown components */
+export const HOTEL_CATEGORY_OPTIONS: readonly HotelCategory[] = HOTEL_CATEGORIES;
+
+/** Type guard */
+export const isHotelCategoryValue = (value: string): value is HotelCategoryValue =>
+  (HOTEL_CATEGORIES as readonly { value: string }[]).some((c) => c.value === value);
+
+/** Get label for a value – fallback to humanized value if unknown (for legacy data) */
+export const getHotelCategoryLabel = (value: string): string =>
+  (HOTEL_CATEGORY_MAP as Record<string, string>)[value] ??
+  value.replace(/-/g, " ").replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+
+/** For backwards compatibility – keep old name as alias */
+export const PROPERTY_TYPE_OPTIONS = HOTEL_CATEGORY_OPTIONS;

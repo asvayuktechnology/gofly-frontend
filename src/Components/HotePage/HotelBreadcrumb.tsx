@@ -4,7 +4,7 @@ import Link from "next/link";
 
 interface HotelBreadcrumbProps {
     hotelName: string;
-    location: string;
+    location: string | any;
     rating?: number;
     reviewCount?: string;
     mapUrl?: string;
@@ -17,6 +17,25 @@ export default function HotelBreadcrumb({
     reviewCount = "23,046",
     mapUrl = "https://www.google.com/maps",
 }: HotelBreadcrumbProps) {
+    const formatLocation = (loc: any): string => {
+        if (!loc) return "";
+        if (typeof loc === "string") return loc;
+        if (typeof loc === "object") {
+            const parts = [loc.address, loc.city, loc.state, loc.country].filter(Boolean);
+            if (parts.length) return parts.join(", ");
+            if (loc.city && loc.country) return `${loc.city}, ${loc.country}`;
+            if (loc.city) return String(loc.city);
+            if (loc.country) return String(loc.country);
+            // Fallback: avoid React child object error
+            try {
+                return JSON.stringify(loc);
+            } catch {
+                return String(loc);
+            }
+        }
+        return String(loc);
+    };
+    const displayLocation = formatLocation(location);
     return (
         <div className="breadcrumb-section four">
             <div className="container mx-auto">
@@ -53,7 +72,7 @@ export default function HotelBreadcrumb({
                             </svg>
 
                             <Link href="/hotel">
-                                {location}
+                                {displayLocation}
                             </Link>
                         </div>
 

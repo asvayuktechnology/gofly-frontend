@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import TourTabContent from "./Filters/TabsContent/TourTabContent";
+import HotelTabContent from "./Filters/TabsContent/HotelTabContent";
 import { svgIcon } from "../Common/Icons/SvgIcons";
 import VisaTabFilter from "./Filters/visaFilter/visafilter";
 
@@ -31,7 +32,7 @@ const Filters: React.FC = () => {
               </li>
 
               {/* Hotels */}
-              {/* <li
+              <li
                 onClick={() => handleTabClick("hotels")}
                 className={`single-item hotel flex items-center gap-2 cursor-pointer px-4 py-2 rounded-md transition-all
             ${activeTab === "hotels" ? "bg-black text-white" : "text-gray-600 hover:bg-gray-100"}
@@ -39,7 +40,7 @@ const Filters: React.FC = () => {
               >
                 {svgIcon.hotelIcon}
                 <span>Hotels</span>
-              </li> */}
+              </li>
 
               {/* Visa */}
               <li
@@ -67,7 +68,7 @@ const Filters: React.FC = () => {
             {/* Content */}
             <div className="filter-input-wrap">
               {activeTab === "tours" && <TourTabContent />}
-              {activeTab === "hotels" && <div>Hotels Content</div>}
+              {activeTab === "hotels" && <HotelTabContent />}
               {activeTab === "visa" && <div><VisaTabFilter /></div>}
               {activeTab === "experience" && <div>Experience Content</div>}
               <p>
