@@ -76,6 +76,26 @@ export const useCheckHotelAvailability = () =>
     mutationFn: (payload: CheckAvailabilityPayload) => checkHotelAvailability(payload),
   });
 
+// ─── Hotel Enquiry (public POST) ──────────────────
+export interface HotelEnquiryPayload {
+  hotelId: string;
+  fullName: string;
+  email: string;
+  numberOfPeople: number;
+  bookingDate: string | Date;
+  bookingNote: string;
+}
+
+export const postHotelEnquiry = async (payload: HotelEnquiryPayload) => {
+  const res = await HttpService.post(`/hotel-enquiry`, payload);
+  return res.data;
+};
+
+export const usePostHotelEnquiry = () =>
+  useMutation({
+    mutationFn: postHotelEnquiry,
+  });
+
 // query version for auto-fetch when params present (POST via query)
 export const useHotelAvailabilityQuery = (payload?: CheckAvailabilityPayload, enabled = true) =>
   useQuery({

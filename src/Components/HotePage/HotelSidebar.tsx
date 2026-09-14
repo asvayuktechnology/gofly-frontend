@@ -2,17 +2,18 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import { usePostEnquiry } from "@/services/packageService";
-import { z } from "zod";
+import { usePostHotelEnquiry } from "@/services/hotelService";
 import { toastError, toastSuccess } from "@/utils/toast";
 import { svgIcon } from "../Common/Icons/SvgIcons";
 import SiteBtn from "../Common/SiteBtn/SiteBtn";
+import { hotelEnquirySchema, HotelEnquiryFormValues } from "@/validations/hotelEnquiry.schema";
 
 interface HotelSidebarProps {
   packageData?: any;
   hotel?: any;
-  // direct price props (HotelPage will pass these from hotel)
   price?: number;
   originalPrice?: number;
   discountPercent?: number;
@@ -20,18 +21,7 @@ interface HotelSidebarProps {
   currency?: string;
 }
 
-const enquirySchema = z.object({
-  fullName: z.string().min(1, "Full name is required"),
-  email: z.string().email("Valid email required"),
-  numberOfPeople: z
-    .string()
-    .min(1, "Number of People is required")
-    .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
-      message: "Must be a valid number",
-    }),
-  bookingDate: z.string().min(1, "Booking Date is required"),
-  bookingNote: z.string().min(5, "Booking Note required (min 5 chars)"),
-});
+
 
 const HotelSidebar = ({
   packageData,
@@ -46,7 +36,8 @@ const HotelSidebar = ({
 
   // Support both packageData (old) and hotel (new) + direct price props
   const data = hotel || packageData;
-  // price/discount derived from props > hotel > packageData
+  const hotelId: string | undefined = data?._id;
+
   const price = priceProp ?? data?.pricePerNight ?? data?.pricePerPerson ?? data?.price ?? 0;
   const originalPrice = originalPriceProp ?? data?.originalPricePerNight ?? data?.originalPrice ?? undefined;
   const currency = currencyProp ?? data?.currency ?? "INR";
@@ -58,75 +49,54 @@ const HotelSidebar = ({
       ? { discount: discountPercent, type: discountType || "percentage" }
       : data?.discounts?.[0];
 
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    numberOfPeople: "",
-    bookingDate: "",
-    bookingNote: "",
+  // ─── React Hook Form + Zod ─────────────────────
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<HotelEnquiryFormValues>({
+    // @ts-ignore - zodResolver type mismatch for coerce
+    resolver: zodResolver(hotelEnquirySchema) as any,
+    mode: "onChange",
+    defaultValues: {
+      fullName: "",
+      email: "",
+      numberOfPeople: 1,
+      bookingDate: "",
+      bookingNote: "",
+    },
   });
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const { mutate, isPending } = usePostHotelEnquiry();
 
-  const { mutate, isPending } = usePostEnquiry();
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    console.log("name:", name, "value:", value); // ← ye dekho browser console mein
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: "" }));
-  };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const result = enquirySchema.safeParse(formData);
-
-    if (!result.success) {
-      const fieldErrors: Record<string, string> = {};
-      result.error.issues.forEach((err) => {
-        const key = err.path?.[0] as string;
-        if (!fieldErrors[key]) fieldErrors[key] = err.message;
-      });
-      setErrors(fieldErrors);
+  const onSubmit = (values: HotelEnquiryFormValues) => {
+    if (!hotelId) {
+      toastError("Hotel ID missing — cannot submit enquiry");
       return;
     }
-
     mutate(
       {
-        // keep packageId for backward compat, also send hotelId if hotel
-        packageId: data?._id,
-        hotelId: data?._id,
-        fullName: formData.fullName,
-        email: formData.email,
-        numberOfPeople: Number(formData.numberOfPeople),
-        travelDate: new Date(formData.bookingDate),
-        bookingDate: new Date(formData.bookingDate),
-        details: formData.bookingNote,
-        bookingNote: formData.bookingNote,
-        // also pass price context for display
-        price,
-        originalPrice,
-        currency,
-      } as any,
+        hotelId,
+        fullName: values.fullName,
+        email: values.email,
+        numberOfPeople: Number(values.numberOfPeople),
+        bookingDate: values.bookingDate,
+        bookingNote: values.bookingNote,
+      },
       {
-        onSuccess: () => {
-          toastSuccess("Enquiry Submitted Successfully");
+        onSuccess: (res: any) => {
+          toastSuccess(res?.message || "Enquiry Submitted Successfully");
           setShowEnquiry(false);
-          setFormData({
-            fullName: "",
-            email: "",
-            numberOfPeople: "",
-            bookingDate: "",
-            bookingNote: "",
-          });
-          setErrors({});
+          reset();
         },
         onError: (error: any) => {
-          toastError(
-            error?.response?.data?.message?.[0] || "Something went wrong"
-          );
+          const msg =
+            error?.response?.data?.message ||
+            (Array.isArray(error?.response?.data?.message) ? error?.response?.data?.message[0] : null) ||
+            error?.message ||
+            "Something went wrong";
+          toastError(typeof msg === "string" ? msg : "Something went wrong");
         },
       }
     );
@@ -134,8 +104,10 @@ const HotelSidebar = ({
 
   const closeModal = () => {
     setShowEnquiry(false);
-    setErrors({});
+    reset();
   };
+
+  const todayStr = new Date().toISOString().split("T")[0];
 
   return (
     <div className="package-details-sidebar">
@@ -257,74 +229,77 @@ const HotelSidebar = ({
             {/* TITLE */}
             <div className="mb-8">
               <h4 className="text-2xl font-semibold">
-                We'd Love to Hear From You!
+                We&apos;d Love to Hear From You!
               </h4>
+              {data?.name && (
+                <p className="text-sm text-gray-500 mt-1">
+                  Enquiry for: <span className="font-medium text-gray-700">{data.name}</span>
+                </p>
+              )}
             </div>
 
-            {/* FORM */}
+            {/* FORM — Dynamic, Zod + RHF, posts to /hotel-enquiry */}
             <div className="border border-[#E8E8E8] px-[30px] py-[35px] rounded-[10px]">
-
-              <form onSubmit={handleSubmit}>
-                {/* Requested fields: Full Name, Email Address, Number of People*, Booking Date, Booking Note */}
+              <form onSubmit={handleSubmit(onSubmit as any)} noValidate>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
 
                   {/* Full Name */}
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Full Name</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Full Name<span className="text-red-500">*</span>
+                    </label>
                     <input
                       type="text"
-                      name="fullName"
-                      value={formData.fullName}
-                      onChange={handleChange}
-                      className="w-full rounded-lg p-3 bg-[#F0F0F0]"
+                      {...register("fullName")}
+                      className="w-full rounded-lg p-3 bg-[#F0F0F0] focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="Enter full name"
                     />
-                    {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
+                    {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName.message}</p>}
                   </div>
 
                   {/* Email Address */}
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Email Address</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Email Address<span className="text-red-500">*</span>
+                    </label>
                     <input
                       type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full rounded-lg p-3 bg-[#F0F0F0]"
+                      {...register("email")}
+                      className="w-full rounded-lg p-3 bg-[#F0F0F0] focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="Enter email address"
                     />
-                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                    {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
                   </div>
 
                   {/* Number of People* */}
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Number of People<span className="text-red-500">*</span></label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Number of People<span className="text-red-500">*</span>
+                    </label>
                     <input
                       type="number"
-                      name="numberOfPeople"
-                      value={formData.numberOfPeople}
-                      onChange={handleChange}
-                      className="w-full rounded-lg p-3 bg-[#F0F0F0]"
+                      {...register("numberOfPeople")}
+                      className="w-full rounded-lg p-3 bg-[#F0F0F0] focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="Enter number of people"
                       min={1}
+                      max={100}
                     />
-                    {errors.numberOfPeople && <p className="text-red-500 text-sm">{errors.numberOfPeople}</p>}
+                    {errors.numberOfPeople && <p className="text-red-500 text-sm">{errors.numberOfPeople.message}</p>}
                   </div>
 
                   {/* Booking Date */}
                   <div className="flex flex-col gap-1">
                     <label className="text-sm font-medium text-gray-700">
-                      Booking Date
+                      Booking Date<span className="text-red-500">*</span>
                     </label>
                     <input
                       type="date"
-                      name="bookingDate"
-                      value={formData.bookingDate}
-                      onChange={handleChange}
+                      {...register("bookingDate")}
+                      min={todayStr}
                       className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary bg-[#F0F0F0]"
                     />
                     {errors.bookingDate && (
-                      <p className="text-red-500 text-sm">{errors.bookingDate}</p>
+                      <p className="text-red-500 text-sm">{errors.bookingDate.message}</p>
                     )}
                   </div>
 
@@ -332,24 +307,30 @@ const HotelSidebar = ({
 
                 {/* Booking Note */}
                 <div className="flex flex-col gap-1 mb-6">
-                  <label className="text-sm font-medium text-gray-700">Booking Note</label>
+                  <label className="text-sm font-medium text-gray-700">
+                    Booking Note<span className="text-red-500">*</span>
+                  </label>
                   <textarea
-                    name="bookingNote"
-                    value={formData.bookingNote}
-                    onChange={handleChange}
-                    className="w-full rounded-lg p-3 bg-[#F0F0F0]"
+                    {...register("bookingNote")}
+                    className="w-full rounded-lg p-3 bg-[#F0F0F0] focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder="Enter booking note"
                     rows={4}
                   />
-                  {errors.bookingNote && <p className="text-red-500 text-sm">{errors.bookingNote}</p>}
+                  {errors.bookingNote && <p className="text-red-500 text-sm">{errors.bookingNote.message}</p>}
                 </div>
 
-                <div className="flex justify-end gap-4 cursor-pointer">
-                  
+                <div className="flex justify-end gap-4">
+                  <button
+                    type="button"
+                    onClick={closeModal}
+                    className="px-6 py-3 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
                   <button
                     type="submit"
                     disabled={isPending}
-                    className="primary-btn1 black-bg cursor-pointer "
+                    className="primary-btn1 black-bg cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {isPending ? "Submitting..." : "Submit Enquiry"}
                   </button>
