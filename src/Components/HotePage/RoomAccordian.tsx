@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { BiCheck, BiCheckCircle } from "react-icons/bi";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 
 interface Props {
     room: {
@@ -20,11 +22,11 @@ export default function RoomAccordion({ room }: Props) {
     const [open, setOpen] = useState(false);
 
     return (
-   
-<>
-            <div className="accordion-item">
+
+        <>
+            <div className="accordion-item ">
                 <div
-                    className="accordion-header"
+                    className="accordion-header "
                     id={`flush-package-heading-${room.id}`}
                 >
                     <div
@@ -38,7 +40,9 @@ export default function RoomAccordion({ room }: Props) {
                         </div>
 
                         <div className="title-area">
-                            <span className="check" />
+                            <span className="check" >
+                                <BsFillCheckCircleFill size={20} fill="#2b7fff" strokeWidth={1.4} className="check-icon  text-white" />
+                            </span>
                             <h6>{room.name}</h6>
                         </div>
 
@@ -116,8 +120,8 @@ export default function RoomAccordion({ room }: Props) {
                     </div>
                 )}
             </div>
-            
-</>
-       
+
+        </>
+
     );
 }

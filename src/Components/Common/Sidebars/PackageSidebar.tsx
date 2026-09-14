@@ -108,7 +108,7 @@ const PackageSidebar = ({ packageData }: PackageSidebarProps) => {
   };
 
   return (
-    <div className="package-details-sidebar">
+    <div className="package-details-sidebar hotel-details-sidebar">
       {/* PRICING */}
       <div className="pricing-and-booking-area mb-40">
         <div className="batch">
