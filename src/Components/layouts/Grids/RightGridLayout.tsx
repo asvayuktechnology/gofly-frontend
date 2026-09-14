@@ -46,7 +46,7 @@ export default function RightGridLayout({
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-7">
-                <div className="package-details-warpper">
+                <div className="package-details-warpper ">
                     <div className="package-info-wrap mb-60">
                         <div className="mb-16 px-3">
 
