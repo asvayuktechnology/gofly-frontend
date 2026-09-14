@@ -5,12 +5,18 @@ import React, { useState } from "react";
 import { svgIcon } from "./Icons/SvgIcons";
 import { SORT_OPTIONS } from "@/utils";
 
-const SortingSection: React.FC<SortingSectionProps> = ({
+interface ExtendedSortingProps extends SortingSectionProps {
+  sortOptions?: { label: string; value: string }[];
+}
+
+const SortingSection: React.FC<ExtendedSortingProps> = ({
   totalJourneys = 70,
   onFilterClick,
   onSortChange,
   onViewChange,
+  sortOptions,
 }) => {
+  const options = sortOptions || SORT_OPTIONS;
   const [sortBy, setSortBy] = useState<string>("Default");
   const [view, setView] = useState<"grid" | "list">("grid");
   const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
@@ -63,7 +69,7 @@ const handleSortChange = (
                 isSelectOpen ? "block" : "hidden"
               }`}
             >
-             {SORT_OPTIONS.map((option) => (
+             {options.map((option) => (
   <li
     key={option.value}
     className="option px-4 hover:bg-gray-100 cursor-pointer"

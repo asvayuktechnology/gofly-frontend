@@ -60,6 +60,8 @@ const FilterSidebar: React.FC<Props> = ({
   const [openRegions, setOpenRegions] = useState<Record<string, boolean>>({});
   const [expandedActivities, setExpandedActivities] = useState(false);
 
+  console.log(destinations, 'de')
+
   // Sync selected destinations with props on mount
   useEffect(() => {
     if (selectedDestinationIds.length > 0) {
