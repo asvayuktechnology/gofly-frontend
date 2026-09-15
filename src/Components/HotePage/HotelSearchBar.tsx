@@ -6,7 +6,6 @@ import { CalendarDays, ChevronDown, MapPin, Minus, Plus, Search, Trash2, Users, 
 import SiteBtn from "../Common/SiteBtn/SiteBtn";
 import { svgIcon } from "../Common/Icons/SvgIcons";
 import { useDestinations } from "@/services/destinationService";
-import { useCheckHotelAvailability } from "@/services/hotelService";
 import type { DestinationItem } from "@/types/destinationType";
 
 type Room = {
@@ -26,8 +25,6 @@ const HotelSearchBar = () => {
   const searchParams = useSearchParams();
   const { data: destinationRes, isLoading: isLoadingDestinations } = useDestinations({ limit: 100 });
   const destinations: DestinationItem[] = destinationRes?.data || [];
-
-  const { mutateAsync: checkAvailability, isPending: isChecking } = useCheckHotelAvailability();
 
   const [destinationOpen, setDestinationOpen] = useState(false);
   const [guestOpen, setGuestOpen] = useState(false);
@@ -185,7 +182,7 @@ const HotelSearchBar = () => {
     setDestinationSearch("");
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!selectedDestination) {
@@ -201,22 +198,7 @@ const HotelSearchBar = () => {
       return;
     }
 
-    const payload = {
-      destinationId: selectedDestination._id,
-      checkIn,
-      checkOut,
-      adults: totalAdults,
-      children: totalChildren,
-      rooms: rooms.length,
-    };
-
-    try {
-      const result = await checkAvailability(payload);
-      console.log("Availability:", result);
-    } catch (err: any) {
-      console.error("Availability check failed", err?.response?.data || err);
-    }
-
+    // Single API – just navigate, backend findAll will handle availability + filters together
     const params = new URLSearchParams();
     params.set("destination", selectedDestination._id);
     params.set("checkIn", checkIn);
@@ -420,7 +402,7 @@ const HotelSearchBar = () => {
               </div>
             </div>
 
-            <SiteBtn type="submit" className="primary-btn1 cursor-pointer" text={isChecking ? "SEARCHING..." : "SEARCH"} svgIcon={svgIcon.searchIcon} iconPosition="start" />
+            <SiteBtn type="submit" className="primary-btn1 cursor-pointer" text="SEARCH" svgIcon={svgIcon.searchIcon} iconPosition="start" />
           </form>
 
           {(checkIn || checkOut || selectedDestination) && (
@@ -435,8 +417,26 @@ const HotelSearchBar = () => {
                 {totalAdults} Adults · {totalChildren} Children · {rooms.length} {rooms.length === 1 ? "Room" : "Rooms"}
               </span>
               {checkIn && checkOut && <span>{Math.ceil((new Date(checkOut).getTime() - new Date(checkIn).getTime()) / (1000 * 60 * 60 * 24))} Nights</span>}
+              <button
+                type="button"
+                onClick={() => router.push("/hotel")}
+                className="ml-auto inline-flex items-center cursor-pointer gap-1 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-black hover:text-white hover:border-black transition"
+              >
+                <X size={12} /> Clear Search & View All Hotels
+              </button>
             </div>
           )}
+          {(initialDestinationId || initialCheckIn || initialCheckOut) && !selectedDestination && !checkIn && !checkOut ? (
+            <div className="mt-3">
+              <button
+                type="button"
+                onClick={() => router.push("/hotel")}
+                className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-black hover:text-white hover:border-black transition"
+              >
+                <X size={12} /> View All Hotels
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

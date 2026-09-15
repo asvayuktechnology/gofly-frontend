@@ -45,6 +45,12 @@ export interface HotelQueryParams {
   sortBy?: string;
   page?: number;
   limit?: number;
+  // availability (merged into findAll – single API)
+  checkIn?: string;
+  checkOut?: string;
+  adults?: number;
+  children?: number;
+  rooms?: number;
 }
 
 export interface HotelFilterOption {

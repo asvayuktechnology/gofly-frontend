@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import HotelFilterSidebar from "./HotelFilterSidebar";
 import SortingSection from "@/Components/Common/SortingSection";
 import PackagePagination from "@/Components/Common/UI/Paginations/PackagePagination";
 
-import { useHotelAvailabilityQuery, useHotelFilters, useHotels } from "@/services/hotelService";
+import { useHotelFilters, useHotels } from "@/services/hotelService";
 import { useSingleDestination } from "@/services/destinationService";
 
 import { BASE_URL } from "@/lib/const";
@@ -57,6 +57,7 @@ export default function HotelPackageSearchSection({
   const [currentPage, setCurrentPage] = useState<number>(page || 1);
   const [viewType, setViewType] = useState<"grid" | "list">("grid");
   const pathname = usePathname();
+  const router = useRouter();
 
   const [selectedPropertyTypes, setSelectedPropertyTypes] = useState<string[]>(propertyType || []);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>(amenities || []);
@@ -69,21 +70,17 @@ export default function HotelPackageSearchSection({
     setCurrentPage(1);
   }, [destination, checkIn, checkOut]);
 
-  // availability search context (destination + dates + guests)
+  // availability search context – now handled by single API (GET /hotels with checkIn/checkOut)
   const hasAvailabilitySearch = !!(destination && checkIn && checkOut);
-  const availabilityPayload = hasAvailabilitySearch
-    ? {
-        destinationId: destination!,
-        checkIn: checkIn!,
-        checkOut: checkOut!,
-        adults: adults ?? 1,
-        children: children ?? 0,
-        rooms: rooms ?? 1,
-      }
-    : undefined;
 
   const { data: destinationDetail } = useSingleDestination(destination || "");
-  const destinationName = (destinationDetail as any)?.name || (availabilityPayload as any)?.destination?.name || ""; // fallback
+  const destinationName = (destinationDetail as any)?.name || "";
+
+  // compute nights for header display (client-side, backend also returns meta.nights)
+  const nights =
+    hasAvailabilitySearch && checkIn && checkOut
+      ? Math.ceil((new Date(checkOut).getTime() - new Date(checkIn).getTime()) / (1000 * 60 * 60 * 24))
+      : undefined;
 
   useEffect(() => {
     setSelectedPropertyTypes(propertyType || []);
@@ -109,11 +106,9 @@ export default function HotelPackageSearchSection({
     setCurrentPage(1);
   }, [JSON.stringify(selectedPropertyTypes), JSON.stringify(selectedAmenities), priceMin, priceMax]);
 
-  // Update URL - preserve availability params (destination, checkIn, checkOut, rooms, adults, children)
+  // Update URL - preserve availability params (destination, checkIn, checkOut, rooms, adults, children) + filters
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    // update filter params
-    // clear old propertyType/amenities then append current
     params.delete("propertyType");
     params.delete("amenities");
     selectedPropertyTypes.forEach((v) => params.append("propertyType", v));
@@ -128,7 +123,6 @@ export default function HotelPackageSearchSection({
     else params.delete("sortBy");
     if (currentPage && currentPage > 1) params.set("page", String(currentPage));
     else params.delete("page");
-    // keep destination/checkIn/checkOut/rooms/adults/children from initial props if present
     if (destination) params.set("destination", destination);
     if (checkIn) params.set("checkIn", checkIn);
     if (checkOut) params.set("checkOut", checkOut);
@@ -144,6 +138,7 @@ export default function HotelPackageSearchSection({
     }
   }, [pathname, selectedPropertyTypes, selectedAmenities, keyword, priceMin, priceMax, sortByState, currentPage, destination, checkIn, checkOut, rooms, adults, children]);
 
+  // SINGLE API – GET /hotels now handles availability + all filters together (backend findAll merged)
   const { data, isLoading, isError } = useHotels({
     propertyType: selectedPropertyTypes.length ? (selectedPropertyTypes as any) : undefined,
     amenities: selectedAmenities.length ? selectedAmenities : undefined,
@@ -154,32 +149,21 @@ export default function HotelPackageSearchSection({
     sortBy: sortByState !== "default" ? sortByState : undefined,
     page: currentPage,
     limit,
+    checkIn: hasAvailabilitySearch ? checkIn : undefined,
+    checkOut: hasAvailabilitySearch ? checkOut : undefined,
+    adults: hasAvailabilitySearch ? (adults ?? 1) : undefined,
+    children: hasAvailabilitySearch ? (children ?? 0) : undefined,
+    rooms: hasAvailabilitySearch ? (rooms ?? 1) : undefined,
   });
-
-  // Availability query (destination-based check-availability with POST)
-  const { data: availabilityData, isLoading: isLoadingAvailability, isError: isAvailabilityError } = useHotelAvailabilityQuery(availabilityPayload, hasAvailabilitySearch);
 
   // Filters from backend - /hotels/filters (categories & amenities)
   const { data: filterData, isLoading: isLoadingFilters } = useHotelFilters();
   const filterCategories = filterData?.data?.categories || [];
   const filterAmenities = filterData?.data?.amenities || [];
 
-  // Decide data source: if availability search active, use availability hotels (paginated client-side)
-  const isAvailabilityMode = hasAvailabilitySearch;
-  const availabilityHotels = availabilityData?.data?.hotels || [];
-  const availabilityCount = availabilityData?.data?.count ?? availabilityHotels.length;
-
-  // when in availability mode, we still apply client-side pagination on availabilityHotels
-  const paginatedAvailabilityHotels = isAvailabilityMode
-    ? availabilityHotels.slice((currentPage - 1) * limit, currentPage * limit)
-    : [];
-
-  const totalPages = isAvailabilityMode
-    ? Math.ceil(availabilityCount / (limit || 10))
-    : Math.ceil((data?.totalCount || 0) / (limit || 10));
-  const hotels = isAvailabilityMode ? paginatedAvailabilityHotels : data?.data || [];
-  const totalCount = isAvailabilityMode ? availabilityCount : data?.totalCount || 0;
-  const availabilityDestination = (availabilityData?.data as any)?.destination;
+  const totalPages = Math.ceil((data?.totalCount || 0) / (limit || 10));
+  const hotels = data?.data || [];
+  const totalCount = data?.totalCount || 0;
 
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages) return;
@@ -187,10 +171,24 @@ export default function HotelPackageSearchSection({
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const combinedLoading = isAvailabilityMode ? isLoadingAvailability : isLoading;
-  const combinedError = isAvailabilityMode ? isAvailabilityError : isError;
+  const handleClearSearch = () => {
+    router.push("/hotel");
+  };
 
-  if (combinedLoading) {
+  const handleClearFiltersOnly = () => {
+    const params = new URLSearchParams(window.location.search);
+    params.delete("destination");
+    params.delete("checkIn");
+    params.delete("checkOut");
+    params.delete("rooms");
+    params.delete("adults");
+    params.delete("children");
+    params.delete("page");
+    const qs = params.toString();
+    router.push(qs ? `${pathname}?${qs}` : pathname);
+  };
+
+  if (isLoading) {
     return (
       <div className="py-20 text-center">
         <h4>Loading hotels...</h4>
@@ -198,7 +196,7 @@ export default function HotelPackageSearchSection({
     );
   }
 
-  if (combinedError) {
+  if (isError) {
     return (
       <div className="py-20 text-center text-red-500">
         <h4>Failed to load hotels</h4>
@@ -225,28 +223,33 @@ export default function HotelPackageSearchSection({
       </div>
 
       <div className="lg:col-span-8">
-        {/* Dynamic header showing destination, checkIn, checkOut, rooms, guests */}
-        {isAvailabilityMode && (
-          <div className="mb-4 rounded-xl bg-blue-50 border border-blue-100 p-4">
-            <h4 className="text-sm font-semibold text-gray-900">
-              {destinationName || availabilityDestination?.name ? `Hotels in ${destinationName || availabilityDestination?.name}` : "Available Hotels"}
-              {availabilityData?.data?.nights ? ` • ${availabilityData.data.nights} Nights` : ""}
-            </h4>
-            <p className="text-xs text-gray-600 mt-1 flex flex-wrap gap-x-3 gap-y-1">
-              {destinationName && <span>Destination: <strong className="text-gray-800">{destinationName}</strong></span>}
-              {checkIn && checkOut && <span>Dates: <strong className="text-gray-800">{checkIn} → {checkOut}</strong></span>}
-              {rooms !== undefined && <span>Rooms: <strong className="text-gray-800">{rooms}</strong></span>}
-              {(adults !== undefined || children !== undefined) && (
-                <span>
-                  Guests: <strong className="text-gray-800">{adults ?? 1} Adults{children ? `, ${children} Children` : ""}</strong>
-                </span>
-              )}
-              {availabilityData?.data?.available === false && availabilityData?.data?.reason && (
-                <span className="text-red-600 font-medium">{availabilityData.data.reason}</span>
-              )}
-            </p>
+        {/* Dynamic header showing destination, checkIn, checkOut, rooms, guests – now from single API context */}
+        {/* {hasAvailabilitySearch && (
+          <div className="mb-4 rounded-xl bg-blue-50 border border-blue-100 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex-1">
+              <h4 className="text-sm font-semibold text-gray-900">
+                {destinationName ? `Hotels in ${destinationName}` : "Available Hotels"}
+                {nights ? ` • ${nights} Nights` : ""}
+              </h4>
+              <p className="text-xs text-gray-600 mt-1 flex flex-wrap gap-x-3 gap-y-1">
+                {destinationName && <span>Destination: <strong className="text-gray-800">{destinationName}</strong></span>}
+                {checkIn && checkOut && <span>Dates: <strong className="text-gray-800">{checkIn} → {checkOut}</strong></span>}
+                {rooms !== undefined && <span>Rooms: <strong className="text-gray-800">{rooms}</strong></span>}
+                {(adults !== undefined || children !== undefined) && (
+                  <span>
+                    Guests: <strong className="text-gray-800">{adults ?? 1} Adults{children ? `, ${children} Children` : ""}</strong>
+                  </span>
+                )}
+              </p>
+            </div>
+            <button
+              onClick={handleClearSearch}
+              className="shrink-0 inline-flex items-center justify-center rounded-full bg-white border border-blue-200 px-4 py-2 text-xs font-semibold text-blue-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition"
+            >
+              Clear Search & View All Hotels
+            </button>
           </div>
-        )}
+        )} */}
 
         <div className="package-grid-page">
           <SortingSection
@@ -259,8 +262,38 @@ export default function HotelPackageSearchSection({
         </div>
 
         {hotels.length === 0 ? (
-          <div className="py-20 text-center">
-            <h4 className="text-xl font-semibold">No Hotels Found</h4>
+          <div className="py-16 text-center rounded-2xl border border-dashed border-gray-200 bg-gray-50 px-6">
+            <h4 className="text-xl font-semibold text-gray-900">No Hotels Found</h4>
+            <p className="mt-2 text-sm text-gray-500 max-w-md mx-auto">
+              {hasAvailabilitySearch
+                ? `No hotels available for ${destinationName || "this destination"} on selected dates with current filters. Try clearing filters or dates.`
+                : "No hotels match your current filters. Try clearing filters or searching with different criteria."}
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              {hasAvailabilitySearch ? (
+                <>
+                  <button
+                    onClick={handleClearSearch}
+                    className="inline-flex items-center justify-center rounded-full bg-black px-6 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 transition"
+                  >
+                    View All Hotels
+                  </button>
+                  <button
+                    onClick={handleClearFiltersOnly}
+                    className="inline-flex items-center justify-center rounded-full bg-white border border-gray-300 px-6 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-100 transition"
+                  >
+                    Clear Search Only
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={handleClearSearch}
+                  className="inline-flex items-center justify-center rounded-full bg-black px-6 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 transition"
+                >
+                  Clear Filters & View All Hotels
+                </button>
+              )}
+            </div>
           </div>
         ) : (
           <>

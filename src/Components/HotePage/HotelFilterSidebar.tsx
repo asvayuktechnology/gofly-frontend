@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import type { HotelFilterOption } from "@/services/hotelService";
+import type { HotelFilterOption } from "@/types/hotelType";
 
 interface Props {
   categories?: HotelFilterOption[];
